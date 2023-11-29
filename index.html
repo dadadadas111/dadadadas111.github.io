@@ -3,9 +3,13 @@
 <HTML>
 
 <HEAD>
-    <link rel="stylesheet" href="style.css">
+    
 
     <TITLE> Iu em </TITLE>
+
+    <link href="https://fonts.googleapis.com/css2?family=Ephesis&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
 
     <META NAME="Generator" CONTENT="EditPlus">
 
@@ -29,14 +33,38 @@
 
     </div>
 
-
-    <div id="blob">
-    </div>
-    <div id="blur"></div>
-    <div id="trailer"></div>
     <div id="canvas-container">
+        
         <canvas id="pinkboard"></canvas>
     </div>
+    <div id="blob"></div>
+    <div id="blur">
+        <h1 id="top" data-value="Lan Vy" >
+            <span class="magic">
+                <span class="magic-star">
+                    <svg viewBox="0 0 512 512">
+                        <path
+                            d="M512 255.1c0 11.34-7.406 20.86-18.44 23.64l-171.3 42.78l-42.78 171.1C276.7 504.6 267.2 512 255.9 512s-20.84-7.406-23.62-18.44l-42.66-171.2L18.47 279.6C7.406 276.8 0 267.3 0 255.1c0-11.34 7.406-20.83 18.44-23.61l171.2-42.78l42.78-171.1C235.2 7.406 244.7 0 256 0s20.84 7.406 23.62 18.44l42.78 171.2l171.2 42.78C504.6 235.2 512 244.6 512 255.1z" />
+                    </svg>
+                </span>
+                <span class="magic-star">
+                    <svg viewBox="0 0 512 512">
+                        <path
+                            d="M512 255.1c0 11.34-7.406 20.86-18.44 23.64l-171.3 42.78l-42.78 171.1C276.7 504.6 267.2 512 255.9 512s-20.84-7.406-23.62-18.44l-42.66-171.2L18.47 279.6C7.406 276.8 0 267.3 0 255.1c0-11.34 7.406-20.83 18.44-23.61l171.2-42.78l42.78-171.1C235.2 7.406 244.7 0 256 0s20.84 7.406 23.62 18.44l42.78 171.2l171.2 42.78C504.6 235.2 512 244.6 512 255.1z" />
+                    </svg>
+                </span>
+                <span class="magic-star">
+                    <svg viewBox="0 0 512 512">
+                        <path
+                            d="M512 255.1c0 11.34-7.406 20.86-18.44 23.64l-171.3 42.78l-42.78 171.1C276.7 504.6 267.2 512 255.9 512s-20.84-7.406-23.62-18.44l-42.66-171.2L18.47 279.6C7.406 276.8 0 267.3 0 255.1c0-11.34 7.406-20.83 18.44-23.61l171.2-42.78l42.78-171.1C235.2 7.406 244.7 0 256 0s20.84 7.406 23.62 18.44l42.78 171.2l171.2 42.78C504.6 235.2 512 244.6 512 255.1z" />
+                    </svg>
+                </span>
+                <span class="magic-text">Lan Vy</span>
+            </span>
+        </h1>
+    </div>
+    <div id="trailer"></div>
+
 
 
     <script src="script.js"></script>
@@ -516,7 +544,7 @@
         function generateSnowflakes() {
             var container = document.querySelector('.snowflakes'); // Change this to the container where you want to append snowflakes
 
-            for (let i = 0; i < 15; i++) {
+            for (let i = 0; i < 35; i++) {
                 var snowflake = document.createElement('div');
                 snowflake.className = 'snowflake';
                 snowflake.innerText = '❅';
