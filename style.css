@@ -1,7 +1,14 @@
+:root {  
+  --purple: yellow;
+  --violet: gold;
+  --pink: red;
+}
+
 body {
   background: linear-gradient(-25deg,
       lightblue, blue, violet);
   height: 100vh;
+  width: max-content;
   margin: 0rem;
   overflow: hidden;
 
@@ -15,6 +22,7 @@ canvas {
   position: absolute;
   width: 100%;
   height: 100%;
+  pointer-events: none;
 }
 
 #blob {
@@ -31,14 +39,19 @@ canvas {
   border-radius: 50%;
   animation: rotate 20s infinite;
   opacity: 0.8;
+  overflow: hidden;
 }
 
 #blur {
   height: 100%;
   width: 100%;
   position: absolute;
-  z-index: 2;
+  z-index: 4;
   backdrop-filter: blur(200px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
 }
 
 @keyframes rotate {
@@ -188,4 +201,97 @@ button {
   animation-timing-function: linear, ease-in-out;
   animation-iteration-count: infinite, infinite;
   animation-play-state: running, running
+}
+
+
+
+
+
+
+@keyframes background-pan {
+  from {
+    background-position: 0% center;
+  }
+  
+  to {
+    background-position: -200% center;
+  }
+}
+
+@keyframes scale {
+  from, to {
+    transform: scale(0);
+  }
+  
+  50% {
+    transform: scale(1);
+  }
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  
+  to {
+    transform: rotate(180deg);
+  }
+}
+
+
+h1 {
+  color: white;
+  font-family: "Rubik", sans-serif;
+  font-size:  6em;
+  font-weight: 400;
+  margin: 0px;
+  padding: 20px;
+  text-align: center;
+  font-family: 'Ephesis';
+}
+
+h1 > .magic {
+  display: inline-block;
+  position: relative;
+}
+
+h1 > .magic > .magic-star {
+  --size: clamp(20px, 1.5vw, 30px);
+  
+  animation: scale 700ms ease forwards;
+  display: block;
+  height: var(--size);
+  left: var(--star-left);
+  position: absolute;
+  top: var(--star-top);
+  width: var(--size);
+}
+
+h1 > .magic > .magic-star > svg {
+  animation: rotate 1000ms linear infinite;
+  display: block;
+  opacity: 0.7;
+}
+
+h1 > .magic > .magic-star > svg > path {
+  fill: var(--violet);
+}
+
+h1 > .magic > .magic-text {
+  animation: background-pan 3s linear infinite;
+  background: linear-gradient(
+    to right,
+    var(--purple),
+    var(--violet),
+    var(--pink),
+    var(--purple)
+  );
+  background-size: 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  white-space: nowrap;
+}
+
+#canvas-container{
+  z-index: 1001;
 }
