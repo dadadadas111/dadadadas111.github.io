@@ -24,7 +24,7 @@ canvas {
       rgb(226, 183, 183));
   height: 20vmax;
   aspect-ratio: 1;
-  position: absolute;
+  position: fixed;
   left: 50%;
   top: 50%;
   translate: -50% -50%;
