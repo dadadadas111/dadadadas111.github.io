@@ -2,6 +2,7 @@ const blob = document.getElementById("blob");
 
 document.body.onpointermove = event =>{
   const {clientX, clientY} = event;
+  
   blob.animate({
     left: `${clientX}px`,
     top: `${clientY}px`
@@ -58,3 +59,57 @@ window.onmousemove = e =>{
   animateTrailer(e);
 }
 
+
+
+let index = 0,
+    interval = 1000;
+
+const rand = (min, max) => 
+  Math.floor(Math.random() * (max - min + 1)) + min;
+
+const animate = star => {
+  star.style.setProperty("--star-left", `${rand(-10, 100)}%`);
+  star.style.setProperty("--star-top", `${rand(-40, 80)}%`);
+
+  star.style.animation = "none";
+  star.offsetHeight;
+  star.style.animation = "";
+}
+
+for(const star of document.getElementsByClassName("magic-star")) {
+  setTimeout(() => {
+    animate(star);
+    
+    setInterval(() => animate(star), 1000);
+  }, index++ * (interval / 3))
+}
+
+const letters = "qwertyuiopasdfghjklzxcvbnm";
+let _interval = null;
+const string = [
+  "Lan Vy",
+  "Love U"
+]
+
+document. querySelector('.magic-text').onmousedown = event => {
+  console.log('hovered')
+  let iteration = 0;
+  let i = 0;
+  if (event.target.dataset.value == string[i]){
+    i = 1;
+  }
+  event.target.dataset.value = string[i];
+  
+  clearInterval(_interval);
+  _interval = setInterval(() =>{
+    event.target.innerText = event.target.innerText.split("").map((letter, index) =>{
+      if (index < iteration){
+        return string[i][index];
+      }
+      return letters[Math.floor(Math.random() * 26)];
+    }).join("");
+    if (iteration >= event.target.dataset.value.length)
+      clearInterval(_interval)
+    iteration+= 1/3;
+  }, 30)
+}
