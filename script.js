@@ -10,6 +10,16 @@ document.body.onpointermove = event =>{
 }
 
 
+document.body.onmousedown = event =>{
+  const {clientX, clientY} = event;
+  
+  blob.animate({
+    left: `${clientX}px`,
+    top: `${clientY}px`
+  }, {duration: 3000, fill: "forwards"})
+}
+
+
 // Attach a click event listener to the container element
 document.addEventListener('click', function(event) {
   // Create a new star element
@@ -87,8 +97,8 @@ for(const star of document.getElementsByClassName("magic-star")) {
 const letters = "qwertyuiopasdfghjklzxcvbnm";
 let _interval = null;
 const string = [
-  "Lan Vy",
-  "Love U"
+  "Love U",
+  "Lan Vy"
 ]
 
 document. querySelector('.magic-text').onmousedown = event => {
