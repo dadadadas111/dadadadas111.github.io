@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
 				return response.body;
 			})
 			.then(data => {
-				document.getElementById('star_count').innerText = data.stars; // Assuming the response has a 'stars' field
+				document.getElementById('star_count').innerText = data; // Assuming the response has a 'stars' field
 			})
 			.catch((error) => {
 				console.error('Error fetching star count:', error);
