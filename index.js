@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
 				if (!response.ok) {
 					throw new Error('Network response was not ok');
 				}
-				return response.json();
+				return response.body;
 			})
 			.then(data => {
 				console.log('Success:', data);
@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
 				if (!response.ok) {
 					throw new Error('Network response was not ok');
 				}
-				return response.json();
+				return response.body;
 			})
 			.then(data => {
 				document.getElementById('star_count').innerText = data.stars; // Assuming the response has a 'stars' field
@@ -60,6 +60,9 @@ document.addEventListener('DOMContentLoaded', () => {
 				console.error('Error fetching star count:', error);
 			});
 	}
+
+	// initial call to get star count
+	getStarCount();
 
 	// Call getStarCount every 5 seconds
 	setInterval(getStarCount, 5000);
