@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
 				return response.json();
 			})
 			.then(data => {
-				document.getElementById('star_count').innerText = data.stars || 0 ; // Assuming the response has a 'stars' field
+				document.getElementById('star_count').innerText = data.stars || 0; // Assuming the response has a 'stars' field
 			})
 			.catch((error) => {
 				console.error('Error fetching star count:', error);
@@ -120,14 +120,23 @@ document.addEventListener('DOMContentLoaded', () => {
 			var snowflake = document.createElement('div');
 			snowflake.className = 'snowflake';
 			snowflake.innerText = '❅';
+
+			// Random position
 			snowflake.style.left = Math.random() * 100 + '%';
+
+			// Random animation delays
 			snowflake.style.webkitAnimationDelay = Math.random() * 6 + 's, ' + (1.0 * ((Math.random() * (3 - 0.1)) + 0.1)) + 's';
 			snowflake.style.animationDelay = Math.random() * 8 + 's, ' + ((Math.random() * (3 - 0.1)) + 0.1) + 's';
+
+			// Random size
+			var size = Math.random() * 1.5 + 0.5; // Size range between 0.5em and 2em
+			snowflake.style.fontSize = size + 'em';
+			snowflake.style.opacity = 0.5 + Math.random();
+
 			container.appendChild(snowflake);
 		}
-
-
 	}
 
 	generateSnowflakes();
+
 });
