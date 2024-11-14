@@ -1,571 +1,181 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!DOCTYPE html>
+<html>
 
-<HTML>
+<head>
+    <title>Dadadadas</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="index.css?v=3">
+    <script type="text/javascript" src="index.js?v=3"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500;900&family=Montserrat:wght@900&display=swap"
+        rel="stylesheet">
+</head>
 
-<HEAD>
-    
+<body>
+    <img class="ns" src="bg/16.jpg?v=2" id="bg" />
+    <div class="ns" id="bg_after"></div>
+    <div class="ns" id="bg_sider_left"></div>
+    <div class="ns" id="bg_sider_right"></div>
+    <div class="ns" id="bg_sider_top"></div>
+    <div id="bg_cover_container">
+        <img class="ns" src="bg/16.jpg?v=2" id="bg_cover" />
+    </div>
+    <div class="ns" id="bg_cover_after"></div>
+    <img class="ns" src="osk.svg" id="logo" />
+    <img class="ns" src="osk.svg" id="logo_cover" />
+    <div class="ns" id="sider_left"></div>
+    <div class="ns" id="sider_right"></div>
 
-    <TITLE> Iu em </TITLE>
+    <main>
+        <div>
+            <section style="--fg: #EE177C; --bg: #7F0E3E">
+                <h1>ABOUT</h1>
+                <div class="item sepafter"></div>
+                <p>I'm Dadadadas (/ˈdɑː.dɑː.dɑː.dɑː.dɑːs/), a backend-focused software engineer passionate about cloud
+                    tech,
+                    IoT, and exploring AI solutions.</p>
+                <a class="sns" id="support_me" href="#">
+                    <img src="support.png" />
+                    <h2>SUPPORT ME</h2>
+                    <p>If you like this page, please gimme a star</p>
+                </a>
+            </section>
+            <section style="--fg: #4374FF; --bg: #2E4A9B">
+                <h1>SKILLS</h1>
+                <div class="item sepafter"></div>
+                <div class="item">
+                    <h2>Programming Languages</h2>
+                    <br>
+                    <span class="tag">Typescript</span>
+                    <span class="tag">Javascript</span>
+                    <span class="tag">Java</span>
+                    <span class="tag">C#</span>
+                    <span class="tag">Dart</span>
+                    <span class="tag">Node.JS</span>
+                    <span class="tag">React</span>
+                </div>
+                <div class="item">
+                    <h2>Databases</h2>
+                    <br>
+                    <span class="tag">MySQL</span>
+                    <span class="tag">SQL Server</span>
+                    <span class="tag">MongoDB</span>
+                    <span class="tag">Redis</span>
+                    <span class="tag">Firestore</span>
+                </div>
 
-    <link href="https://fonts.googleapis.com/css2?family=Ephesis&display=swap" rel="stylesheet">
-
-    <link rel="stylesheet" href="style.css">
-
-    <META NAME="Generator" CONTENT="EditPlus">
-
-    <META NAME="Author" CONTENT="To LTVY">
-
-    <META NAME="Keywords" CONTENT="To LTYV">
-
-    <META NAME="Description" CONTENT="To LTYV">
-
-</HEAD>
-
-
-<BODY>
-
-
-
-    <div class="snowflakes" aria-hidden="true">
-        <div class="snowflake">
-            ❅
+                <div class="item">
+                    <h2>Frameworks & Tools</h2>
+                    <br>
+                    <span class="tag">Next.js</span>
+                    <span class="tag">Express.js</span>
+                    <span class="tag">NestJS</span>
+                    <span class="tag">Flutter</span>
+                    <span class="tag">Firebase</span>
+                    <span class="tag">.NET</span>
+                    <span class="tag">MQTT</span>
+                    <span class="tag">Kafka</span>
+                    <span class="tag">Docker</span>
+                </div>
+                <div class="item">
+                    <h2>CI/CD</h2>
+                    <br>
+                    <span class="tag">GitHub Actions</span>
+                    <span class="tag">GitLab Pipelines</span>
+                </div>
+            </section>
         </div>
-
-    </div>
-
-    <div id="canvas-container">
-        
-        <canvas id="pinkboard"></canvas>
-    </div>
-    <div id="blob"></div>
-    <div id="blur">
-
-        <h1 id="top" data-value="Lan Vy" >
-            <span class="magic">
-                <span class="magic-star">
-                    <svg viewBox="0 0 512 512">
-                        <path
-                            d="M512 255.1c0 11.34-7.406 20.86-18.44 23.64l-171.3 42.78l-42.78 171.1C276.7 504.6 267.2 512 255.9 512s-20.84-7.406-23.62-18.44l-42.66-171.2L18.47 279.6C7.406 276.8 0 267.3 0 255.1c0-11.34 7.406-20.83 18.44-23.61l171.2-42.78l42.78-171.1C235.2 7.406 244.7 0 256 0s20.84 7.406 23.62 18.44l42.78 171.2l171.2 42.78C504.6 235.2 512 244.6 512 255.1z" />
-                    </svg>
-                </span>
-                <span class="magic-star">
-                    <svg viewBox="0 0 512 512">
-                        <path
-                            d="M512 255.1c0 11.34-7.406 20.86-18.44 23.64l-171.3 42.78l-42.78 171.1C276.7 504.6 267.2 512 255.9 512s-20.84-7.406-23.62-18.44l-42.66-171.2L18.47 279.6C7.406 276.8 0 267.3 0 255.1c0-11.34 7.406-20.83 18.44-23.61l171.2-42.78l42.78-171.1C235.2 7.406 244.7 0 256 0s20.84 7.406 23.62 18.44l42.78 171.2l171.2 42.78C504.6 235.2 512 244.6 512 255.1z" />
-                    </svg>
-                </span>
-                <span class="magic-star">
-                    <svg viewBox="0 0 512 512">
-                        <path
-                            d="M512 255.1c0 11.34-7.406 20.86-18.44 23.64l-171.3 42.78l-42.78 171.1C276.7 504.6 267.2 512 255.9 512s-20.84-7.406-23.62-18.44l-42.66-171.2L18.47 279.6C7.406 276.8 0 267.3 0 255.1c0-11.34 7.406-20.83 18.44-23.61l171.2-42.78l42.78-171.1C235.2 7.406 244.7 0 256 0s20.84 7.406 23.62 18.44l42.78 171.2l171.2 42.78C504.6 235.2 512 244.6 512 255.1z" />
-                    </svg>
-                </span>
-                <span class="magic-text">Lan Vy</span>
-            </span>
-        </h1>
-    </div>
-    <div id="trailer"></div>
-
-
-
-    <script src="script.js"></script>
-
-    <script>
-
-        /*
-      
-       * Settings
-      
-       */
-
-        var settings = {
-
-            particles: {
-
-                length: 500, // maximum amount of particles
-
-                duration: 2, // particle duration in sec
-
-                velocity: 100, // particle velocity in pixels/sec
-
-                effect: -0.75, // play with this for a nice effect
-
-                size: 30, // particle size in pixels
-
-            },
-
-        };
-
-
-        /*
-        
-         * RequestAnimationFrame polyfill by Erik Möller
-        
-         */
-
-        (function () { var b = 0; var c = ["ms", "moz", "webkit", "o"]; for (var a = 0; a < c.length && !window.requestAnimationFrame; ++a) { window.requestAnimationFrame = window[c[a] + "RequestAnimationFrame"]; window.cancelAnimationFrame = window[c[a] + "CancelAnimationFrame"] || window[c[a] + "CancelRequestAnimationFrame"] } if (!window.requestAnimationFrame) { window.requestAnimationFrame = function (h, e) { var d = new Date().getTime(); var f = Math.max(0, 16 - (d - b)); var g = window.setTimeout(function () { h(d + f) }, f); b = d + f; return g } } if (!window.cancelAnimationFrame) { window.cancelAnimationFrame = function (d) { clearTimeout(d) } } }());
-
-
-        /*
-        
-         * Point class
-        
-         */
-
-        var Point = (function () {
-
-            function Point(x, y) {
-
-                this.x = (typeof x !== 'undefined') ? x : 0;
-
-                this.y = (typeof y !== 'undefined') ? y : 0;
-
-            }
-
-            Point.prototype.clone = function () {
-
-                return new Point(this.x, this.y);
-
-            };
-
-            Point.prototype.length = function (length) {
-
-                if (typeof length == 'undefined')
-
-                    return Math.sqrt(this.x * this.x + this.y * this.y);
-
-                this.normalize();
-
-                this.x *= length;
-
-                this.y *= length;
-
-                return this;
-
-            };
-
-            Point.prototype.normalize = function () {
-
-                var length = this.length();
-
-                this.x /= length;
-
-                this.y /= length;
-
-                return this;
-
-            };
-
-            return Point;
-
-        })();
-
-
-        /*
-        
-         * Particle class
-        
-         */
-
-        var Particle = (function () {
-
-            function Particle() {
-
-                this.position = new Point();
-
-                this.velocity = new Point();
-
-                this.acceleration = new Point();
-
-                this.age = 0;
-
-            }
-
-            Particle.prototype.initialize = function (x, y, dx, dy) {
-
-                this.position.x = x;
-
-                this.position.y = y;
-
-                this.velocity.x = dx;
-
-                this.velocity.y = dy;
-
-                this.acceleration.x = dx * settings.particles.effect;
-
-                this.acceleration.y = dy * settings.particles.effect;
-
-                this.age = 0;
-
-            };
-
-            Particle.prototype.update = function (deltaTime) {
-
-                this.position.x += this.velocity.x * deltaTime;
-
-                this.position.y += this.velocity.y * deltaTime;
-
-                this.velocity.x += this.acceleration.x * deltaTime;
-
-                this.velocity.y += this.acceleration.y * deltaTime;
-
-                this.age += deltaTime;
-
-            };
-
-            Particle.prototype.draw = function (context, image) {
-
-                function ease(t) {
-
-                    return (--t) * t * t + 1;
-
-                }
-
-                var size = image.width * ease(this.age / settings.particles.duration);
-
-                context.globalAlpha = 1 - this.age / settings.particles.duration;
-
-                context.drawImage(image, this.position.x - size / 2, this.position.y - size / 2, size, size);
-
-            };
-
-            return Particle;
-
-        })();
-
-
-        /*
-        
-         * ParticlePool class
-        
-         */
-
-        var ParticlePool = (function () {
-
-            var particles,
-
-                firstActive = 0,
-
-                firstFree = 0,
-
-                duration = settings.particles.duration;
-
-
-
-            function ParticlePool(length) {
-
-                // create and populate particle pool
-
-                particles = new Array(length);
-
-                for (var i = 0; i < particles.length; i++)
-
-                    particles[i] = new Particle();
-
-            }
-
-            ParticlePool.prototype.add = function (x, y, dx, dy) {
-
-                particles[firstFree].initialize(x, y, dx, dy);
-
-
-
-                // handle circular queue
-
-                firstFree++;
-
-                if (firstFree == particles.length) firstFree = 0;
-
-                if (firstActive == firstFree) firstActive++;
-
-                if (firstActive == particles.length) firstActive = 0;
-
-            };
-
-            ParticlePool.prototype.update = function (deltaTime) {
-
-                var i;
-
-
-
-                // update active particles
-
-                if (firstActive < firstFree) {
-
-                    for (i = firstActive; i < firstFree; i++)
-
-                        particles[i].update(deltaTime);
-
-                }
-
-                if (firstFree < firstActive) {
-
-                    for (i = firstActive; i < particles.length; i++)
-
-                        particles[i].update(deltaTime);
-
-                    for (i = 0; i < firstFree; i++)
-
-                        particles[i].update(deltaTime);
-
-                }
-
-
-
-                // remove inactive particles
-
-                while (particles[firstActive].age >= duration && firstActive != firstFree) {
-
-                    firstActive++;
-
-                    if (firstActive == particles.length) firstActive = 0;
-
-                }
-
-
-
-
-
-            };
-
-            ParticlePool.prototype.draw = function (context, image) {
-
-                // draw active particles
-
-                if (firstActive < firstFree) {
-
-                    for (i = firstActive; i < firstFree; i++)
-
-                        particles[i].draw(context, image);
-
-                }
-
-                if (firstFree < firstActive) {
-
-                    for (i = firstActive; i < particles.length; i++)
-
-                        particles[i].draw(context, image);
-
-                    for (i = 0; i < firstFree; i++)
-
-                        particles[i].draw(context, image);
-
-                }
-
-            };
-
-            return ParticlePool;
-
-        })();
-
-
-        /*
-        
-         * Putting it all together
-        
-         */
-
-        (function (canvas) {
-
-            var context = canvas.getContext('2d'),
-
-                particles = new ParticlePool(settings.particles.length),
-
-                particleRate = settings.particles.length / settings.particles.duration, // particles/sec
-
-                time;
-
-
-
-            // get point on heart with -PI <= t <= PI
-
-            function pointOnHeart(t) {
-
-                return new Point(
-
-                    160 * Math.pow(Math.sin(t), 3),
-
-                    130 * Math.cos(t) - 50 * Math.cos(2 * t) - 20 * Math.cos(3 * t) - 10 * Math.cos(4 * t) + 25
-
-                );
-
-            }
-
-
-
-            // creating the particle image using a dummy canvas
-
-            var image = (function () {
-
-                var canvas = document.createElement('canvas'),
-
-                    context = canvas.getContext('2d');
-
-                canvas.width = settings.particles.size;
-
-                canvas.height = settings.particles.size;
-
-                // helper function to create the path
-
-                function to(t) {
-
-                    var point = pointOnHeart(t);
-
-                    point.x = settings.particles.size / 2 + point.x * settings.particles.size / 350;
-
-                    point.y = settings.particles.size / 2 - point.y * settings.particles.size / 350;
-
-                    return point;
-
-                }
-
-                // create the path
-
-                context.beginPath();
-
-                var t = -Math.PI;
-
-                var point = to(t);
-
-                context.moveTo(point.x, point.y);
-
-                while (t < Math.PI) {
-
-                    t += 0.01; // baby steps!
-
-                    point = to(t);
-
-                    context.lineTo(point.x, point.y);
-
-                }
-
-                context.closePath();
-
-                // create the fill
-
-                context.fillStyle = '#AE285E';
-
-                context.fill();
-
-                // create the image
-
-                var image = new Image();
-
-                image.src = canvas.toDataURL();
-
-                return image;
-
-            })();
-
-
-
-            // render that thing!
-
-            function render() {
-
-                // next animation frame
-
-                requestAnimationFrame(render);
-
-
-
-                // update time
-
-                var newTime = new Date().getTime() / 1000,
-
-                    deltaTime = newTime - (time || newTime);
-
-                time = newTime;
-
-
-
-                // clear canvas
-
-                context.clearRect(0, 0, canvas.width, canvas.height);
-
-
-
-                // create new particles
-
-                var amount = particleRate * deltaTime;
-
-                for (var i = 0; i < amount; i++) {
-
-                    var pos = pointOnHeart(Math.PI - 2 * Math.PI * Math.random());
-
-                    var dir = pos.clone().length(settings.particles.velocity);
-
-                    particles.add(canvas.width / 2 + pos.x, canvas.height / 2 - pos.y, dir.x, -dir.y);
-
-                }
-
-
-
-                // update and draw particles
-
-                particles.update(deltaTime);
-
-                particles.draw(context, image);
-
-            }
-
-
-
-            // handle (re-)sizing of the canvas
-
-            function onResize() {
-
-                canvas.width = canvas.clientWidth;
-
-                canvas.height = canvas.clientHeight;
-
-            }
-
-            window.onresize = onResize;
-
-
-
-            // delay rendering bootstrap
-
-            setTimeout(function () {
-
-                onResize();
-
-                render();
-
-            }, 10);
-
-        })(document.getElementById('pinkboard'));
-
-    </script>
-
-
-    <script>
-        // Function to generate snowflakes
-        function generateSnowflakes() {
-            var container = document.querySelector('.snowflakes'); // Change this to the container where you want to append snowflakes
-
-            for (let i = 0; i < 35; i++) {
-                var snowflake = document.createElement('div');
-                snowflake.className = 'snowflake';
-                snowflake.innerText = '❅';
-                snowflake.style.left = Math.random() * 100 + '%';
-                snowflake.style.webkitAnimationDelay = Math.random() * 6 + 's, ' + (1.0 * ((Math.random() * (3 - 0.1)) + 0.1)) + 's';
-                snowflake.style.animationDelay = Math.random() * 8 + 's, ' + ((Math.random() * (3 - 0.1)) + 0.1) + 's';
-                container.appendChild(snowflake);
-            }
-
-
-        }
-
-        // Call the function to generate snowflakes
-        generateSnowflakes();
-
-
-
-    </script>
-
-
-</BODY>
-
-</HTML>
+        <div>
+            <section>
+                <h1>PROJECTS</h1>
+                <div class="item sepafter"></div>
+                <div class="item">
+                    <h2>QPS</h2>
+                    <p>An online quiz platform for students to practice and improve their knowledge.</p>
+                    </p>
+                    <span class="tag">Java</span>
+                    <span class="tag">Servlet</span>
+                    <span class="tag">JSP</span>
+                    <a class="link" target="_blank" href="https://github.com/dadadadas111/SWP-project">Repository</a>
+                    <span class="tag">SQL Server</span>
+                </div>
+                <div class="item sepafter">
+                    <h2>PICKLE CONNECT</h2>
+                    <p>A website with user-friendly interface for pickleball enthusiasts.</p>
+                    <span class="tag">Next.js</span>
+                    <span class="tag">.NET</span>
+                    <span class="tag">SQL Server</span>
+                    <a class="link" target="_blank" href="https://pickleconnect.net/">Homepage</a>
+                </div>
+
+                <h1>IN PROGRESS</h1>
+                <div class="item sepafter"></div>
+                <div class="item">
+                    <h2>HATEPOST API</h2>
+                    <p>A cloud-based REST API for anonymously posting and sharing dislikes about people, things, or
+                        situations.</p>
+                    <span class="tag">NestJS</span>
+                    <span class="tag">MongoDB</span>
+                    <span class="tag">Redis</span>
+                    <a class="link" target="_blank"
+                        href="https://github.com/dadadadas111/hatepost-cloud-api">Repository</a>
+                    <span class="tag">Firebase</span>
+                </div>
+                <div class="item">
+                    <h2>HATEPOST UI</h2>
+                    <p>An intuitive Android app UI for the HatePost API, allowing users to easily post, view, and
+                        interact with anonymous dislikes and opinions.</p>
+                    <span class="tag">Flutter</span>
+                    <span class="tag">Dart</span>
+                    <a class="link" target="_blank" href="https://github.com/dadadadas111/hatepost-ui">Repository</a>
+                </div>
+            </section>
+        </div>
+        <div>
+            <section style="--fg: #F6B62C; --bg: #926E21">
+                <h1>SOCIAL</h1>
+                <div class="item sepafter"></div>
+                <p><b>Business and personal contact only, please.</b>I try to read all e-mails and DMs I get, but since
+                    I get a lot, I
+                    might not be able to reply, sorry!</p>
+                <a class="sns" id="email">
+                    <img src="email.png" />
+                    <h2>E-mail </h2>
+                    <p><span class="__cf_email__"
+                            data-cfemail="037073626e436c70682d706b">nguyenthanhlong12102004vp@gmail.com</span>
+                        <!-- <span class="hidden">(no marketing, please!)</span> -->
+                    </p>
+                </a>
+                <a class="sns" target="_blank" href="https://github.com/dadadadas111/">
+                    <img src="github.png" />
+                    <h2>GitHub </h2>
+                    <p>dadadadas111 <span class="hidden">&mdash; click to view</span></p>
+                </a>
+                <a class="sns" id="discord">
+                    <img src="discord.png" />
+                    <h2>Discord </h2>
+                    <p>dadadadas111</p>
+                </a>
+                <!-- <br />
+                <hr />
+                <p><span class="sticker"></span> These are personal space &mdash; you have been warned. <span
+                        class="sticker"></span></p> -->
+            </section>
+            <section style="--fg: #cf00eb; --bg: #cf00eb">
+                <h1>STARS</h1>
+                <div class="item sepafter"></div>
+                <a class="sns">
+                    <img src="support.png" />
+                    <h2><span id="star_count">0</span> STARS RECEIVED!!</h2>
+                    <p>Thank you for your support!</p>
+                </a>
+
+            </section>
+        </div>
+    </main>
+
+    <footer>&copy; 2024&mdash;2025 <a href="#">dadadadas</a><span><a href="#">terms</a> · <a href="#">privacy</a></span>
+    </footer>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+</body>
+
+</html>
