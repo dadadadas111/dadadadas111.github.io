@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		showThankYouModal(); // Call the function to show the modal
 
 		// Add API call to send stars
-		fetch('https://staging-phot.onrender.com/send-stars', {
+		fetch('https://staging-phot.onrender.com/api/send-stars', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	// Function to get star count from the API
 	function getStarCount() {
-		fetch('https://staging-phot.onrender.com/get-stars', {
+		fetch('https://staging-phot.onrender.com/api/get-stars', {
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json',
