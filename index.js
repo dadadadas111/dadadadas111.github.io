@@ -116,7 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	function generateSnowflakes() {
 		var container = document.querySelector('.snowflakes'); // Change this to the container where you want to append snowflakes
 
-		for (let i = 0; i < 35; i++) {
+		for (let i = 0; i < 25; i++) {
 			var snowflake = document.createElement('div');
 			snowflake.className = 'snowflake';
 			snowflake.innerText = '❅';
@@ -138,5 +138,17 @@ document.addEventListener('DOMContentLoaded', () => {
 	}
 
 	generateSnowflakes();
+
+	// Function to change background image randomly
+	function changeBackgroundImage() {
+		const bgElement = document.getElementById('bg');
+		const bgReflectorElement = document.getElementById('bg_cover');
+		const randomIndex = Math.floor(Math.random() * 8) + 1 ; // Random number between 1 and 10
+		bgElement.src = `bg/${randomIndex}.webp`; // Adjust the path and file extension as needed
+		bgReflectorElement.src = `bg/${randomIndex}.webp`; // Adjust the path and file extension as needed
+	}
+
+	// Call the function to change the background image on load
+	changeBackgroundImage();
 
 });
