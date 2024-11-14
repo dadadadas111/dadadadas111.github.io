@@ -1,15 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-	const mldat = [0b111010, 0b0100111, 0b01010111, 0b111111111, 0b010110, 0b0000001, 0b01000111, 0b101101111, 0b110011, 0b1000101, 0b10101111, 0b100000111, 0b000110, 0b0001001, 0b01110111, 0b110010111];
-	const mltab = [
-		'o', 'X', 'b', 'X', '.', 'd', 'k', 'g',
-		'f', 'r', 'X', 'v', 'X', 'x', 'X', 'X',
-		'X', ':', 'X', 'a', 'X', 'i', 't', 'X',
-		'X', 'c', 'X', 'z', 'X', 's', 'X', 'X',
-		's', 'j', '@', 'X', 'y', 'X', 'X', 'X',
-		'X', 'n', 'X', 'o', 'X', 'm', 'p', 'X',
-		'X', 'X', 'h', 'e', 'X', 'X', 'X', 'X',
-		'q', 'w', 'm', 'X', 'u', 'X', 'X', 'l'
-	];
 
 	document.getElementById('support_me').addEventListener('click', (e) => {
 		e.preventDefault(); // Prevent default anchor behavior
@@ -20,7 +9,6 @@ document.addEventListener('DOMContentLoaded', () => {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
-				'Access-Control-Allow-Origin': '*'
 			},
 			body: JSON.stringify({ stars: 1 }) // Adjust the payload as needed
 		})
@@ -32,6 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			})
 			.then(data => {
 				console.log('Success:', data);
+				getStarCount(); // Update the star count after sending stars
 			})
 			.catch((error) => {
 				console.error('Error:', error);
@@ -44,7 +33,6 @@ document.addEventListener('DOMContentLoaded', () => {
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json',
-				'Access-Control-Allow-Origin': '*'
 			}
 		})
 			.then(response => {
@@ -54,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
 				return response.json();
 			})
 			.then(data => {
-				document.getElementById('star_count').innerText = data.stars; // Assuming the response has a 'stars' field
+				document.getElementById('star_count').innerText = data.stars || 0 ; // Assuming the response has a 'stars' field
 			})
 			.catch((error) => {
 				console.error('Error fetching star count:', error);
@@ -124,4 +112,22 @@ document.addEventListener('DOMContentLoaded', () => {
 			document.body.removeChild(modal);
 		});
 	}
+
+	function generateSnowflakes() {
+		var container = document.querySelector('.snowflakes'); // Change this to the container where you want to append snowflakes
+
+		for (let i = 0; i < 35; i++) {
+			var snowflake = document.createElement('div');
+			snowflake.className = 'snowflake';
+			snowflake.innerText = '❅';
+			snowflake.style.left = Math.random() * 100 + '%';
+			snowflake.style.webkitAnimationDelay = Math.random() * 6 + 's, ' + (1.0 * ((Math.random() * (3 - 0.1)) + 0.1)) + 's';
+			snowflake.style.animationDelay = Math.random() * 8 + 's, ' + ((Math.random() * (3 - 0.1)) + 0.1) + 's';
+			container.appendChild(snowflake);
+		}
+
+
+	}
+
+	generateSnowflakes();
 });
