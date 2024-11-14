@@ -51,10 +51,10 @@ document.addEventListener('DOMContentLoaded', () => {
 				if (!response.ok) {
 					throw new Error('Network response was not ok');
 				}
-				return response.body;
+				return response.json();
 			})
 			.then(data => {
-				document.getElementById('star_count').innerText = data; // Assuming the response has a 'stars' field
+				document.getElementById('star_count').innerText = data.stars; // Assuming the response has a 'stars' field
 			})
 			.catch((error) => {
 				console.error('Error fetching star count:', error);
