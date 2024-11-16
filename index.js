@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	// Add event listeners for copying email and Discord
 	document.getElementById("email").addEventListener('click', () => {
-		navigator.clipboard.writeText('nguyenthanhlong12102004vp@gmail.com')
+		navigator.clipboard.writeText('longnt121004@gmail.com')
 			.then(() => {
 				showCopyModal('Email');
 			})
