@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		showThankYouModal(); // Call the function to show the modal
 
 		// Add API call to send stars
-		fetch('http://api.hatepost.fumi.fyi/api/send-stars', {
+		fetch('https://api.hatepost.fumi.fyi/api/send-stars', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	// Function to get star count from the API
 	function getStarCount() {
-		fetch('http://api.hatepost.fumi.fyi/api/get-stars', {
+		fetch('https://api.hatepost.fumi.fyi/api/get-stars', {
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json',
