@@ -60,6 +60,7 @@ html {
 	height: 50vh;
 	object-fit: cover;
 	object-position: top;
+	z-index: -1;
 }
 
 #bg_sider_left {
@@ -129,10 +130,10 @@ html {
 
 #bg_cover {
 	width: 100%;
-	height: 5em;
+	height: 7.5em;
 	object-fit: cover;
 	object-position: bottom;
-	transform: scaleY(-1) perspective(300px) rotate3d(-1, 0, 0, 30deg) scaleX(1.085) translateY(15%);
+	transform: scaleY(-1) perspective(300px) rotate3d(-1, 0, 0, 10deg) scaleX(1.085) translateY(15%);
 	filter: grayscale(0.3) brightness(0.5) blur(4px);
 	clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
 }
@@ -143,7 +144,7 @@ html {
 	top: 50vh;
 	left: 0;
 	width: 100%;
-	height: 5em;
+	height: 7.5em;
 }
 
 #bg_cover_after {
@@ -151,7 +152,7 @@ html {
 	top: 50vh;
 	left: 0;
 	width: 100%;
-	height: 4.5em;
+	height: 6.25em;
 	background: linear-gradient(to bottom, #08080822, #08080888);
 }
 

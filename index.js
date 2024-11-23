@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		showThankYouModal(); // Call the function to show the modal
 
 		// Add API call to send stars
-		fetch('https://staging-phot.onrender.com/api/send-stars', {
+		fetch('http://api.hatepost.fumi.fyi/api/send-stars', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	// Function to get star count from the API
 	function getStarCount() {
-		fetch('https://staging-phot.onrender.com/api/get-stars', {
+		fetch('http://api.hatepost.fumi.fyi/api/get-stars', {
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json',
@@ -113,14 +113,13 @@ document.addEventListener('DOMContentLoaded', () => {
 		});
 	}
 
-	function generateSnowflakes() {
+	function generateSnowflakes(falling, colors) {
 		var container = document.querySelector('.snowflakes'); // Change this to the container where you want to append snowflakes
 
 		for (let i = 0; i < 25; i++) {
 			var snowflake = document.createElement('div');
 			snowflake.className = 'snowflake';
-			snowflake.innerText = '❅';
-
+			snowflake.innerText = falling;
 			// Random position
 			snowflake.style.left = Math.random() * 100 + '%';
 
@@ -137,18 +136,29 @@ document.addEventListener('DOMContentLoaded', () => {
 		}
 	}
 
-	generateSnowflakes();
+	let falling = '❅';
+	let colors = []
 
 	// Function to change background image randomly
 	function changeBackgroundImage() {
 		const bgElement = document.getElementById('bg');
 		const bgReflectorElement = document.getElementById('bg_cover');
-		const randomIndex = Math.floor(Math.random() * 8) + 1 ; // Random number between 1 and 10
+		const randomIndex = Math.floor(Math.random() * 8) + 1; // Random number between 1 and 10
 		bgElement.src = `bg/${randomIndex}.webp`; // Adjust the path and file extension as needed
 		bgReflectorElement.src = `bg/${randomIndex}.webp`; // Adjust the path and file extension as needed
+		switch (randomIndex) {
+			case 1:
+			case 2:
+			case 3:
+			case 8:
+				falling = '🍁';
+				colors = ['red', 'yellow']
+		}
 	}
 
 	// Call the function to change the background image on load
 	changeBackgroundImage();
+
+	generateSnowflakes(falling, colors);
 
 });
