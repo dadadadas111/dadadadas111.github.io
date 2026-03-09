@@ -88,25 +88,40 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // === PROJECT CARD TILT ===
+  // === PROJECT CARD TILT (rAF-throttled) ===
   const tiltCards = document.querySelectorAll('[data-tilt]');
 
   tiltCards.forEach((card) => {
+    let ticking = false;
+
+    card.addEventListener('mouseenter', () => {
+      card.style.willChange = 'transform';
+      card.style.transition = 'box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1)';
+    });
+
     card.addEventListener('mousemove', (e) => {
-      const rect = card.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      const centerX = rect.width / 2;
-      const centerY = rect.height / 2;
+      if (ticking) return;
+      ticking = true;
 
-      const rotateX = ((y - centerY) / centerY) * -4;
-      const rotateY = ((x - centerX) / centerX) * 4;
+      requestAnimationFrame(() => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
 
-      card.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.01, 1.01, 1.01)`;
+        const rotateX = ((y - centerY) / centerY) * -4;
+        const rotateY = ((x - centerX) / centerX) * 4;
+
+        card.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.01, 1.01, 1.01)`;
+        ticking = false;
+      });
     });
 
     card.addEventListener('mouseleave', () => {
+      card.style.transition = 'transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1)';
       card.style.transform = 'perspective(800px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
+      card.style.willChange = 'auto';
     });
   });
 });
