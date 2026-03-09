@@ -1,184 +1,313 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-    <title>Dadadadas</title>
-    <meta charset="utf-8" />
-    <link rel="stylesheet" type="text/css" href="index.css?v=3">
-    <link rel="icon" href="tiles.ico" />
-    <script type="text/javascript" src="index.js?v=3"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500;900&family=Montserrat:wght@900&display=swap"
-        rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dadadadas — Backend-Focused Software Engineer</title>
+  <meta name="description" content="Portfolio of Dadadadas (Nguyen Thanh Long) — Backend-focused software engineer passionate about cloud tech, IoT, and AI." />
+  <link rel="icon" href="tiles.ico" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="index.css" />
 </head>
-
 <body>
-    <div class="snowflakes" aria-hidden="true">
+  <!-- ===== HERO ===== -->
+  <section id="hero" class="hero">
+    <div class="hero__content">
+      <p class="hero__greeting">Hi, my name is</p>
+      <h1 class="hero__name" id="typed-name"></h1>
+      <p class="hero__subtitle">I'm a Backend-Focused Software Engineer.</p>
+      <a href="#about" class="btn btn--hero">Know more</a>
     </div>
-    <img class="ns" src="bg/7.jpg?v=2" id="bg" />
-    <div class="ns" id="bg_after"></div>
-    <div class="ns" id="bg_sider_left"></div>
-    <div class="ns" id="bg_sider_right"></div>
-    <div class="ns" id="bg_sider_top"></div>
-    <div id="bg_cover_container">
-        <img class="ns" src="bg/7.jpg?v=2" id="bg_cover" />
+    <div class="hero__scroll-down">
+      <a href="#about" aria-label="Scroll down">
+        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
+      </a>
     </div>
-    <div class="ns" id="bg_cover_after"></div>
-    <img class="ns" src="osk.svg" id="logo" />
-    <img class="ns" src="osk.svg" id="logo_cover" />
-    <div class="ns" id="sider_left"></div>
-    <div class="ns" id="sider_right"></div>
+  </section>
 
-    <main>
-        <div>
-            <section style="--fg: #EE177C; --bg: #7F0E3E">
-                <h1>ABOUT</h1>
-                <div class="item sepafter"></div>
-                <p>I'm Dadadadas (/ˈdɑː.dɑː.dɑː.dɑː.dɑːs/), a backend-focused software engineer passionate about cloud
-                    tech,
-                    IoT, and exploring AI solutions.</p>
-                <a class="sns" id="support_me" href="#">
-                    <img src="support.png" />
-                    <h2>SUPPORT ME</h2>
-                    <p>If you like this page, please gimme a star</p>
-                </a>
-            </section>
-            <section style="--fg: #4374FF; --bg: #2E4A9B">
-                <h1>SKILLS</h1>
-                <div class="item sepafter"></div>
-                <div class="item">
-                    <h2>Programming Languages</h2>
-                    <br>
-                    <span class="tag">Typescript</span>
-                    <span class="tag">Javascript</span>
-                    <span class="tag">Java</span>
-                    <span class="tag">C#</span>
-                    <span class="tag">Dart</span>
-                    <span class="tag">Node.JS</span>
-                    <span class="tag">React</span>
-                </div>
-                <div class="item">
-                    <h2>Databases</h2>
-                    <br>
-                    <span class="tag">MySQL</span>
-                    <span class="tag">SQL Server</span>
-                    <span class="tag">MongoDB</span>
-                    <span class="tag">Redis</span>
-                    <span class="tag">Firestore</span>
-                </div>
-
-                <div class="item">
-                    <h2>Frameworks & Tools</h2>
-                    <br>
-                    <span class="tag">Next.js</span>
-                    <span class="tag">Express.js</span>
-                    <span class="tag">NestJS</span>
-                    <span class="tag">Flutter</span>
-                    <span class="tag">Firebase</span>
-                    <span class="tag">.NET</span>
-                    <span class="tag">MQTT</span>
-                    <span class="tag">Kafka</span>
-                    <span class="tag">Docker</span>
-                </div>
-                <div class="item">
-                    <h2>CI/CD</h2>
-                    <br>
-                    <span class="tag">GitHub Actions</span>
-                    <span class="tag">GitLab Pipelines</span>
-                </div>
-            </section>
+  <!-- ===== ABOUT ===== -->
+  <section id="about" class="about">
+    <div class="container">
+      <h2 class="section__title reveal">About Me</h2>
+      <div class="about__grid">
+        <div class="about__avatar reveal">
+          <img src="https://github.com/dadadadas111.png" alt="Dadadadas" class="about__avatar-img" />
         </div>
-        <div>
-            <section>
-                <h1>PROJECTS</h1>
-                <div class="item sepafter"></div>
-                <div class="item">
-                    <h2>QPS</h2>
-                    <p>An online quiz platform for students to practice and improve their knowledge.</p>
-                    </p>
-                    <span class="tag">Java</span>
-                    <span class="tag">Servlet</span>
-                    <span class="tag">JSP</span>
-                    <a class="link" target="_blank" href="https://github.com/dadadadas111/SWP-project">Repository</a>
-                    <span class="tag">SQL Server</span>
-                </div>
-                <div class="item sepafter">
-                    <h2>YUMINI AI</h2>
-                    <p>A website with user-friendly interface and funny chat bots. Based on Gemini 1.5 flash</p>
-                    <span class="tag">Flutter</span>
-                    <span class="tag">Dart</span>
-                    <span class="tag">Firebase</span>
-                    <a class="link" target="_blank" href="https://yumini.fumi.fyi/">Homepage</a>
-                </div>
+        <div class="about__text reveal">
+          <p>
+            I'm a backend-focused software engineer passionate about cloud technology, IoT, and AI.
+            I love building scalable systems and exploring how different technologies can work together
+            to solve real-world problems.
+          </p>
 
-                <h1>IN PROGRESS</h1>
-                <div class="item sepafter"></div>
-                <div class="item">
-                    <h2>HATEPOST API</h2>
-                    <p>A cloud-based REST API for anonymously posting and sharing dislikes about people, things, or
-                        situations.</p>
-                    <span class="tag">NestJS</span>
-                    <span class="tag">MongoDB</span>
-                    <span class="tag">Redis</span>
-                    <a class="link" target="_blank"
-                        href="https://github.com/dadadadas111/hatepost-cloud-api">Repository</a>
-                    <span class="tag">Firebase</span>
-                </div>
-                <div class="item">
-                    <h2>HATEPOST UI</h2>
-                    <p>An intuitive Android app UI for the HatePost API, allowing users to easily post, view, and
-                        interact with anonymous dislikes and opinions.</p>
-                    <span class="tag">Flutter</span>
-                    <span class="tag">Dart</span>
-                    <a class="link" target="_blank" href="https://github.com/dadadadas111/hatepost-ui">Repository</a>
-                </div>
-            </section>
+          <div class="about__skills" id="skills-container">
+            <div class="skills__group">
+              <h4 class="skills__label">Languages</h4>
+              <div class="skills__tags">
+                <span class="skill-tag">TypeScript</span>
+                <span class="skill-tag">C#</span>
+                <span class="skill-tag">JavaScript</span>
+                <span class="skill-tag">Java</span>
+                <span class="skill-tag">Dart</span>
+              </div>
+            </div>
+            <div class="skills__group">
+              <h4 class="skills__label">Frameworks &amp; Runtime</h4>
+              <div class="skills__tags">
+                <span class="skill-tag">Node.js</span>
+                <span class="skill-tag">NestJS</span>
+                <span class="skill-tag">Express.js</span>
+                <span class="skill-tag">.NET</span>
+                <span class="skill-tag">Next.js</span>
+                <span class="skill-tag">React</span>
+                <span class="skill-tag">Flutter</span>
+              </div>
+            </div>
+            <div class="skills__group">
+              <h4 class="skills__label">Data &amp; Messaging</h4>
+              <div class="skills__tags">
+                <span class="skill-tag">MySQL</span>
+                <span class="skill-tag">SQL Server</span>
+                <span class="skill-tag">MongoDB</span>
+                <span class="skill-tag">Redis</span>
+                <span class="skill-tag">Firestore</span>
+                <span class="skill-tag">MQTT</span>
+                <span class="skill-tag">Kafka</span>
+              </div>
+            </div>
+            <div class="skills__group">
+              <h4 class="skills__label">Cloud &amp; DevOps</h4>
+              <div class="skills__tags">
+                <span class="skill-tag">Firebase</span>
+                <span class="skill-tag">Docker</span>
+                <span class="skill-tag">GitHub Actions</span>
+                <span class="skill-tag">GitLab Pipelines</span>
+              </div>
+            </div>
+          </div>
+
+          <a href="Nguyen_Thanh_Long CV.pdf" target="_blank" rel="noopener noreferrer" class="btn btn--resume">View Resume</a>
         </div>
-        <div>
-            <section style="--fg: #F6B62C; --bg: #926E21">
-                <h1>SOCIAL</h1>
-                <div class="item sepafter"></div>
-                <p><b>Business and personal contact only, please.</b> I try to read all e-mails and DMs I get, but since
-                    I get a lot, I
-                    might not be able to reply, sorry!</p>
-                <a class="sns" id="email">
-                    <img src="email.png" />
-                    <h2>E-mail </h2>
-                    <p><span class="__cf_email__"
-                            data-cfemail="037073626e436c70682d706b">longnt121004@gmail.com</span>
-                        <!-- <span class="hidden">(no marketing, please!)</span> -->
-                    </p>
-                </a>
-                <a class="sns" target="_blank" href="https://github.com/dadadadas111/">
-                    <img src="github.png" />
-                    <h2>GitHub </h2>
-                    <p>dadadadas111 <span class="hidden">&mdash; click to view</span></p>
-                </a>
-                <a class="sns" id="discord">
-                    <img src="discord.png" />
-                    <h2>Discord </h2>
-                    <p>dadadadas111</p>
-                </a>
-                <!-- <br />
-                <hr />
-                <p><span class="sticker"></span> These are personal space &mdash; you have been warned. <span
-                        class="sticker"></span></p> -->
-            </section>
-            <section style="--fg: #cf00eb; --bg: #cf00eb">
-                <h1>STARS</h1>
-                <div class="item sepafter"></div>
-                <a class="sns">
-                    <img src="support.png" />
-                    <h2><span id="star_count">0</span> STARS RECEIVED!!</h2>
-                    <p>Thank you for your support!</p>
-                </a>
+      </div>
+    </div>
+  </section>
 
-            </section>
+  <!-- ===== EXPERIENCE ===== -->
+  <section id="experience" class="experience">
+    <div class="container">
+      <h2 class="section__title reveal">Experience</h2>
+
+      <div class="timeline">
+        <div class="timeline__item reveal">
+          <div class="timeline__marker"></div>
+          <div class="timeline__content">
+            <div class="timeline__header">
+              <div>
+                <h3 class="timeline__role">Backend Developer</h3>
+                <p class="timeline__company"><a href="https://rogo.com.vn/" target="_blank" rel="noopener noreferrer">Rogo Solutions JSC</a></p>
+              </div>
+              <span class="timeline__date">Jan 2025 — Present</span>
+            </div>
+            <p class="timeline__summary">
+              Designing and building scalable backend services with Node.js (NestJS), integrating IoT ecosystems
+              and high-throughput data streaming for enterprise applications.
+            </p>
+
+            <div class="timeline__project">
+              <h4 class="timeline__project-name">Smart IoT Automation Ecosystem</h4>
+              <ul class="timeline__highlights">
+                <li>Built a cloud-based automation engine managing real-time state sync for <strong>43,000+ smart devices</strong> using MQTT and Node.js.</li>
+                <li>Implemented LRU caching and cache invalidation strategies to cut trigger response times and reduce database load.</li>
+              </ul>
+            </div>
+
+            <div class="timeline__project">
+              <h4 class="timeline__project-name">Resilient Kafka Data Streaming Service</h4>
+              <ul class="timeline__highlights">
+                <li>Architected a high-reliability Kafka streaming agent for secure data exchange between internal systems and third-party brokers.</li>
+                <li>Engineered a fail-safe caching mechanism preserving pending requests during partner downtime — <strong>100% data integrity</strong> with automated recovery.</li>
+              </ul>
+            </div>
+          </div>
         </div>
-    </main>
+      </div>
+    </div>
+  </section>
 
-    <footer>&copy; 2024&mdash;2025 <a href="#">dadadadas</a><span><a href="#">terms</a> · <a href="#">privacy</a></span>
-    </footer>
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+  <!-- ===== PROJECTS ===== -->
+  <section id="projects" class="projects">
+    <div class="container">
+      <h2 class="section__title reveal">Projects</h2>
+
+      <!-- Project 1: IoT Cloud MCP -->
+      <div class="project reveal" data-tilt>
+        <div class="project__text">
+          <h3 class="project__title">IoT Cloud MCP</h3>
+          <p class="project__description">
+            A Model Context Protocol (MCP) server for IoT cloud platforms, enabling AI assistants
+            to interact with IoT devices and data through a standardized interface.
+          </p>
+          <div class="project__tags">
+            <span>TypeScript</span>
+            <span>MCP SDK</span>
+            <span>IoT Cloud APIs</span>
+          </div>
+          <div class="project__links">
+            <a href="https://github.com/dadadadas111/iot-cloud-mcp" target="_blank" rel="noopener noreferrer" class="btn btn--project">
+              <img src="github.png" alt="" class="btn__icon" /> Source Code
+            </a>
+          </div>
+        </div>
+        <div class="project__image">
+          <div class="project__placeholder">
+            <span class="project__emoji">🌐</span>
+            <span class="project__placeholder-name">IoT Cloud MCP</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 2: SketchMath -->
+      <div class="project project--reverse reveal" data-tilt>
+        <div class="project__text">
+          <span class="project__badge">In Progress</span>
+          <h3 class="project__title">SketchMath</h3>
+          <p class="project__description">
+            An interactive drawing-based math learning tool that lets users sketch mathematical
+            concepts and get real-time AI-powered feedback and solutions.
+          </p>
+          <div class="project__tags">
+            <span>TypeScript</span>
+            <span>Canvas API</span>
+            <span>AI/ML</span>
+          </div>
+          <div class="project__links">
+            <a href="https://sketchmath.onrender.com/" target="_blank" rel="noopener noreferrer" class="btn btn--project">Live Demo</a>
+            <a href="https://github.com/dadadadas111/sketchmath" target="_blank" rel="noopener noreferrer" class="btn btn--project">
+              <img src="github.png" alt="" class="btn__icon" /> Source Code
+            </a>
+          </div>
+        </div>
+        <div class="project__image">
+          <div class="project__placeholder">
+            <span class="project__emoji">✏️</span>
+            <span class="project__placeholder-name">SketchMath</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 3: Firebase Token Helper -->
+      <div class="project reveal" data-tilt>
+        <div class="project__text">
+          <h3 class="project__title">Firebase Token Helper</h3>
+          <p class="project__description">
+            A developer tool for generating and managing Firebase authentication tokens,
+            simplifying the testing and development workflow for Firebase-powered applications.
+          </p>
+          <div class="project__tags">
+            <span>TypeScript</span>
+            <span>Firebase Admin SDK</span>
+            <span>CLI</span>
+          </div>
+          <div class="project__links">
+            <a href="https://github.com/dadadadas111/firebase-token-helper" target="_blank" rel="noopener noreferrer" class="btn btn--project">
+              <img src="github.png" alt="" class="btn__icon" /> Source Code
+            </a>
+          </div>
+        </div>
+        <div class="project__image">
+          <div class="project__placeholder">
+            <span class="project__emoji">🔑</span>
+            <span class="project__placeholder-name">Firebase Token Helper</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 4: GitHub Trending Repos -->
+      <div class="project project--reverse reveal" data-tilt>
+        <div class="project__text">
+          <h3 class="project__title">GitHub Trending Repos</h3>
+          <p class="project__description">
+            A web app that tracks and displays trending GitHub repositories with filtering,
+            sorting, and historical data visualization.
+          </p>
+          <div class="project__tags">
+            <span>TypeScript</span>
+            <span>Next.js</span>
+            <span>GitHub API</span>
+          </div>
+          <div class="project__links">
+            <a href="https://dadadadas111.github.io/github-trending-repos/" target="_blank" rel="noopener noreferrer" class="btn btn--project">Live Demo</a>
+            <a href="https://github.com/dadadadas111/github-trending-repos" target="_blank" rel="noopener noreferrer" class="btn btn--project">
+              <img src="github.png" alt="" class="btn__icon" /> Source Code
+            </a>
+          </div>
+        </div>
+        <div class="project__image">
+          <div class="project__placeholder">
+            <span class="project__emoji">📈</span>
+            <span class="project__placeholder-name">GitHub Trending</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== EDUCATION ===== -->
+  <section id="education" class="education">
+    <div class="container">
+      <h2 class="section__title section__title--light reveal">Education</h2>
+
+      <div class="education__card reveal">
+        <div class="education__header">
+          <div>
+            <h3 class="education__degree">B.Sc. in Software Engineering</h3>
+            <p class="education__school">FPT University</p>
+          </div>
+          <span class="education__date">2022 — 2026</span>
+        </div>
+        <p class="education__detail">
+          Coursework in Data Structures &amp; Algorithms, Web Development, Database Management, and Network Programming.
+          Final year project: a real-time multiplayer online game backend using ASP.NET Core, WebSockets, and MySQL
+          with lag compensation for seamless play across varied network conditions.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CONTACT ===== -->
+  <section id="contact" class="contact">
+    <div class="container">
+      <h2 class="section__title section__title--light reveal">Contact</h2>
+      <p class="contact__text reveal">
+        Want to work together or just say hi? Feel free to reach out!
+      </p>
+      <a href="mailto:longnt121004@gmail.com" class="btn btn--contact reveal">Say Hello</a>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer id="footer" class="footer">
+    <div class="container">
+      <p class="footer__name">Dadadadas</p>
+      <div class="footer__socials">
+        <a href="https://github.com/dadadadas111" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+          <img src="github.png" alt="GitHub" />
+        </a>
+        <a href="mailto:longnt121004@gmail.com" aria-label="Email">
+          <img src="email.png" alt="Email" />
+        </a>
+        <a href="https://discord.com/users/dadadadas111" target="_blank" rel="noopener noreferrer" aria-label="Discord">
+          <img src="discord.png" alt="Discord" />
+        </a>
+      </div>
+      <p class="footer__copy">&copy; 2024 Dadadadas. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="index.js"></script>
 </body>
-
 </html>

@@ -1,164 +1,112 @@
+/* ============================================
+   PORTFOLIO — Animations & Interactions
+   ============================================ */
+
 document.addEventListener('DOMContentLoaded', () => {
+  // === TYPEWRITER EFFECT ===
+  const typewriter = (() => {
+    const el = document.getElementById('typed-name');
+    if (!el) return;
 
-	document.getElementById('support_me').addEventListener('click', (e) => {
-		e.preventDefault(); // Prevent default anchor behavior
-		showThankYouModal(); // Call the function to show the modal
+    const text = 'Dadadadas';
+    let i = 0;
 
-		// Add API call to send stars
-		fetch('https://api.hatepost.fumi.fyi/api/send-stars', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify({ stars: 1 }) // Adjust the payload as needed
-		})
-			.then(response => {
-				if (!response.ok) {
-					throw new Error('Network response was not ok');
-				}
-				return response.body;
-			})
-			.then(data => {
-				console.log('Success:', data);
-				getStarCount(); // Update the star count after sending stars
-			})
-			.catch((error) => {
-				console.error('Error:', error);
-			});
-	});
+    // Create cursor
+    const cursor = document.createElement('span');
+    cursor.classList.add('cursor');
+    el.appendChild(cursor);
 
-	// Function to get star count from the API
-	function getStarCount() {
-		fetch('https://api.hatepost.fumi.fyi/api/get-stars', {
-			method: 'GET',
-			headers: {
-				'Content-Type': 'application/json',
-			}
-		})
-			.then(response => {
-				if (!response.ok) {
-					throw new Error('Network response was not ok');
-				}
-				return response.json();
-			})
-			.then(data => {
-				document.getElementById('star_count').innerText = data.stars || 0; // Assuming the response has a 'stars' field
-			})
-			.catch((error) => {
-				console.error('Error fetching star count:', error);
-			});
-	}
+    function type() {
+      if (i < text.length) {
+        el.insertBefore(document.createTextNode(text[i]), cursor);
+        i++;
+        setTimeout(type, 120);
+      }
+    }
 
-	// initial call to get star count
-	getStarCount();
+    // Start after a small delay for the greeting to fade in
+    setTimeout(type, 600);
+  })();
 
-	// Call getStarCount every 5 seconds
-	setInterval(getStarCount, 5000);
+  // === SCROLL REVEAL (IntersectionObserver) ===
+  const revealElements = document.querySelectorAll('.reveal');
 
-	// Add event listeners for copying email and Discord
-	document.getElementById("email").addEventListener('click', () => {
-		navigator.clipboard.writeText('longnt121004@gmail.com')
-			.then(() => {
-				showCopyModal('Email');
-			})
-			.catch((err) => {
-				console.error('Failed to copy text: ', err);
-				alert('Failed to copy email. Please try again.');
-			});
-	});
+  const revealObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    },
+    {
+      threshold: 0.15,
+      rootMargin: '0px 0px -40px 0px',
+    }
+  );
 
-	document.getElementById("discord").addEventListener('click', () => {
-		navigator.clipboard.writeText('dadadadas111')
-			.then(() => {
-				showCopyModal('Discord');
-			})
-			.catch((err) => {
-				console.error('Failed to copy text: ', err);
-				alert('Failed to copy email. Please try again.');
-			});
-	});
+  revealElements.forEach((el) => revealObserver.observe(el));
 
-	function showCopyModal(type) {
-		const modal = document.createElement('div');
-		modal.id = 'copy_modal';
-		modal.innerHTML = `
-			<div class="modal_content">
-				<h2>${type} copied to clipboard!</h2>
-				<button class="sns" id="close_modal">Close</button>
-			</div>
-		`;
-		document.body.appendChild(modal);
+  // === STAGGERED SKILL TAGS ===
+  const skillTags = document.querySelectorAll('.skill-tag');
+  const skillsContainer = document.getElementById('skills-container');
 
-		// Close modal on button click
-		document.getElementById('close_modal').addEventListener('click', () => {
-			document.body.removeChild(modal);
-		});
-	}
+  if (skillsContainer) {
+    const skillObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            skillTags.forEach((tag, index) => {
+              setTimeout(() => {
+                tag.classList.add('revealed');
+              }, index * 50);
+            });
+            skillObserver.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.2,
+      }
+    );
 
-	function showThankYouModal() {
-		const modal = document.createElement('div');
-		modal.id = 'thank_you_modal';
-		modal.innerHTML = `
-			<div class="modal_content">
-				<h2>Thank You!</h2>
-				<p>Your support means a lot to me!</p>
-				<button class="sns" id="close_modal">Close</button>
-			</div>
-		`;
-		document.body.appendChild(modal);
+    skillObserver.observe(skillsContainer);
+  }
 
-		// Close modal on button click
-		document.getElementById('close_modal').addEventListener('click', () => {
-			document.body.removeChild(modal);
-		});
-	}
+  // === SMOOTH SCROLL FOR ANCHORS ===
+  document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+    anchor.addEventListener('click', (e) => {
+      e.preventDefault();
+      const target = document.querySelector(anchor.getAttribute('href'));
+      if (target) {
+        target.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start',
+        });
+      }
+    });
+  });
 
-	function generateSnowflakes(falling, colors) {
-		var container = document.querySelector('.snowflakes'); // Change this to the container where you want to append snowflakes
+  // === PROJECT CARD TILT ===
+  const tiltCards = document.querySelectorAll('[data-tilt]');
 
-		for (let i = 0; i < 25; i++) {
-			var snowflake = document.createElement('div');
-			snowflake.className = 'snowflake';
-			snowflake.innerText = falling;
-			// Random position
-			snowflake.style.left = Math.random() * 100 + '%';
+  tiltCards.forEach((card) => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
 
-			// Random animation delays
-			snowflake.style.webkitAnimationDelay = Math.random() * 6 + 's, ' + (1.0 * ((Math.random() * (3 - 0.1)) + 0.1)) + 's';
-			snowflake.style.animationDelay = Math.random() * 8 + 's, ' + ((Math.random() * (3 - 0.1)) + 0.1) + 's';
+      const rotateX = ((y - centerY) / centerY) * -4;
+      const rotateY = ((x - centerX) / centerX) * 4;
 
-			// Random size
-			var size = Math.random() * 1.5 + 0.5; // Size range between 0.5em and 2em
-			snowflake.style.fontSize = size + 'em';
-			snowflake.style.opacity = 0.5 + Math.random();
+      card.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.01, 1.01, 1.01)`;
+    });
 
-			container.appendChild(snowflake);
-		}
-	}
-
-	let falling = '❅';
-	let colors = []
-
-	// Function to change background image randomly
-	function changeBackgroundImage() {
-		const bgElement = document.getElementById('bg');
-		const bgReflectorElement = document.getElementById('bg_cover');
-		const randomIndex = Math.floor(Math.random() * 8) + 1; // Random number between 1 and 10
-		bgElement.src = `bg/${randomIndex}.webp`; // Adjust the path and file extension as needed
-		bgReflectorElement.src = `bg/${randomIndex}.webp`; // Adjust the path and file extension as needed
-		switch (randomIndex) {
-			case 1:
-			case 2:
-			case 3:
-			case 8:
-				falling = '🍁';
-				colors = ['red', 'yellow']
-		}
-	}
-
-	// Call the function to change the background image on load
-	changeBackgroundImage();
-
-	generateSnowflakes(falling, colors);
-
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = 'perspective(800px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
+    });
+  });
 });
