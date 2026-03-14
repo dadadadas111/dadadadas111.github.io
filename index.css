@@ -197,8 +197,21 @@ ul {
 .about {
   padding: 10rem 0 8rem;
   background: linear-gradient(135deg, #02aab0, #00cdac);
-  clip-path: polygon(0 0, 100% 5rem, 100% 100%, 0 100%);
   margin-top: -5rem;
+  position: relative;
+}
+
+/* Diagonal edge — small pseudo-element instead of clip-path on the whole section */
+.about::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5rem;
+  background: #fff;
+  clip-path: polygon(0 0, 100% 0, 100% 100%);
+  pointer-events: none;
 }
 
 .about .section__title {
@@ -222,11 +235,11 @@ ul {
   width: 20rem;
   height: 20rem;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.2);
   padding: 0.4rem;
   object-fit: cover;
-  backdrop-filter: blur(5px);
-  border: 3px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.15);
+  border: 3px solid rgba(255, 255, 255, 0.5);
 }
 
 .about__text p {
