@@ -66,13 +66,15 @@ ul {
 .reveal {
   opacity: 0;
   transform: translateY(3rem);
-  transition: opacity 0.7s cubic-bezier(0.5, 0, 0, 1),
-              transform 0.7s cubic-bezier(0.5, 0, 0, 1);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
 }
 
 .reveal.revealed {
   opacity: 1;
   transform: translateY(0);
+  will-change: auto;
 }
 
 /* === BUTTON BASE === */
@@ -195,8 +197,21 @@ ul {
 .about {
   padding: 10rem 0 8rem;
   background: linear-gradient(135deg, #02aab0, #00cdac);
-  clip-path: polygon(0 0, 100% 5rem, 100% 100%, 0 100%);
   margin-top: -5rem;
+  position: relative;
+}
+
+/* Diagonal edge — small pseudo-element instead of clip-path on the whole section */
+.about::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5rem;
+  background: #fff;
+  clip-path: polygon(0 0, 100% 0, 100% 100%);
+  pointer-events: none;
 }
 
 .about .section__title {
@@ -220,11 +235,11 @@ ul {
   width: 20rem;
   height: 20rem;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.2);
   padding: 0.4rem;
   object-fit: cover;
-  backdrop-filter: blur(5px);
-  border: 3px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.15);
+  border: 3px solid rgba(255, 255, 255, 0.5);
 }
 
 .about__text p {
@@ -271,7 +286,6 @@ ul {
   background: rgba(255, 255, 255, 0.15);
   border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 10rem;
-  backdrop-filter: blur(5px);
   transition: background 0.3s ease, transform 0.3s ease;
   /* stagger animation — set by JS */
   opacity: 0;
@@ -456,7 +470,9 @@ ul {
   border-radius: 1.2rem;
   background: #fff;
   box-shadow: 0 0.4rem 2rem rgba(0, 0, 0, 0.06);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
 }
 
 .project:last-child {
@@ -578,7 +594,7 @@ ul {
   align-items: center;
   gap: 1rem;
   box-shadow: 0 0.4rem 2rem rgba(2, 170, 176, 0.25);
-  transition: transform 0.4s ease;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .project__emoji {
