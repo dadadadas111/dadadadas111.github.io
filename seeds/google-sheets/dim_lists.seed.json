@@ -1,0 +1,41 @@
+{
+  "bots": [
+    "schedule",
+    "progress",
+    "finance"
+  ],
+  "finance_buckets": [
+    "needs",
+    "wants",
+    "savings"
+  ],
+  "finance_categories": [
+    "food_basic",
+    "transport",
+    "utilities",
+    "rent",
+    "essential_personal",
+    "cafe",
+    "entertainment",
+    "shopping_nonessential",
+    "savings",
+    "investment",
+    "other"
+  ],
+  "progress_pillars": [
+    "work",
+    "freelance",
+    "skill",
+    "English",
+    "health",
+    "life_admin"
+  ],
+  "goal_statuses": [
+    "green",
+    "yellow",
+    "red",
+    "pending",
+    "in_progress",
+    "done"
+  ]
+}

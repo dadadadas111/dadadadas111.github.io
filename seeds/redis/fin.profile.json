@@ -1,0 +1,25 @@
+{
+  "currency": "VND",
+  "income_default": 9000000,
+  "ratio_target": {
+    "needs": 0.5,
+    "wants": 0.3,
+    "savings": 0.2
+  },
+  "categories": {
+    "food_basic": "needs",
+    "transport": "needs",
+    "utilities": "needs",
+    "rent": "needs",
+    "essential_personal": "needs",
+    "cafe": "wants",
+    "entertainment": "wants",
+    "shopping_nonessential": "wants",
+    "savings": "savings",
+    "investment": "savings",
+    "other": "wants"
+  },
+  "created_at": "2026-04-20T00:00:00Z",
+  "updated_at": "2026-04-20T00:00:00Z",
+  "source": "seed"
+}

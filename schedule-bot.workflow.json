@@ -1,0 +1,221 @@
+{
+  "name": "ScheduleBot v1",
+  "active": false,
+  "settings": {
+    "timezone": "Asia/Bangkok"
+  },
+  "pinData": {},
+  "versionId": "schedule-bot-v1",
+  "nodes": [
+    {
+      "id": "sched-cron-morning",
+      "name": "Morning Trigger",
+      "type": "n8n-nodes-base.cron",
+      "typeVersion": 1,
+      "position": [-1100, -500],
+      "parameters": {
+        "triggerTimes": {"item": [{"mode": "custom", "cronExpression": "45 6 * * *"}]}
+      }
+    },
+    {
+      "id": "sched-code-morning",
+      "name": "Build Morning Message",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [-860, -500],
+      "parameters": {
+        "jsCode": "const now=new Date(); const date=now.toISOString().slice(0,10); const day=now.getDay(); const d0=new Date(Date.UTC(now.getUTCFullYear(),0,1)); const week=Math.ceil((((now-d0)/86400000)+d0.getUTCDay()+1)/7); return [{json:{date,day,weekKey:`${now.getUTCFullYear()}-W${String(week).padStart(2,'0')}`,chat_id:$env.SCHEDULE_CHAT_ID||''}}];"
+      }
+    },
+    {
+      "id": "sched-redis-week-morning",
+      "name": "Get Week Morning",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [-620, -500],
+      "parameters": {"operation": "get", "key": "={{'sched:week:' + $json.weekKey}}"}
+    },
+    {
+      "id": "sched-code-morning-format",
+      "name": "Format Morning",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [-380, -500],
+      "parameters": {
+        "jsCode": "const week=$json.value?JSON.parse($json.value):{tutoring_nights:[]}; const tutoring=(week.tutoring_nights||[]).find(t=>t.date===$json.date); const lines=[`Hôm nay ${$json.date}.`]; if($json.day>=1&&$json.day<=4) lines.push('- Đi làm: 08:00-17:30'); if($json.day===5) lines.push('- Hôm nay ưu tiên commute/reset.'); if(tutoring) lines.push(`- Dạy thêm: ${tutoring.start}-${tutoring.end}`); if($json.day>=1&&$json.day<=4&&!tutoring) lines.push('- Tối nay có thể dành 60 phút cho growth'); lines.push('- English 10-15 phút'); lines.push('- Reset/dọn dẹp 10 phút'); if(tutoring) lines.push('- Không ép deep work sau buổi dạy'); return [{json:{...$json,message_text:lines.join('\\n')}}];"
+      }
+    },
+    {
+      "id": "sched-send-morning",
+      "name": "Send Morning",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1,
+      "position": [-140, -500],
+      "parameters": {"resource": "message", "operation": "sendMessage", "chatId": "={{$json.chat_id}}", "text": "={{$json.message_text}}", "additionalFields": {}}
+    },
+    {
+      "id": "sched-cron-evening",
+      "name": "Evening Trigger",
+      "type": "n8n-nodes-base.cron",
+      "typeVersion": 1,
+      "position": [-1100, -260],
+      "parameters": {"triggerTimes": {"item": [{"mode": "custom", "cronExpression": "0 21 * * *"}]}}
+    },
+    {
+      "id": "sched-code-evening",
+      "name": "Build Evening Message",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [-860, -260],
+      "parameters": {
+        "jsCode": "const t=new Date(Date.now()+86400000); const date=t.toISOString().slice(0,10); const day=t.getDay(); const d0=new Date(Date.UTC(t.getUTCFullYear(),0,1)); const week=Math.ceil((((t-d0)/86400000)+d0.getUTCDay()+1)/7); return [{json:{date,day,weekKey:`${t.getUTCFullYear()}-W${String(week).padStart(2,'0')}`,chat_id:$env.SCHEDULE_CHAT_ID||''}}];"
+      }
+    },
+    {
+      "id": "sched-redis-week-evening",
+      "name": "Get Week Evening",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [-620, -260],
+      "parameters": {"operation": "get", "key": "={{'sched:week:' + $json.weekKey}}"}
+    },
+    {
+      "id": "sched-code-evening-format",
+      "name": "Format Evening",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [-380, -260],
+      "parameters": {
+        "jsCode": "const week=$json.value?JSON.parse($json.value):{tutoring_nights:[]}; const tutoring=(week.tutoring_nights||[]).find(t=>t.date===$json.date); const lines=[`Chuẩn bị cho ngày mai ${$json.date}:`]; if($json.day>=1&&$json.day<=4) lines.push('- Đi làm: 08:00-17:30'); if(tutoring) lines.push(`- Dạy thêm: ${tutoring.start}-${tutoring.end}`); if($json.day>=1&&$json.day<=4&&!tutoring) lines.push('- Gợi ý: 1 block growth 60 phút'); lines.push('- Chuẩn bị đồ cho sáng mai'); return [{json:{...$json,message_text:lines.join('\\n')}}];"
+      }
+    },
+    {
+      "id": "sched-send-evening",
+      "name": "Send Evening",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1,
+      "position": [-140, -260],
+      "parameters": {"resource": "message", "operation": "sendMessage", "chatId": "={{$json.chat_id}}", "text": "={{$json.message_text}}", "additionalFields": {}}
+    },
+    {
+      "id": "sched-cron-sunday",
+      "name": "Sunday Trigger",
+      "type": "n8n-nodes-base.cron",
+      "typeVersion": 1,
+      "position": [-1100, -20],
+      "parameters": {"triggerTimes": {"item": [{"mode": "custom", "cronExpression": "0 19 * * 0"}]}}
+    },
+    {
+      "id": "sched-code-sunday",
+      "name": "Build Sunday Prompt",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [-860, -20],
+      "parameters": {
+        "jsCode": "return [{json:{chat_id:$env.SCHEDULE_CHAT_ID||'',message_text:'Lên plan tuần mới nhé. Trả lời kiểu: /set_tutoring Tue 20-22, Thu 18-20:30'}}];"
+      }
+    },
+    {
+      "id": "sched-send-sunday",
+      "name": "Send Sunday Prompt",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1,
+      "position": [-620, -20],
+      "parameters": {"resource": "message", "operation": "sendMessage", "chatId": "={{$json.chat_id}}", "text": "={{$json.message_text}}", "additionalFields": {}}
+    },
+    {
+      "id": "sched-telegram-trigger",
+      "name": "Telegram Trigger",
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1,
+      "position": [-1100, 260],
+      "parameters": {"updates": ["message"]}
+    },
+    {
+      "id": "sched-code-inbound",
+      "name": "Build Inbound",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [-860, 260],
+      "parameters": {
+        "jsCode": "const msg=$json.message||{}; const now=new Date(); const d0=new Date(Date.UTC(now.getUTCFullYear(),0,1)); const week=Math.ceil((((now-d0)/86400000)+d0.getUTCDay()+1)/7); return [{json:{text:msg.text||'',chat_id:String(msg.chat?.id||''),message_id:String(msg.message_id||''),weekKey:`${now.getUTCFullYear()}-W${String(week).padStart(2,'0')}`}}];"
+      }
+    },
+    {
+      "id": "sched-redis-idemp-get",
+      "name": "Get Idempotency",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [-620, 260],
+      "parameters": {"operation": "get", "key": "={{'sys:idempotency:' + $json.message_id}}"}
+    },
+    {
+      "id": "sched-code-dedup",
+      "name": "Skip Duplicate",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [-380, 260],
+      "parameters": {"jsCode": "if($json.value){return [];} return [{json:$json}];"}
+    },
+    {
+      "id": "sched-redis-week-inbound",
+      "name": "Get Week Inbound",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [-140, 260],
+      "parameters": {"operation": "get", "key": "={{'sched:week:' + $json.weekKey}}"}
+    },
+    {
+      "id": "sched-code-handle",
+      "name": "Handle Inbound",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [100, 260],
+      "parameters": {
+        "jsCode": "const week=$json.value?JSON.parse($json.value):{tutoring_nights:[]}; const text=($json.text||'').trim(); const lower=text.toLowerCase(); const now=new Date(); const monday=new Date(now); const diff=(monday.getDay()+6)%7; monday.setDate(monday.getDate()-diff); monday.setHours(0,0,0,0); const dayMap={mon:0,tue:1,wed:2,thu:3,fri:4,sat:5,sun:6}; const fmt=(d)=>new Date(d).toISOString().slice(0,10); const build=(offset)=>{ const d=new Date(now.getTime()+offset*86400000); const date=fmt(d); const tutoring=(week.tutoring_nights||[]).find(t=>t.date===date); const lines=[offset===0?`Hôm nay ${date}.`:`Ngày mai ${date}.`]; if(d.getDay()>=1&&d.getDay()<=4) lines.push('- Đi làm: 08:00-17:30'); if(tutoring) lines.push(`- Dạy thêm: ${tutoring.start}-${tutoring.end}`); return lines.join('\\n'); }; const normalizeTime=(s)=>{ const parts=s.split(':'); const hh=String(parts[0]||'00').padStart(2,'0'); const mm=String(parts[1]||'00').padStart(2,'0'); return `${hh}:${mm}`; }; let message=''; if(lower.startsWith('/today')||lower.includes('hôm nay')){ message=build(0); } else if(lower.startsWith('/tomorrow')||lower.includes('ngày mai')){ message=build(1); } else if(lower.startsWith('/week')||lower.includes('tuần')){ const lines=(week.tutoring_nights||[]).map(t=>`- ${t.date}: ${t.start}-${t.end}`); message='Kế hoạch tuần:\\n'+(lines.join('\\n')||'- Chưa có tutoring nights'); } else if(lower.startsWith('/set_tutoring')){ const clean=text.slice('/set_tutoring'.length).trim(); const parts=clean.split(',').map(v=>v.trim()).filter(Boolean); const entries=[]; for(const part of parts){ const bits=part.split(' ').filter(Boolean); if(bits.length<2) continue; const dayKey=(bits[0]||'').toLowerCase().slice(0,3); const range=bits[1]||''; const r=range.split('-'); if(!dayMap.hasOwnProperty(dayKey)||r.length!==2) continue; const d=new Date(monday); d.setDate(monday.getDate()+dayMap[dayKey]); entries.push({date:fmt(d),start:normalizeTime(r[0]),end:normalizeTime(r[1])}); } if(entries.length){ week.tutoring_nights=entries; message='Đã cập nhật tutoring nights:\\n'+entries.map(e=>`- ${e.date}: ${e.start}-${e.end}`).join('\\n'); } else { message='Không parse được. Ví dụ đúng: /set_tutoring Tue 20-22, Thu 18-20:30'; } } else { message='Lệnh hỗ trợ: /today, /tomorrow, /week, /set_tutoring Tue 20-22, Thu 18-20:30'; } return [{json:{...$json,week,message_text:message}}];"
+      }
+    },
+    {
+      "id": "sched-redis-week-set",
+      "name": "Set Week Inbound",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [340, 200],
+      "parameters": {"operation": "set", "key": "={{'sched:week:' + $json.weekKey}}", "value": "={{JSON.stringify($json.week)}}"}
+    },
+    {
+      "id": "sched-redis-idemp-set",
+      "name": "Set Idempotency",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [340, 320],
+      "parameters": {"operation": "set", "key": "={{'sys:idempotency:' + $json.message_id}}", "value": "1"}
+    },
+    {
+      "id": "sched-send-inbound",
+      "name": "Send Inbound Reply",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1,
+      "position": [580, 260],
+      "parameters": {"resource": "message", "operation": "sendMessage", "chatId": "={{$json.chat_id}}", "text": "={{$json.message_text}}", "additionalFields": {}}
+    }
+  ],
+  "connections": {
+    "Morning Trigger": {"main": [[{"node": "Build Morning Message", "type": "main", "index": 0}]]},
+    "Build Morning Message": {"main": [[{"node": "Get Week Morning", "type": "main", "index": 0}]]},
+    "Get Week Morning": {"main": [[{"node": "Format Morning", "type": "main", "index": 0}]]},
+    "Format Morning": {"main": [[{"node": "Send Morning", "type": "main", "index": 0}]]},
+    "Evening Trigger": {"main": [[{"node": "Build Evening Message", "type": "main", "index": 0}]]},
+    "Build Evening Message": {"main": [[{"node": "Get Week Evening", "type": "main", "index": 0}]]},
+    "Get Week Evening": {"main": [[{"node": "Format Evening", "type": "main", "index": 0}]]},
+    "Format Evening": {"main": [[{"node": "Send Evening", "type": "main", "index": 0}]]},
+    "Sunday Trigger": {"main": [[{"node": "Build Sunday Prompt", "type": "main", "index": 0}]]},
+    "Build Sunday Prompt": {"main": [[{"node": "Send Sunday Prompt", "type": "main", "index": 0}]]},
+    "Telegram Trigger": {"main": [[{"node": "Build Inbound", "type": "main", "index": 0}]]},
+    "Build Inbound": {"main": [[{"node": "Get Idempotency", "type": "main", "index": 0}]]},
+    "Get Idempotency": {"main": [[{"node": "Skip Duplicate", "type": "main", "index": 0}]]},
+    "Skip Duplicate": {"main": [[{"node": "Get Week Inbound", "type": "main", "index": 0}]]},
+    "Get Week Inbound": {"main": [[{"node": "Handle Inbound", "type": "main", "index": 0}]]},
+    "Handle Inbound": {"main": [[{"node": "Set Week Inbound", "type": "main", "index": 0}], [{"node": "Set Idempotency", "type": "main", "index": 0}], [{"node": "Send Inbound Reply", "type": "main", "index": 0}]]}
+  }
+}

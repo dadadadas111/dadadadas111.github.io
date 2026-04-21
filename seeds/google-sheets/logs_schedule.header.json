@@ -1,0 +1,18 @@
+[
+  "event_id",
+  "correlation_id",
+  "event_ts",
+  "date",
+  "day_type",
+  "source_bot",
+  "action",
+  "work_enabled",
+  "tutoring_enabled",
+  "tutoring_start",
+  "tutoring_end",
+  "growth_slot",
+  "english_slot",
+  "reset_slot",
+  "notes",
+  "telegram_message_id"
+]

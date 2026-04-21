@@ -1,0 +1,19 @@
+[
+  "event_id",
+  "correlation_id",
+  "event_ts",
+  "date",
+  "source_bot",
+  "entry_type",
+  "done",
+  "blocked",
+  "tomorrow",
+  "energy",
+  "weekly_score",
+  "wins",
+  "misses",
+  "next_top3",
+  "objective_ids",
+  "status_summary",
+  "telegram_message_id"
+]

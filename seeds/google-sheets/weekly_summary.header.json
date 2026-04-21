@@ -1,0 +1,17 @@
+[
+  "week_key",
+  "created_at",
+  "schedule_days_logged",
+  "tutoring_nights_count",
+  "growth_slots_count",
+  "progress_checkins_count",
+  "weekly_score_avg",
+  "green_count",
+  "yellow_count",
+  "red_count",
+  "finance_total_spent",
+  "finance_needs_pct",
+  "finance_wants_pct",
+  "finance_savings_pct",
+  "summary_note"
+]

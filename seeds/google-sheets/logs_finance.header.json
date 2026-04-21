@@ -1,0 +1,17 @@
+[
+  "event_id",
+  "correlation_id",
+  "event_ts",
+  "date",
+  "source_bot",
+  "raw_text",
+  "label",
+  "amount",
+  "currency",
+  "category",
+  "bucket",
+  "running_month_needs",
+  "running_month_wants",
+  "running_month_savings",
+  "telegram_message_id"
+]

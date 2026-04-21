@@ -1,0 +1,500 @@
+{
+  "nodes": [
+    {
+      "parameters": {
+        "triggerTimes": {
+          "item": [
+            {
+              "mode": "custom",
+              "cronExpression": "45 20 * * *"
+            }
+          ]
+        }
+      },
+      "id": "60db18cf-2984-4cbc-9d5c-1dc3fa249aa7",
+      "name": "Daily Trigger",
+      "type": "n8n-nodes-base.cron",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "return [\n  {\n    json: {\n      chat_id: 6830819839,\n      message_text:\n        \"Hôm nay chi gì không? Ví dụ: ăn 60k, cafe 35k, grab 25k. Nếu không có thì trả lời: 0\",\n    },\n  },\n];\n"
+      },
+      "id": "3080d98b-5437-4130-bbfe-c181580b9614",
+      "name": "Build Daily Prompt",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        224,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "={{$json.chat_id}}",
+        "text": "={{$json.message_text}}",
+        "additionalFields": {}
+      },
+      "id": "da5be9c2-4f82-4a1c-9bea-d5c2f2fb5141",
+      "name": "Send Daily Prompt",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1,
+      "position": [
+        448,
+        0
+      ],
+      "webhookId": "f92612bc-cb15-47a1-9545-183ec33b5436",
+      "credentials": {
+        "telegramApi": {
+          "id": "AVj4m9kDS6oS9Axm",
+          "name": "rogo_sln_bot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "triggerTimes": {
+          "item": [
+            {
+              "mode": "custom",
+              "cronExpression": "0 21 28-31 * *"
+            }
+          ]
+        }
+      },
+      "id": "7d31cee1-6b15-4920-98a3-6bc0b73ed0bd",
+      "name": "Monthly Trigger",
+      "type": "n8n-nodes-base.cron",
+      "typeVersion": 1,
+      "position": [
+        0,
+        224
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const month = new Date().toISOString().slice(0, 7);\nreturn [{ json: { month, chat_id: 6830819839 } }];\n"
+      },
+      "id": "dc353395-9dd6-4d58-891d-4af31678071e",
+      "name": "Build Month Key",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        224,
+        224
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "propertyName": "value",
+        "key": "={{'fin:month:' + $json.month}}",
+        "keyType": "string",
+        "options": {}
+      },
+      "id": "6aaf5c19-5479-4cc9-bad3-628f4a4c5498",
+      "name": "Get Month Report",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        448,
+        224
+      ],
+      "credentials": {
+        "redis": {
+          "id": "9Hd6srghoER3bzQ3",
+          "name": "Redis account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const m = $json.value\n  ? JSON.parse($json.value)\n  : { income: 9000000, totals: { needs: 0, wants: 0, savings: 0 } };\nconst income = Math.max(1, m.income || 9000000);\nconst n = Math.round(((m.totals.needs || 0) / income) * 100);\nconst w = Math.round(((m.totals.wants || 0) / income) * 100);\nconst s = Math.round(((m.totals.savings || 0) / income) * 100);\nreturn [\n  {\n    json: {\n      chat_id: $json.chat_id,\n      report: `Tháng ${m.month}:\\n- Needs: ${n}%\\n- Wants: ${w}%\\n- Savings: ${s}%`,\n    },\n  },\n];\n"
+      },
+      "id": "2783d5b1-b8b9-420f-9622-84accfd43faf",
+      "name": "Build Report",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        672,
+        224
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Build Month Key').item.json.chat_id }}",
+        "text": "={{$json.report}}",
+        "additionalFields": {}
+      },
+      "id": "de8c1e95-92e1-4bce-91fb-80615572f8d7",
+      "name": "Send Monthly Report",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1,
+      "position": [
+        896,
+        224
+      ],
+      "webhookId": "3b143627-b2d2-4513-92c5-4d3821baa0d3",
+      "credentials": {
+        "telegramApi": {
+          "id": "AVj4m9kDS6oS9Axm",
+          "name": "rogo_sln_bot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "id": "ba029ae6-f64a-46e5-af71-6fb5a6b3727f",
+      "name": "Telegram Trigger",
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        736
+      ],
+      "webhookId": "c9eba6da-117f-482d-8d2e-e0bf93edef02",
+      "credentials": {
+        "telegramApi": {
+          "id": "AVj4m9kDS6oS9Axm",
+          "name": "fin_bot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const msg = $json.message || {};\nconst now = new Date();\nreturn [\n  {\n    json: {\n      text: msg.text || \"\",\n      chat_id: String(msg.chat?.id || \"\"),\n      message_id: String(msg.message_id || \"\"),\n      date: now.toISOString().slice(0, 10),\n      month: now.toISOString().slice(0, 7),\n    },\n  },\n];\n"
+      },
+      "id": "69504eea-89fe-4033-b76d-26e77127d3e3",
+      "name": "Build Inbound",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        224,
+        736
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "propertyName": "value",
+        "key": "={{'sys:idempotency:' + $json.message_id}}",
+        "keyType": "string",
+        "options": {}
+      },
+      "id": "2e7fd51d-e61a-45dc-bef7-cff7ea78c9aa",
+      "name": "Get Idempotency",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        448,
+        736
+      ],
+      "credentials": {
+        "redis": {
+          "id": "9Hd6srghoER3bzQ3",
+          "name": "Redis account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "if ($json.value) {\n  return [];\n}\nreturn [{ json: $json }];\n"
+      },
+      "id": "86f41a45-16d2-413e-8669-10ee6cd663c7",
+      "name": "Skip Duplicate",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        672,
+        736
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "propertyName": "value",
+        "key": "={{'fin:month:' + $json.month}}",
+        "keyType": "string",
+        "options": {}
+      },
+      "id": "194c86ac-46cb-434d-8897-f525e76140c2",
+      "name": "Get Month Summary",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        896,
+        736
+      ],
+      "credentials": {
+        "redis": {
+          "id": "9Hd6srghoER3bzQ3",
+          "name": "Redis account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const text = ($json.text || \"\").trim().toLowerCase();\nconst month = $json.value\n  ? JSON.parse($json.value)\n  : {\n      month: $json.month,\n      income: 9000000,\n      totals: { needs: 0, wants: 0, savings: 0 },\n    };\nconst classify = (label) => {\n  if (/grab|xe|xăng|bus|đi lại/.test(label)) return [\"transport\", \"needs\"];\n  if (/cafe|trà sữa|snack/.test(label)) return [\"cafe\", \"wants\"];\n  if (/tiết kiệm|savings|đầu tư|etf/.test(label)) return [\"savings\", \"savings\"];\n  if (/điện|nước|trọ|rent/.test(label)) return [\"utilities\", \"needs\"];\n  if (/ăn|cơm|phở|bún|food/.test(label)) return [\"food_basic\", \"needs\"];\n  return [\"other\", \"wants\"];\n};\nconst toAmount = (s) => {\n  const m = s.match(/(\\d+(?:[.,]\\d+)?)(k|000)?/i);\n  if (!m) return 0;\n  let n = parseFloat(m[1].replace(\",\", \".\"));\n  if ((m[2] || \"\").toLowerCase() === \"k\") n *= 1000;\n  return Math.round(n);\n};\nlet today = { date: $json.date, items: [], total: 0, raw_text: text };\nlet message = \"\";\nif (/^\\/month/i.test(text) || /^\\/budget/i.test(text)) {\n  const income = Math.max(1, month.income || 9000000);\n  const n = Math.round(((month.totals.needs || 0) / income) * 100);\n  const w = Math.round(((month.totals.wants || 0) / income) * 100);\n  const s = Math.round(((month.totals.savings || 0) / income) * 100);\n  message = `Tháng ${month.month}:\\n- Needs: ${n}%\\n- Wants: ${w}%\\n- Savings: ${s}%`;\n  today = {};\n} else if (text === \"0\") {\n  message = \"Đã ghi hôm nay không chi tiêu.\";\n} else {\n  const parts = text\n    .split(/,|;/)\n    .map((v) => v.trim())\n    .filter(Boolean);\n  for (const p of parts) {\n    const amount = toAmount(p);\n    if (!amount) continue;\n    const label =\n      p.replace(/(\\d+(?:[.,]\\d+)?)(k|000)?/gi, \"\").trim() || \"other\";\n    const pair = classify(label);\n    today.items.push({ label, amount, category: pair[0], bucket: pair[1] });\n    today.total += amount;\n    month.totals[pair[1]] = (month.totals[pair[1]] || 0) + amount;\n  }\n  message = today.items.length\n    ? \"Đã ghi nhận:\\n\" +\n      today.items.map((i) => `- ${i.label} ${i.amount}`).join(\"\\n\") +\n      `\\nTổng hôm nay: ${today.total}`\n    : \"Tôi chưa parse được khoản chi. Ví dụ: ăn 60k, cafe 35k, grab 25k\";\n}\nreturn [\n  {\n    json: {\n      ...$json,\n      month,\n      todayTxn: today,\n      message_text: message,\n      skipTxn: !today.date,\n    },\n  },\n];\n"
+      },
+      "id": "649dff9a-4308-4b3e-a405-f4e0fb1baacf",
+      "name": "Handle Inbound",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1120,
+        736
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "set",
+        "key": "={{$json.skipTxn ? 'noop:finance' : 'fin:txn:' + $json.date}}",
+        "value": "={{JSON.stringify($json.todayTxn)}}",
+        "keyType": "string"
+      },
+      "id": "c48a68b4-58fc-437b-9913-54d509cb485c",
+      "name": "Set Today Txn",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        1344,
+        448
+      ],
+      "credentials": {
+        "redis": {
+          "id": "9Hd6srghoER3bzQ3",
+          "name": "Redis account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "set",
+        "key": "={{'fin:month:' + $json.month.month}}",
+        "value": "={{JSON.stringify($json.month)}}",
+        "keyType": "string"
+      },
+      "id": "9e9e16e8-6ea1-47cc-9711-36ea8cbb8faa",
+      "name": "Set Month Summary",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        1344,
+        640
+      ],
+      "credentials": {
+        "redis": {
+          "id": "9Hd6srghoER3bzQ3",
+          "name": "Redis account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "set",
+        "key": "={{'sys:idempotency:' + $json.message_id}}",
+        "value": "1",
+        "keyType": "string"
+      },
+      "id": "572d013e-aa33-4d60-85ff-1f1f07194892",
+      "name": "Set Idempotency",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        1344,
+        832
+      ],
+      "credentials": {
+        "redis": {
+          "id": "9Hd6srghoER3bzQ3",
+          "name": "Redis account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Build Inbound').item.json.chat_id }}",
+        "text": "={{$json.message_text}}",
+        "additionalFields": {}
+      },
+      "id": "87d2fbd9-2a23-4a2a-87f9-d86dac1a2658",
+      "name": "Send Inbound Reply",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1,
+      "position": [
+        1344,
+        1024
+      ],
+      "webhookId": "e45c6853-16c4-459d-b7cb-fb872455b2ae",
+      "credentials": {
+        "telegramApi": {
+          "id": "AVj4m9kDS6oS9Axm",
+          "name": "fin_bot"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Daily Trigger": {
+      "main": [
+        [
+          {
+            "node": "Build Daily Prompt",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build Daily Prompt": {
+      "main": [
+        [
+          {
+            "node": "Send Daily Prompt",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Monthly Trigger": {
+      "main": [
+        [
+          {
+            "node": "Build Month Key",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build Month Key": {
+      "main": [
+        [
+          {
+            "node": "Get Month Report",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Month Report": {
+      "main": [
+        [
+          {
+            "node": "Build Report",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build Report": {
+      "main": [
+        [
+          {
+            "node": "Send Monthly Report",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "Build Inbound",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build Inbound": {
+      "main": [
+        [
+          {
+            "node": "Get Idempotency",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Idempotency": {
+      "main": [
+        [
+          {
+            "node": "Skip Duplicate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Skip Duplicate": {
+      "main": [
+        [
+          {
+            "node": "Get Month Summary",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Month Summary": {
+      "main": [
+        [
+          {
+            "node": "Handle Inbound",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Handle Inbound": {
+      "main": [
+        [
+          {
+            "node": "Set Today Txn",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Set Month Summary",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Set Idempotency",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Send Inbound Reply",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "a6e229cb4d507b99864ddc0ecd8d7527ac343f2860d379fb9619133ca077a568"
+  }
+}

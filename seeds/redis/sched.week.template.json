@@ -1,0 +1,9 @@
+{
+  "week_key": "YYYY-WW",
+  "tutoring_nights": [],
+  "special_events": [],
+  "notes": "Fill tutoring nights with {date,start,end}",
+  "created_at": "2026-04-20T00:00:00Z",
+  "updated_at": "2026-04-20T00:00:00Z",
+  "source": "seed"
+}

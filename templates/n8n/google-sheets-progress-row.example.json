@@ -1,0 +1,19 @@
+{
+  "event_id": "={{$json.event_id}}",
+  "correlation_id": "={{$json.correlation_id}}",
+  "event_ts": "={{$json.event_ts}}",
+  "date": "={{$json.date || ''}}",
+  "source_bot": "progress",
+  "entry_type": "={{$json.entry_type || ''}}",
+  "done": "={{$json.done || ''}}",
+  "blocked": "={{$json.blocked || ''}}",
+  "tomorrow": "={{$json.tomorrow || ''}}",
+  "energy": "={{$json.energy || ''}}",
+  "weekly_score": "={{$json.weekly_score || ''}}",
+  "wins": "={{$json.wins || ''}}",
+  "misses": "={{$json.misses || ''}}",
+  "next_top3": "={{$json.next_top3 || ''}}",
+  "objective_ids": "={{$json.objective_ids || ''}}",
+  "status_summary": "={{$json.status_summary || ''}}",
+  "telegram_message_id": "={{$json.message_id || ''}}"
+}

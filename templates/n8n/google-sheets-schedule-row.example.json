@@ -1,0 +1,18 @@
+{
+  "event_id": "={{$json.event_id}}",
+  "correlation_id": "={{$json.correlation_id}}",
+  "event_ts": "={{$json.event_ts}}",
+  "date": "={{$json.date || ''}}",
+  "day_type": "={{$json.day_type || ''}}",
+  "source_bot": "schedule",
+  "action": "={{$json.action || ''}}",
+  "work_enabled": "={{$json.work_enabled || ''}}",
+  "tutoring_enabled": "={{$json.tutoring_enabled || ''}}",
+  "tutoring_start": "={{$json.tutoring_start || ''}}",
+  "tutoring_end": "={{$json.tutoring_end || ''}}",
+  "growth_slot": "={{$json.growth_slot || ''}}",
+  "english_slot": "={{$json.english_slot || ''}}",
+  "reset_slot": "={{$json.reset_slot || ''}}",
+  "notes": "={{$json.notes || ''}}",
+  "telegram_message_id": "={{$json.message_id || ''}}"
+}

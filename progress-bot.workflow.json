@@ -1,0 +1,251 @@
+{
+  "name": "ProgressBot v1",
+  "active": false,
+  "settings": {
+    "timezone": "Asia/Bangkok"
+  },
+  "pinData": {},
+  "versionId": "progress-bot-v1",
+  "nodes": [
+    {
+      "id": "prog-cron-nightly",
+      "name": "Nightly Trigger",
+      "type": "n8n-nodes-base.cron",
+      "typeVersion": 1,
+      "position": [-1100, -320],
+      "parameters": {
+        "triggerTimes": {"item": [{"mode": "custom", "cronExpression": "30 21 * * *"}]}
+      }
+    },
+    {
+      "id": "prog-code-nightly",
+      "name": "Build Nightly Prompt",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [-860, -320],
+      "parameters": {
+        "jsCode": "return [{json:{chat_id:$env.PROGRESS_CHAT_ID||'',message_text:'Check-in hôm nay nhé. Trả lời ngắn:\\ndone:\\nblocked:\\ntomorrow:'}}];"
+      }
+    },
+    {
+      "id": "prog-telegram-send-nightly",
+      "name": "Send Nightly Prompt",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1,
+      "position": [-620, -320],
+      "parameters": {
+        "resource": "message",
+        "operation": "sendMessage",
+        "chatId": "={{$json.chat_id}}",
+        "text": "={{$json.message_text}}",
+        "additionalFields": {}
+      }
+    },
+    {
+      "id": "prog-cron-weekly",
+      "name": "Weekly Trigger",
+      "type": "n8n-nodes-base.cron",
+      "typeVersion": 1,
+      "position": [-1100, -120],
+      "parameters": {
+        "triggerTimes": {"item": [{"mode": "custom", "cronExpression": "30 20 * * 0"}]}
+      }
+    },
+    {
+      "id": "prog-code-weekly",
+      "name": "Build Weekly Prompt",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [-860, -120],
+      "parameters": {
+        "jsCode": "return [{json:{chat_id:$env.PROGRESS_CHAT_ID||'',message_text:'Review tuần nhé.\\n1. tuần này mấy điểm /10\\n2. tiến tốt nhất ở đâu\\n3. trượt ở đâu\\n4. tuần sau giữ 3 ưu tiên nào'}}];"
+      }
+    },
+    {
+      "id": "prog-telegram-send-weekly",
+      "name": "Send Weekly Prompt",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1,
+      "position": [-620, -120],
+      "parameters": {
+        "resource": "message",
+        "operation": "sendMessage",
+        "chatId": "={{$json.chat_id}}",
+        "text": "={{$json.message_text}}",
+        "additionalFields": {}
+      }
+    },
+    {
+      "id": "prog-cron-monthly",
+      "name": "Monthly Trigger",
+      "type": "n8n-nodes-base.cron",
+      "typeVersion": 1,
+      "position": [-1100, 80],
+      "parameters": {
+        "triggerTimes": {"item": [{"mode": "custom", "cronExpression": "30 21 28-31 * *"}]}
+      }
+    },
+    {
+      "id": "prog-redis-get-objectives-monthly",
+      "name": "Get Objectives Monthly",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [-860, 80],
+      "parameters": {
+        "operation": "get",
+        "key": "prog:objectives"
+      }
+    },
+    {
+      "id": "prog-code-monthly",
+      "name": "Build Monthly Prompt",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [-620, 80],
+      "parameters": {
+        "jsCode": "const list=$json.value?JSON.parse($json.value):[]; const summary=list.map(o=>`- ${o.title}: ${o.completion_pct||0}%`).join('\\n')||'- Chưa có objectives'; return [{json:{chat_id:$env.PROGRESS_CHAT_ID||'',message_text:`Review tháng:\\n${summary}\\n\\nTrả lời:\\n- keep:\\n- defer:\\n- drop:\\n- next month focus:`}}];"
+      }
+    },
+    {
+      "id": "prog-telegram-send-monthly",
+      "name": "Send Monthly Prompt",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1,
+      "position": [-380, 80],
+      "parameters": {
+        "resource": "message",
+        "operation": "sendMessage",
+        "chatId": "={{$json.chat_id}}",
+        "text": "={{$json.message_text}}",
+        "additionalFields": {}
+      }
+    },
+    {
+      "id": "prog-telegram-trigger",
+      "name": "Telegram Trigger",
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1,
+      "position": [-1100, 340],
+      "parameters": {
+        "updates": ["message"]
+      }
+    },
+    {
+      "id": "prog-code-inbound",
+      "name": "Build Inbound Context",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [-860, 340],
+      "parameters": {
+        "jsCode": "const msg=$json.message||{}; const now=new Date(); return [{json:{text:msg.text||'',chat_id:String(msg.chat?.id||''),message_id:String(msg.message_id||''),date:now.toISOString().slice(0,10)}}];"
+      }
+    },
+    {
+      "id": "prog-redis-get-idemp",
+      "name": "Get Idempotency",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [-620, 340],
+      "parameters": {
+        "operation": "get",
+        "key": "={{'sys:idempotency:' + $json.message_id}}"
+      }
+    },
+    {
+      "id": "prog-code-skip-dup",
+      "name": "Skip Duplicate",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [-380, 340],
+      "parameters": {
+        "jsCode": "if($json.value){return [];} return [{json:$json}];"
+      }
+    },
+    {
+      "id": "prog-redis-get-objectives",
+      "name": "Get Objectives",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [-140, 340],
+      "parameters": {
+        "operation": "get",
+        "key": "prog:objectives"
+      }
+    },
+    {
+      "id": "prog-code-handle",
+      "name": "Handle Progress Inbound",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [120, 340],
+      "parameters": {
+        "jsCode": "const objectives=$json.value?JSON.parse($json.value):[]; const text=($json.text||'').trim(); let dailyEntry={date:$json.date}; let message=''; let skipWrite=false; if(/^\/status/i.test(text)){ const fmt=(arr)=>arr.map(o=>`- ${o.title}: ${o.completion_pct||0}%`).join('\\n')||'- Chưa có objectives'; message=`Trạng thái hiện tại:\\n${fmt(objectives)}`; skipWrite=true; } else if(/^\/goals/i.test(text)){ message='Goals hiện tại:\\n'+(objectives.map(o=>`- ${o.title}`).join('\\n')||'- Chưa có objectives'); skipWrite=true; } else { const lines=text.split(/\n+/); const pick=(label)=>{ const line=lines.find(l=>l.toLowerCase().startsWith(label)); return line?line.slice(label.length).trim():''; }; dailyEntry.done=pick('done:'); dailyEntry.blocked=pick('blocked:'); dailyEntry.tomorrow=pick('tomorrow:'); dailyEntry.raw=text; message=`Đã lưu check-in.\\nMai ưu tiên: ${dailyEntry.tomorrow||'1 việc quan trọng nhất'}.`; } return [{json:{...$json,objectives,dailyEntry,message_text:message,skipWrite}}];"
+      }
+    },
+    {
+      "id": "prog-redis-set-daily",
+      "name": "Set Daily Entry",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [380, 260],
+      "parameters": {
+        "operation": "set",
+        "key": "={{$json.skipWrite ? 'noop:progress' : 'prog:daily:' + $json.date}}",
+        "value": "={{JSON.stringify($json.dailyEntry)}}"
+      }
+    },
+    {
+      "id": "prog-redis-set-objectives",
+      "name": "Set Objectives",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [380, 340],
+      "parameters": {
+        "operation": "set",
+        "key": "prog:objectives",
+        "value": "={{JSON.stringify($json.objectives)}}"
+      }
+    },
+    {
+      "id": "prog-redis-set-idemp",
+      "name": "Set Idempotency",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [380, 420],
+      "parameters": {
+        "operation": "set",
+        "key": "={{'sys:idempotency:' + $json.message_id}}",
+        "value": "1"
+      }
+    },
+    {
+      "id": "prog-telegram-send-inbound",
+      "name": "Send Progress Reply",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1,
+      "position": [620, 340],
+      "parameters": {
+        "resource": "message",
+        "operation": "sendMessage",
+        "chatId": "={{$json.chat_id}}",
+        "text": "={{$json.message_text}}",
+        "additionalFields": {}
+      }
+    }
+  ],
+  "connections": {
+    "Nightly Trigger": {"main": [[{"node": "Build Nightly Prompt", "type": "main", "index": 0}]]},
+    "Build Nightly Prompt": {"main": [[{"node": "Send Nightly Prompt", "type": "main", "index": 0}]]},
+    "Weekly Trigger": {"main": [[{"node": "Build Weekly Prompt", "type": "main", "index": 0}]]},
+    "Build Weekly Prompt": {"main": [[{"node": "Send Weekly Prompt", "type": "main", "index": 0}]]},
+    "Monthly Trigger": {"main": [[{"node": "Get Objectives Monthly", "type": "main", "index": 0}]]},
+    "Get Objectives Monthly": {"main": [[{"node": "Build Monthly Prompt", "type": "main", "index": 0}]]},
+    "Build Monthly Prompt": {"main": [[{"node": "Send Monthly Prompt", "type": "main", "index": 0}]]},
+    "Telegram Trigger": {"main": [[{"node": "Build Inbound Context", "type": "main", "index": 0}]]},
+    "Build Inbound Context": {"main": [[{"node": "Get Idempotency", "type": "main", "index": 0}]]},
+    "Get Idempotency": {"main": [[{"node": "Skip Duplicate", "type": "main", "index": 0}]]},
+    "Skip Duplicate": {"main": [[{"node": "Get Objectives", "type": "main", "index": 0}]]},
+    "Get Objectives": {"main": [[{"node": "Handle Progress Inbound", "type": "main", "index": 0}]]},
+    "Handle Progress Inbound": {"main": [[{"node": "Set Daily Entry", "type": "main", "index": 0}], [{"node": "Set Objectives", "type": "main", "index": 0}], [{"node": "Set Idempotency", "type": "main", "index": 0}], [{"node": "Send Progress Reply", "type": "main", "index": 0}]]}
+  }
+}

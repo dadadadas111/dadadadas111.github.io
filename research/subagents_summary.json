@@ -1,0 +1,54 @@
+{
+  "summary": "Concise summary of Claude Code sub-agent architecture and limitations.",
+  "mechanisms": {
+    "declaration_locations": [
+      ".claude/agents/",
+      "~/.claude/agents/",
+      "CLI --agents (JSON)",
+      "/agents UI",
+      "@-mention and natural-language delegation"
+    ],
+    "spawn_tool": "Agent(...) (Task is a legacy alias)",
+    "isolation": "Each sub-agent runs in an isolated context window with its own system prompt, tool allow/deny lists, memory scope, optional MCP, and optional git worktree isolation.",
+    "lifecycle": [
+      "spawn -> SubagentStart event -> execute (foreground or background) -> SubagentStop -> results returned to parent"
+    ],
+    "hooks": ["SubagentStart", "SubagentStop", "PreToolUse", "PostToolUse"],
+    "communication": "Parent-mediated. Subagent results are returned to the parent; no documented P2P sub-agent messaging or nesting (subagents cannot spawn subagents).",
+    "permissions": "permissionMode and upfront permissions for background tasks; background subagents cannot AskUserQuestion after launch unless permissioned.",
+    "limitations": "No documented peer-to-peer sub-agent channels, no nested spawning, no public IPC/message schema, and no scheduler internals exposed in public docs."
+  },
+  "claude_md_refs": [
+    "https://code.claude.com/docs/en/sub-agents",
+    "https://code.claude.com/docs/en/tools-reference",
+    "https://code.claude.com/docs/en/hooks",
+    "https://code.claude.com/docs/en/memory",
+    "https://code.claude.com/docs/en/settings",
+    "https://code.claude.com/docs/en/cli-reference",
+    "https://code.claude.com/docs/en/agent-teams",
+    "https://code.claude.com/docs/en/claude-code-on-the-web"
+  ],
+  "announcements_2025": [
+    {"title": "Claude 3.7 Sonnet", "url": "https://www.anthropic.com/news/claude-3-7-sonnet"},
+    {"title": "Visible Extended Thinking (research)", "url": "https://www.anthropic.com/research/visible-extended-thinking"},
+    {"title": "Claude 4 / Opus 4", "url": "https://www.anthropic.com/news/claude-4"},
+    {"title": "Agent Capabilities API (blog)", "url": "https://claude.com/blog/agent-capabilities-api"},
+    {"title": "Claude Opus 4.1", "url": "https://www.anthropic.com/news/claude-opus-4-1"}
+  ],
+  "sources": [
+    {"url": "https://code.claude.com/docs/en/sub-agents", "http_status": 200, "notes": "Contains frontmatter examples, field list, lifecycle description."},
+    {"url": "https://code.claude.com/docs/en/tools-reference", "http_status": 200, "notes": "Agent tool (Task alias) semantics and allowlist/disallowlist examples."},
+    {"url": "https://code.claude.com/docs/en/hooks", "http_status": 200, "notes": "Hook list and hook behavior (SubagentStart/SubagentStop)."},
+    {"url": "https://code.claude.com/docs/en/memory", "http_status": 200, "notes": "Memory scopes available to agents and subagents."},
+    {"url": "https://code.claude.com/docs/en/settings", "http_status": 200, "notes": "permissionMode and related settings."},
+    {"url": "https://code.claude.com/docs/en/agent-teams", "http_status": 200, "notes": "Describes Team Agents feature with peer-to-peer messaging and shared channels."},
+    {"url": "https://raw.githubusercontent.com/anthropics/claude-code/main/CHANGELOG.md", "http_status": 200, "notes": "Changelog entries and release notes."},
+    {"url": "https://api.github.com/repos/anthropics/claude-code/git/trees/main?recursive=1", "http_status": 200, "notes": "Repository tree; used to locate examples."},
+    {"url": "https://www.anthropic.com/news/claude-3-7-sonnet", "http_status": 200, "notes": "Announcement"},
+    {"url": "https://www.anthropic.com/research/visible-extended-thinking", "http_status": 200, "notes": "Research description"},
+    {"url": "https://www.anthropic.com/news/claude-4", "http_status": 200, "notes": "Announcement"},
+    {"url": "https://claude.com/blog/agent-capabilities-api", "http_status": 200, "notes": "Blog about the Agent Capabilities API"},
+    {"url": "https://www.anthropic.com/news/claude-opus-4-1", "http_status": 200, "notes": "Announcement"}
+  ],
+  "gaps_and_unknowns": "Public docs omit low-level orchestration internals (IPC formats, scheduler internals, message serialization). Empirical instrumentation or internal access required to fully verify these." 
+}

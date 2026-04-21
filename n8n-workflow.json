@@ -1,0 +1,382 @@
+{
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "hours"
+            }
+          ]
+        }
+      },
+      "id": "9a964ffb-cad7-464f-8d6b-76f2f0d766c4",
+      "name": "⏰ Lịch Chạy Tự Động",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -2720,
+        -128
+      ],
+      "notes": "Chạy mỗi 1 giờ. Có thể thay đổi lịch theo nhu cầu."
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://graphapi.cukcuk.vn/api/Account/Login",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"Domain\": \"{{$json.Domain}}\",\n  \"AppID\": \"{{$json.AppID}}\",\n  \"LoginTime\": \"{{$json.LoginTime}}\",\n  \"SignatureInfo\": \"{{$json.SignatureInfo}}\"\n}",
+        "options": {}
+      },
+      "id": "23ff4479-b374-4652-8cb9-4d8765a4b8d8",
+      "name": "🔑 Login CUKCUK API",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        -1600,
+        -128
+      ],
+      "notes": "POST /api/Account/Login → lấy AccessToken + CompanyCode. Body được build chính xác từ node trước."
+    },
+    {
+      "parameters": {
+        "jsCode": "// ====================================================\n// NODE 3: Kiểm tra login và chuẩn bị token\n// ====================================================\nconst response = $input.first().json;\n\n// Kiểm tra lỗi login\nif (!response.Success) {\n  throw new Error(\n    `Login CUKCUK thất bại!\\n` +\n    `ErrorType: ${response.ErrorType}\\n` +\n    `ErrorMessage: ${response.ErrorMessage}\\n\\n` +\n    `Các lỗi thường gặp:\\n` +\n    `- ErrorType 1: Domain/AppID/LoginTime bị null hoặc rỗng\\n` +\n    `- ErrorType 2: Domain không tồn tại\\n` +\n    `- ErrorType 3: AppID không tồn tại\\n` +\n    `- ErrorType 4: Chữ ký không hợp lệ hoặc đã hết hạn (> 5 phút)\\n` +\n    `- ErrorType 7: Kết nối CUKCUK đang bị ngắt`\n  );\n}\n\nconst d = response.Data;\n\n// Tính khoảng thời gian lấy dữ liệu:\n// lastSyncDate = đầu ngày hôm nay (00:00:00 UTC)\nconst today        = new Date();\nconst startOfDay   = new Date(today);\nstartOfDay.setUTCHours(0, 0, 0, 0);\n\nreturn [{\n  json: {\n    accessToken:   d.AccessToken,\n    companyCode:   d.CompanyCode,\n    environment:   d.Environment,\n    appId:         d.AppID,\n    domain:        d.Domain,\n    lastSyncDate:  startOfDay.toISOString(),   // ví dụ: 2026-03-30T00:00:00.000Z\n    fetchDate:     today.toISOString()\n  }\n}];"
+      },
+      "id": "1ce07869-54f6-4e6c-be92-e07eb6b24b3d",
+      "name": "✅ Xử Lý Token",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1376,
+        -128
+      ],
+      "notes": "Kiểm tra login OK, chuẩn bị token + thời gian lấy dữ liệu"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://graphapi.cukcuk.vn/api/v1/orders/paging",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "={{ 'Bearer ' + $json.accessToken }}"
+            },
+            {
+              "name": "CompanyCode",
+              "value": "={{ $json.companyCode }}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ Page: 1, Limit: 100, BranchId: null, LastSyncDate: $json.lastSyncDate }) }}",
+        "options": {}
+      },
+      "id": "22d09df8-4ba2-4265-bdbf-c4c3c209164a",
+      "name": "📋 Lấy Danh Sách Orders",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        -1152,
+        -128
+      ],
+      "notes": "POST /api/v1/orders/paging — Lấy tối đa 100 đơn hàng từ đầu ngày. BranchId=null = tất cả chi nhánh."
+    },
+    {
+      "parameters": {
+        "jsCode": "// ====================================================\n// NODE CUỐI: Ghi log kết quả thành công\n// ====================================================\nconst items = $input.all();\nconst count = items.length;\nconst now   = new Date().toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' });\n\nconsole.log(`✅ [${now}] Đã ghi ${count} đơn hàng doanh thu vào Excel.`);\n\nreturn [{\n  json: {\n    success:   true,\n    message:   `Đã đồng bộ ${count} đơn hàng vào Excel`,\n    timestamp: now,\n    count:     count\n  }\n}];"
+      },
+      "id": "0401f315-21f6-4397-8e6e-1ec69e9fb85e",
+      "name": "✅ Hoàn Tất",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -256,
+        -224
+      ],
+      "notes": "Ghi log kết quả đồng bộ"
+    },
+    {
+      "parameters": {
+        "jsCode": "// ====================================================\n// NODE 5: Xử lý & làm phẳng dữ liệu Orders → doanh thu\n// ====================================================\nconst response = $input.first().json;\n\nif (!response.Success) {\n  throw new Error(`Lấy orders thất bại! ErrorType: ${response.ErrorType} - ${response.ErrorMessage}`);\n}\n\nconst orders = response.Data || [];\n\nif (orders.length === 0) {\n  console.log('Không có đơn hàng mới trong khoảng thời gian này.');\n  return [{ json: { _noData: true, message: 'Không có đơn hàng mới', count: 0 } }];\n}\n\n// Bản đồ trạng thái đơn hàng\nconst statusMap = {\n  0:  'Không xác định',\n  1:  'Đang phục vụ',\n  3:  'Yêu cầu thanh toán',\n  4:  'Đã thanh toán',\n  5:  'Đã hủy',\n  6:  'Đặt trước',\n  7:  'Chưa gửi bếp/bar',\n  8:  'Chưa chế biến',\n  9:  'Đang chờ giao hàng',\n  10: 'Đang giao hàng',\n  11: 'Đã giao hàng'\n};\n\n// Bản đồ loại đơn hàng\nconst typeMap = {\n  1: 'Tại bàn',\n  2: 'Mang về',\n  3: 'Giao hàng'\n};\n\n// Format số tiền VND\nconst formatVND = (num) => (num || 0).toLocaleString('vi-VN');\n\n// Format ngày giờ theo múi giờ Việt Nam\nconst formatDate = (dateStr) => {\n  if (!dateStr) return '';\n  return new Date(dateStr).toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' });\n};\n\n// Chuyển mỗi order thành 1 dòng Excel (chỉ lấy đơn ĐÃ THANH TOÁN — status = 4)\n// Bỏ comment dòng filter bên dưới nếu bạn muốn lấy TẤT CẢ trạng thái:\nconst paidOrders = orders.filter(o => o.Status === 4); // ← chỉ đơn đã thanh toán\n// const paidOrders = orders; // ← bỏ comment dòng này để lấy tất cả\n\nif (paidOrders.length === 0) {\n  return [{ json: { _noData: true, message: 'Không có đơn hàng đã thanh toán', count: 0 } }];\n}\n\nconst rows = paidOrders.map(order => ({\n  json: {\n    'Ngày Giờ':          formatDate(order.Date),\n    'Mã Đơn':            order.No        || '',\n    'Loại Đơn':          typeMap[order.Type]   || `Loại ${order.Type}`,\n    'Trạng Thái':        statusMap[order.Status] || `${order.Status}`,\n    'Tên Khách Hàng':    order.CustomerName  || '',\n    'SĐT Khách Hàng':   order.CustomerTel   || '',\n    'Địa Chỉ Giao':     order.ShippingAddress || '',\n    'Phí Giao Hàng':    order.DeliveryAmount || 0,\n    'Tiền Đặt Trước':   order.DepositAmount  || 0,\n    'Tổng Tiền (VND)':  order.TotalAmount    || 0,\n    'ID Chi Nhánh':     order.BranchId       || '',\n    'ID Đơn Hàng':      order.Id             || ''\n  }\n}));\n\nreturn rows;"
+      },
+      "id": "b82f0858-d91f-4b16-9129-d81b4b1fc4ba",
+      "name": "🔄 Xử Lý Dữ Liệu Doanh Thu1",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -928,
+        -128
+      ],
+      "notes": "Lọc đơn ĐÃ THANH TOÁN (Status=4), format ngày giờ theo múi giờ VN, chuẩn bị cột Excel"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "check-no-data",
+              "leftValue": "={{ $json._noData }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "notEquals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "cabcdbff-c221-439e-ac9d-909f411c95c1",
+      "name": "🔎 Có Dữ Liệu Không?1",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        -704,
+        -128
+      ],
+      "notes": "Bỏ qua nếu không có đơn hàng mới để tránh ghi dòng rỗng vào Excel"
+    },
+    {
+      "parameters": {
+        "operation": "append"
+      },
+      "id": "ebd7af33-6e86-4366-b986-1f9d18805dd2",
+      "name": "📊 Ghi Vào Excel Online1",
+      "type": "n8n-nodes-base.microsoftExcel",
+      "typeVersion": 2,
+      "position": [
+        -480,
+        -224
+      ],
+      "notes": "⚠️ Cần điền: (1) YOUR_EXCEL_FILE_ID_HERE = File ID từ URL OneDrive, (2) Credential OAuth2 đã kết nối Azure App của bạn. Sheet name: 'DoanhThu'"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Không có dữ liệu mới — bỏ qua, không ghi gì\nconst now = new Date().toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' });\nconsole.log(`ℹ️ [${now}] Không có đơn hàng mới, bỏ qua.`);\n\nreturn [{\n  json: {\n    success:   true,\n    message:   'Không có đơn hàng mới trong chu kỳ này',\n    timestamp: now,\n    count:     0\n  }\n}];"
+      },
+      "id": "4677777f-d5ae-486d-982e-a8b5f3cb8116",
+      "name": "ℹ️ Không Có Dữ Liệu1",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -480,
+        -32
+      ],
+      "notes": "Nhánh này chạy khi không có đơn hàng mới"
+    },
+    {
+      "parameters": {
+        "jsCode": "const APP_ID = 'CUKCUKOpenPlatform';\nconst DOMAIN = '39beef';\nconst SECRETKEY = 'b3efb0189752a4357fa6c94143d490ac3f8d3e969b143ccb10862fb4b57dc02d'\n\n// giờ UTC, format ISO không có milliseconds, có Z\nconst loginTime = new Date().toISOString().replace(/\\.\\d{3}Z$/, 'Z');\n\n// payload gốc để gửi lên login\nconst loginPayload = {\n  Domain: DOMAIN,\n  AppID: APP_ID,\n  LoginTime: loginTime\n};\n\n// chuỗi dùng để ký: JSON minified\nconst message = JSON.stringify(loginPayload);\n\nreturn [\n  {\n    json: {\n      AppID: APP_ID,\n      Domain: DOMAIN,\n      secretkey: SECRETKEY,\n      LoginTime: loginTime,\n      Message: message\n    }\n  }\n];"
+      },
+      "id": "bc35e323-a4ec-4aa2-a1cf-d28a5ead7ddc",
+      "name": "Tạo message",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -2496,
+        -128
+      ],
+      "notes": "Tạo SignatureInfo theo chuẩn HMACSHA256. Điền APP_ID, DOMAIN, SECRET_KEY từ trang quản lý CUKCUK của bạn."
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graphapi.cukcuk.vn/api/Account/Login",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"Domain\": \"{{ $('Tạo message').item.json.Domain }}\",\n  \"AppID\": \"{{ $('Tạo message').item.json.AppID }}\",\n  \"LoginTime\": \"{{ $('Tạo message').item.json.LoginTime }}\",\n  \"SignatureInfo\": \"{{ $('Crypto').item.json.data }}\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        -2048,
+        -128
+      ],
+      "id": "c0006740-e1a9-47ab-b713-d2385aed56cf",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{\n  json: {\n    Domain: $('Tạo message').first().json.Domain,\n    AppID: $('Tạo message').first().json.AppID,\n    LoginTime: $('Tạo message').first().json.LoginTime,\n    SignatureInfo: $json.Digest,\n    _debugMessage: $('Tạo message').first().json.Message  // thêm dòng này\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1824,
+        -128
+      ],
+      "id": "7f6b7838-60d7-452b-a398-fab2057b4bca",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "action": "hmac",
+        "value": "={{ $json.Message }}"
+      },
+      "type": "n8n-nodes-base.crypto",
+      "typeVersion": 2,
+      "position": [
+        -2304,
+        -128
+      ],
+      "id": "dadd254a-849f-4a9c-a68b-d069b24778c7",
+      "name": "Crypto",
+      "credentials": {
+        "crypto": {
+          "id": "k6hlaNapKDIDBqBU",
+          "name": "cukcuk secretkey"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "⏰ Lịch Chạy Tự Động": {
+      "main": [
+        [
+          {
+            "node": "Tạo message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "🔑 Login CUKCUK API": {
+      "main": [
+        [
+          {
+            "node": "✅ Xử Lý Token",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "✅ Xử Lý Token": {
+      "main": [
+        [
+          {
+            "node": "📋 Lấy Danh Sách Orders",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "📋 Lấy Danh Sách Orders": {
+      "main": [
+        [
+          {
+            "node": "🔄 Xử Lý Dữ Liệu Doanh Thu1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "🔄 Xử Lý Dữ Liệu Doanh Thu1": {
+      "main": [
+        [
+          {
+            "node": "🔎 Có Dữ Liệu Không?1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "🔎 Có Dữ Liệu Không?1": {
+      "main": [
+        [
+          {
+            "node": "📊 Ghi Vào Excel Online1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "ℹ️ Không Có Dữ Liệu1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "📊 Ghi Vào Excel Online1": {
+      "main": [
+        [
+          {
+            "node": "✅ Hoàn Tất",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Tạo message": {
+      "main": [
+        [
+          {
+            "node": "Crypto",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "🔑 Login CUKCUK API",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Crypto": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "a6e229cb4d507b99864ddc0ecd8d7527ac343f2860d379fb9619133ca077a568"
+  }
+}

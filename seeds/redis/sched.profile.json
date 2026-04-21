@@ -1,0 +1,14 @@
+{
+  "timezone": "Asia/Bangkok",
+  "work_days": [1, 2, 3, 4],
+  "work_start": "08:00",
+  "work_end": "17:30",
+  "friday_mode": "commute",
+  "weekend_mode": "light",
+  "default_growth_minutes": 60,
+  "default_english_minutes": 15,
+  "default_reset_minutes": 10,
+  "created_at": "2026-04-20T00:00:00Z",
+  "updated_at": "2026-04-20T00:00:00Z",
+  "source": "seed"
+}

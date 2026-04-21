@@ -1,0 +1,12 @@
+[
+  "event_id",
+  "correlation_id",
+  "error_ts",
+  "workflow_name",
+  "node_name",
+  "bot_name",
+  "severity",
+  "error_code",
+  "error_message",
+  "raw_payload_ref"
+]

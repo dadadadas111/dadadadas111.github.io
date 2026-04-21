@@ -1,0 +1,15 @@
+[
+  "month_key",
+  "created_at",
+  "income_total",
+  "needs_total",
+  "wants_total",
+  "savings_total",
+  "needs_pct",
+  "wants_pct",
+  "savings_pct",
+  "progress_completion_avg",
+  "deep_work_days",
+  "tutoring_days",
+  "review_note"
+]

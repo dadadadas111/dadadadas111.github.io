@@ -1,0 +1,17 @@
+{
+  "event_id": "={{$json.event_id}}",
+  "correlation_id": "={{$json.correlation_id}}",
+  "event_ts": "={{$json.event_ts}}",
+  "date": "={{$json.date || ''}}",
+  "source_bot": "finance",
+  "raw_text": "={{$json.raw_text || ''}}",
+  "label": "={{$json.label || ''}}",
+  "amount": "={{$json.amount || ''}}",
+  "currency": "={{$env.OPS_CURRENCY || 'VND'}}",
+  "category": "={{$json.category || ''}}",
+  "bucket": "={{$json.bucket || ''}}",
+  "running_month_needs": "={{$json.running_month_needs || ''}}",
+  "running_month_wants": "={{$json.running_month_wants || ''}}",
+  "running_month_savings": "={{$json.running_month_savings || ''}}",
+  "telegram_message_id": "={{$json.message_id || ''}}"
+}
