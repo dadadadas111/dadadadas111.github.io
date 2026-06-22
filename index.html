@@ -168,29 +168,33 @@
         </div>
       </div>
 
-      <!-- Project 2: SketchMath -->
+      <!-- Project 2: MathSketch Tutor -->
       <div class="project project--reverse reveal" data-tilt>
         <div class="project__text">
-          <span class="project__badge">In Progress</span>
-          <h3 class="project__title">SketchMath</h3>
+          <h3 class="project__title">MathSketch Tutor</h3>
           <p class="project__description">
-            An interactive drawing-based math learning tool that lets users sketch mathematical
-            concepts and get real-time AI-powered feedback and solutions.
+            Sketch a math problem and get step-by-step feedback grounded in symbolic verification.
+            A mathjs engine (CAS) decides correctness while the LLM only explains where a step broke —
+            "LLM-as-tutor, CAS-as-judge" — so feedback is auditable, never hallucinated.
           </p>
           <div class="project__tags">
-            <span>TypeScript</span>
-            <span>Canvas API</span>
-            <span>AI/ML</span>
+            <span>NestJS</span>
+            <span>mathjs</span>
+            <span>Firebase</span>
+            <span>LLM</span>
+            <span>MCP</span>
           </div>
           <div class="project__links">
-            <a href="https://sketchmath.onrender.com/" target="_blank" rel="noopener noreferrer" class="btn btn--project">Live Demo</a>
-            <a href="https://github.com/dadadadas111/sketchmath" target="_blank" rel="noopener noreferrer" class="btn btn--project">
+            <a href="https://github.com/dadadadas111/mathsketch-tutor" target="_blank" rel="noopener noreferrer" class="btn btn--project">
               <img src="github.png" alt="" class="btn__icon" /> Source Code
             </a>
           </div>
         </div>
         <div class="project__image">
-          <img src="assets/sketchmatch/image.png" alt="SketchMath" class="project__img" />
+          <div class="project__placeholder">
+            <span class="project__emoji">🧮</span>
+            <span class="project__placeholder-name">MathSketch Tutor</span>
+          </div>
         </div>
       </div>
 
@@ -243,6 +247,65 @@
         </div>
         <div class="project__image">
           <img src="assets/GTR/image.png" alt="GitHub Trending Repos" class="project__img" />
+        </div>
+      </div>
+
+      <!-- Project 5: S3 Drive + Manga Reader -->
+      <div class="project reveal" data-tilt>
+        <div class="project__text">
+          <h3 class="project__title">S3 Drive + Manga Reader</h3>
+          <p class="project__description">
+            A personal cloud drive backed by AWS S3 and MongoDB, with presigned multipart uploads
+            (bytes skip the server) and a built-in manga reader — any image folder becomes a
+            paginated, prefetched reading experience.
+          </p>
+          <div class="project__tags">
+            <span>NestJS</span>
+            <span>AWS S3</span>
+            <span>MongoDB</span>
+            <span>React</span>
+          </div>
+          <div class="project__links">
+            <a href="https://github.com/dadadadas111/s3-drive-manga" target="_blank" rel="noopener noreferrer" class="btn btn--project">
+              <img src="github.png" alt="" class="btn__icon" /> Source Code
+            </a>
+          </div>
+        </div>
+        <div class="project__image">
+          <div class="project__placeholder">
+            <span class="project__emoji">📚</span>
+            <span class="project__placeholder-name">S3 Drive + Manga</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 6: Novel Studio -->
+      <div class="project project--reverse reveal" data-tilt>
+        <div class="project__text">
+          <h3 class="project__title">Novel Studio</h3>
+          <p class="project__description">
+            An AI novel-writing studio with cost-bounded long-story memory. A three-tier system —
+            structured canon store, rolling recursive summary, and pgvector RAG — keeps the prompt
+            precise at any novel length, so the model never forgets canon or blows the token budget.
+          </p>
+          <div class="project__tags">
+            <span>NestJS</span>
+            <span>Supabase</span>
+            <span>PostgreSQL</span>
+            <span>pgvector</span>
+            <span>LLM</span>
+          </div>
+          <div class="project__links">
+            <a href="https://github.com/dadadadas111/novel-studio" target="_blank" rel="noopener noreferrer" class="btn btn--project">
+              <img src="github.png" alt="" class="btn__icon" /> Source Code
+            </a>
+          </div>
+        </div>
+        <div class="project__image">
+          <div class="project__placeholder">
+            <span class="project__emoji">✍️</span>
+            <span class="project__placeholder-name">Novel Studio</span>
+          </div>
         </div>
       </div>
     </div>
