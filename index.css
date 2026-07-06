@@ -677,6 +677,98 @@ ul {
   color: #dfffff;
 }
 
+/* === CERTIFICATES === */
+.certificates {
+  padding: 10rem 0 8rem;
+  background: #fff;
+}
+
+.certificates__list {
+  max-width: 80rem;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+}
+
+.certificate__card {
+  background: #fafafa;
+  border: 1px solid #eee;
+  border-radius: 1.2rem;
+  padding: 2.8rem 3.2rem;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.certificate__card:hover {
+  box-shadow: 0 0.4rem 2rem rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px);
+}
+
+.certificate__body {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 2rem;
+}
+
+.certificate__title {
+  font-size: 1.9rem;
+  font-weight: 800;
+  color: #272341;
+  margin-bottom: 0.3rem;
+}
+
+.certificate__issuer {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #02aab0;
+  margin-bottom: 0.8rem;
+}
+
+.certificate__desc {
+  font-size: 1.4rem;
+  line-height: 1.7;
+  color: #777;
+}
+
+.certificate__meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 1.2rem;
+  flex-shrink: 0;
+}
+
+.certificate__date {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #fff;
+  background: linear-gradient(135deg, #02aab0, #00cdac);
+  padding: 0.4rem 1.4rem;
+  border-radius: 10rem;
+  white-space: nowrap;
+}
+
+.btn--cert {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.8rem 1.8rem;
+  font-size: 1.2rem;
+  color: #02aab0;
+  border: 2px solid #02aab0;
+  background: transparent;
+  white-space: nowrap;
+}
+
+.btn--cert::after {
+  background: linear-gradient(135deg, #02aab0, #00cdac);
+}
+
+.btn--cert:hover {
+  color: #fff;
+}
+
 /* === CONTACT === */
 .contact {
   padding: 10rem 0 8rem;
@@ -855,6 +947,18 @@ ul {
     flex-direction: column;
     gap: 0.8rem;
   }
+
+  .certificate__body {
+    flex-direction: column;
+  }
+
+  .certificate__meta {
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
 }
 
 /* Mobile */
@@ -926,6 +1030,14 @@ ul {
 
   .contact {
     padding: 6rem 0;
+  }
+
+  .certificates {
+    padding: 6rem 0;
+  }
+
+  .certificate__card {
+    padding: 2rem;
   }
 
   .project__links {
