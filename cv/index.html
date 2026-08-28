@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Nguyen Thanh Long — Backend / Platform Engineer</title>
+<meta name="description" content="CV of Nguyen Thanh Long — Backend / Platform Engineer. NestJS, Kafka, MQTT, Kubernetes, AWS." />
+<style>
+  :root{
+    --ink:#16191d;
+    --ink-soft:#33393f;
+    --muted:#5c646c;
+    --rule:#c9ced4;
+    --accent:#0f5c5c;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    font-family:"Noto Sans","Liberation Sans",Arial,Helvetica,sans-serif;
+    font-size:8.75pt;
+    line-height:1.30;
+    color:var(--ink-soft);
+    background:#f2f3f5;
+  }
+  .page{
+    width:210mm;
+    margin:0 auto;
+    padding:9mm 12mm 0mm;
+    background:#fff;
+  }
+  .page + .page{break-before:page;page-break-before:always}
+
+  /* ---------- header ---------- */
+  header{border-bottom:1.6pt solid var(--accent);padding-bottom:6pt;margin-bottom:8pt}
+  h1{
+    font-size:18.5pt;line-height:1.05;margin:0 0 2pt;
+    color:var(--ink);font-weight:700;letter-spacing:-.01em;
+  }
+  .role{
+    font-size:10pt;font-weight:600;color:var(--accent);
+    margin:0 0 5pt;letter-spacing:.01em;
+  }
+  .contact{font-size:8.9pt;color:var(--muted);margin:0}
+  .contact span.i{white-space:nowrap}
+  .contact a{color:var(--muted);text-decoration:none}
+  .contact .sep{color:var(--rule);padding:0 4pt}
+
+  /* ---------- sections ---------- */
+  section{margin-bottom:5pt}
+  h2{
+    font-size:8.2pt;font-weight:700;text-transform:uppercase;letter-spacing:.13em;
+    color:var(--accent);margin:0 0 4pt;padding-bottom:2pt;
+    border-bottom:.7pt solid var(--rule);
+  }
+  p{margin:0 0 4pt}
+  strong{color:var(--ink);font-weight:700}
+
+  .summary{font-size:9.1pt;line-height:1.42;margin:0}
+
+  /* ---------- skills ---------- */
+  .skills{display:grid;grid-template-columns:max-content 1fr;gap:2pt 9pt;font-size:8.95pt}
+  .skills dt{font-weight:700;color:var(--ink);white-space:nowrap}
+  .skills dd{margin:0;color:var(--ink-soft)}
+
+  /* ---------- experience ---------- */
+  .job{margin-bottom:7pt}
+  .job__head{display:flex;justify-content:space-between;align-items:baseline;gap:10pt}
+  .job__title{font-size:10.2pt;font-weight:700;color:var(--ink);margin:0}
+  .job__org{font-weight:400;color:var(--ink-soft)}
+  .job__meta{font-size:8.8pt;color:var(--muted);white-space:nowrap}
+  .job__note{font-size:8.9pt;color:var(--ink-soft);margin:2pt 0 4pt}
+
+  .group{margin:0 0 4pt}
+  .group__label{
+    font-size:8.3pt;font-weight:700;text-transform:uppercase;letter-spacing:.09em;
+    color:var(--muted);margin:0 0 2pt;
+  }
+  ul{margin:0;padding-left:11pt}
+  li{margin-bottom:1.6pt;page-break-inside:avoid}
+  li::marker{color:var(--rule)}
+
+  /* ---------- projects ---------- */
+  .proj{margin-bottom:3pt;page-break-inside:avoid}
+  .proj__name{font-weight:700;color:var(--ink)}
+  .proj__stack{color:var(--muted);font-size:8.8pt}
+
+  /* ---------- education / certs ---------- */
+  .row{display:flex;justify-content:space-between;align-items:baseline;gap:10pt}
+  .row__main{font-weight:700;color:var(--ink)}
+  .row__meta{font-size:8.8pt;color:var(--muted);white-space:nowrap}
+  .cert{margin-bottom:2pt}
+
+  .mono{font-family:"DejaVu Sans Mono","Liberation Mono",monospace;font-size:8.7pt}
+
+  @page{size:A4;margin:0}
+  @media print{
+    body{background:#fff}
+    .page{margin:0;box-shadow:none}
+  }
+  @media screen{
+    .page{min-height:297mm;box-shadow:0 2px 30px rgba(0,0,0,.13);margin-top:18px;margin-bottom:18px}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header>
+    <h1>Nguyen Thanh Long</h1>
+    <p class="role">Backend / Platform Engineer</p>
+    <p class="contact">
+      <span class="i">Hanoi, Vietnam &mdash; open to remote (UTC+7)</span><span class="sep">|</span><span class="i">+84 975 907 414</span><span class="sep">|</span><span class="i"><a href="mailto:longnt121004@gmail.com">longnt121004@gmail.com</a></span>
+      <br />
+      <span class="i"><a href="https://www.dash.id.vn">www.dash.id.vn</a></span><span class="sep">|</span><span class="i"><a href="https://github.com/dadadadas111">github.com/dadadadas111</a></span>
+    </p>
+  </header>
+
+  <section>
+    <h2>Summary</h2>
+    <p class="summary">
+      Backend engineer, 2.5 years, currently the sole engineer on the cloud platform of an IoT startup &mdash; the
+      NestJS/MongoDB APIs, a self-hosted MQTT&nbsp;&rarr;&nbsp;Kafka pipeline, and the Kubernetes and AWS infrastructure
+      underneath them. Used to owning a system end to end: designing it, deploying it, and being responsible for it in
+      production.
+    </p>
+  </section>
+
+  <section>
+    <h2>Technical Skills</h2>
+    <dl class="skills">
+      <dt>Languages</dt>      <dd>TypeScript, JavaScript, C#, Python, SQL</dd>
+      <dt>Backend</dt>        <dd>Node.js, NestJS, Express.js, ASP.NET Core, REST, WebSockets</dd>
+      <dt>Data &amp; messaging</dt><dd>MongoDB (Atlas and self-hosted replica sets), PostgreSQL, Redis, MySQL, DynamoDB, Apache Kafka (Strimzi), MQTT (EMQX)</dd>
+      <dt>Infrastructure</dt> <dd>Kubernetes (k0s, kubeadm, KEDA), AWS (ECS Fargate, S3, DynamoDB, Lambda, CloudWatch), Docker, Terraform, ArgoCD, Nginx</dd>
+      <dt>Operations</dt>     <dd>Prometheus, Grafana, Loki, GitHub Actions, GitLab CI, Jest</dd>
+      <dt>Auth</dt>           <dd>Firebase Auth, Keycloak, JWT, ABAC, OAuth 2.0</dd>
+    </dl>
+  </section>
+
+  <section>
+    <h2>Experience</h2>
+    <div class="job">
+      <div class="job__head">
+        <p class="job__title">Backend / Platform Engineer <span class="job__org">&mdash; Rogo Solutions JSC</span></p>
+        <span class="job__meta">Jan 2024 &ndash; Present &middot; Hanoi</span>
+      </div>
+      <p class="job__note">
+        A ~20-person IoT startup, where I am the only engineer on the cloud side &mdash; the API, the message pipeline,
+        the clusters and the deploy path. It serves 640k users and 69k devices for 26 partner projects, at roughly 2.6M API
+        requests/day and 15.5k concurrent MQTT connections, across 3 Kubernetes clusters and AWS ECS.
+      </p>
+      <ul>
+        <li><strong>Device data plane.</strong> Designed and operate the state pipeline &mdash; EMQX MQTT into a 3-broker
+            Strimzi Kafka cluster (RF3), then a decoding agent and a coalescing consumer that KEDA autoscales on partition
+            lag, writing to MongoDB. Moved partner traffic onto it from a single-node broker via an external listener.</li>
+
+        <li><strong>Multi-tenancy.</strong> Built the partner-facing surface for 26 projects: an attribute-based
+            authorization layer (v1&nbsp;&rarr;&nbsp;v2), per-project SMS providers, and phone + OTP sign-in.</li>
+
+        <li><strong>Operations.</strong> Took the platform from no monitoring at all to Prometheus, Loki and Grafana
+            across 3 clusters plus CloudWatch, so failures are diagnosed from a dashboard rather than by guessing. Run the
+            staging&nbsp;&rarr;&nbsp;production path across 4 repositories (GitHub Actions, GitLab CI, ArgoCD), deploying
+            to ECS, Kubernetes and the MQTT workers.</li>
+
+        <li><strong>Performance work.</strong> The expensive problems were found by profiling, not guessing: an unindexed
+            <span class="mono">$lookup</span> that took 11 minutes and was about to force a database tier upgrade; RS256
+            token verification running per request inside auth middleware, which no APM was showing; a partner SDK
+            stampeding every hour on the hour. Each was a small change once it was found.</li>
+
+        <li><strong>Codebase health.</strong> Brought back a test suite that had become unrunnable &mdash; it exhausted
+            memory and froze dev machines &mdash; by moving Jest 24&nbsp;&rarr;&nbsp;29 to transpile-only tests with a
+            separate type-check, then gated CI on it. Also removed 1,667 lines of dead code with no behaviour change.</li>
+
+        <li><strong>Self-hosted edition.</strong> Designed an on-prem deployment profile (Firebase, DynamoDB and S3
+            replaced by Keycloak, MongoDB and MinIO) with an auth migration that preserves existing logins, and validated it
+            with a boot PoC that surfaced 10 concrete blockers before the company committed to it.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>Selected Projects</h2>
+    <div class="proj">
+      <p style="margin:0">
+        <span class="proj__name">IoT Cloud MCP</span> <span class="proj__stack">&mdash; TypeScript, Python, MCP SDK</span><br />
+        A Model Context Protocol server for IoT cloud platforms, so an AI assistant can query and control devices through
+        one standard interface instead of a bespoke integration per platform.
+      </p>
+    </div>
+    <div class="proj">
+      <p style="margin:0">
+        <span class="proj__name">Novel Studio</span> <span class="proj__stack">&mdash; NestJS, PostgreSQL + pgvector, LLM</span><br />
+        A writing tool whose real problem is memory cost: a canon store, a rolling recursive summary and pgvector retrieval
+        keep the prompt bounded at any story length, so context stays correct as the book grows but the budget does not.
+      </p>
+    </div>
+    <div class="proj">
+      <p style="margin:0">
+        <span class="proj__name">MathSketch Tutor</span> <span class="proj__stack">&mdash; NestJS, mathjs, Firebase, LLM</span><br />
+        Step-by-step feedback on a handwritten maths problem, where a computer-algebra engine decides what is correct and
+        the model may only explain where a step broke &mdash; so feedback can be wrong about wording, not about mathematics.
+      </p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Education &amp; Additional</h2>
+    <div class="row">
+      <span class="row__main">B.Sc. in Software Engineering &mdash; FPT University</span>
+      <span class="row__meta">2022 &ndash; 2026</span>
+    </div>
+    <p style="margin:1pt 0 3pt">
+      Final-year project: a real-time multiplayer game backend (ASP.NET Core, WebSockets, MySQL) using lag compensation
+      to keep play fair across uneven network conditions.
+    </p>
+    <p style="margin:0">
+      <strong>Certifications:</strong> Project Management Principles (UC Irvine, 2025) &middot; Software Development
+      Lifecycle Specialization (University of Minnesota, 2024).
+    </p>
+    <p style="margin:2pt 0 0">
+      Coach competitive-programming students for national Informatics examinations, weekly since 2024; freelance backend
+      work alongside full-time employment. English: professional working proficiency.
+    </p>
+  </section>
+
+</div>
+</body>
+</html>
