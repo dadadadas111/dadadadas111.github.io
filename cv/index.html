@@ -118,10 +118,9 @@
   <section>
     <h2>Summary</h2>
     <p class="summary">
-      Backend engineer, 2.5 years, currently the sole engineer on the cloud platform of an IoT startup &mdash; the
-      NestJS/MongoDB APIs, a self-hosted MQTT&nbsp;&rarr;&nbsp;Kafka pipeline, and the Kubernetes and AWS infrastructure
-      underneath them. Used to owning a system end to end: designing it, deploying it, and being responsible for it in
-      production.
+      Backend engineer, 2.5 years, currently the only engineer on the cloud side of an IoT startup: the NestJS and
+      MongoDB APIs, the MQTT-to-Kafka pipeline the devices talk through, and the Kubernetes and AWS it runs on. Most of
+      what I know came from running that system, not only from adding features to it.
     </p>
   </section>
 
@@ -145,35 +144,38 @@
         <span class="job__meta">Jan 2024 &ndash; Present &middot; Hanoi</span>
       </div>
       <p class="job__note">
-        A ~20-person IoT startup, where I am the only engineer on the cloud side &mdash; the API, the message pipeline,
-        the clusters and the deploy path. It serves 640k users and 69k devices for 26 partner projects, at roughly 2.6M API
-        requests/day and 15.5k concurrent MQTT connections, across 3 Kubernetes clusters and AWS ECS.
+        A ~20-person IoT startup. I am the only engineer on the cloud side, so the API, the message pipeline, the
+        clusters and the deploy path are all mine. It serves 640k users and 69k devices for 26 partner projects, at
+        roughly 2.6M API requests a day and 15.5k concurrent MQTT connections, on 3 Kubernetes clusters and AWS ECS.
       </p>
       <ul>
-        <li><strong>Device data plane.</strong> Designed and operate the state pipeline &mdash; EMQX MQTT into a 3-broker
-            Strimzi Kafka cluster (RF3), then a decoding agent and a coalescing consumer that KEDA autoscales on partition
-            lag, writing to MongoDB. Moved partner traffic onto it from a single-node broker via an external listener.</li>
+        <li>I run the pipeline that carries device state. Partner traffic used to go through one Kafka broker with no
+            replication, so I moved it onto a replicated three-broker cluster with a separate listener for partner
+            systems. The consumer merges repeated state updates instead of writing every one, and scales on consumer
+            lag rather than a fixed replica count.</li>
 
-        <li><strong>Multi-tenancy.</strong> Built the partner-facing surface for 26 projects: an attribute-based
-            authorization layer (v1&nbsp;&rarr;&nbsp;v2), per-project SMS providers, and phone + OTP sign-in.</li>
+        <li>One deployment serves 26 partner projects, so most feature work turns out to be access control. I own the
+            authorization layer that decides which partner can see which devices and locations, and moved things that
+            used to be global, like the SMS provider, to per-project configuration.</li>
 
-        <li><strong>Operations.</strong> Took the platform from no monitoring at all to Prometheus, Loki and Grafana
-            across 3 clusters plus CloudWatch, so failures are diagnosed from a dashboard rather than by guessing. Run the
-            staging&nbsp;&rarr;&nbsp;production path across 4 repositories (GitHub Actions, GitLab CI, ArgoCD), deploying
-            to ECS, Kubernetes and the MQTT workers.</li>
+        <li>There was no monitoring when I started. Prometheus, Loki and Grafana now cover the three clusters with the
+            AWS side pulled in from CloudWatch, so an incident starts at a dashboard instead of a guess. I also own the
+            staging-to-production path across four repositories.</li>
 
-        <li><strong>Performance work.</strong> The expensive problems were found by profiling, not guessing: an unindexed
-            <span class="mono">$lookup</span> that took 11 minutes and was about to force a database tier upgrade; RS256
-            token verification running per request inside auth middleware, which no APM was showing; a partner SDK
-            stampeding every hour on the hour. Each was a small change once it was found.</li>
+        <li>Most of my performance work has been finding the cause rather than writing anything clever. A device query
+            took eleven minutes because nothing was indexed behind a <span class="mono">$lookup</span>, and the plan had
+            been to pay for a bigger database tier instead. Auth middleware was verifying a token signature on every
+            request, which no APM was showing. A partner's SDK sent everything at once on the hour. Each fix was small
+            once the cause was clear.</li>
 
-        <li><strong>Codebase health.</strong> Brought back a test suite that had become unrunnable &mdash; it exhausted
-            memory and froze dev machines &mdash; by moving Jest 24&nbsp;&rarr;&nbsp;29 to transpile-only tests with a
-            separate type-check, then gated CI on it. Also removed 1,667 lines of dead code with no behaviour change.</li>
+        <li>The test suite had been abandoned because running it exhausted memory and froze people's machines, so
+            nothing was gated on it. Moving to Jest 29 with transpile-only tests and a separate type-check brought it
+            back to a few seconds, and back into CI.</li>
 
-        <li><strong>Self-hosted edition.</strong> Designed an on-prem deployment profile (Firebase, DynamoDB and S3
-            replaced by Keycloak, MongoDB and MinIO) with an auth migration that preserves existing logins, and validated it
-            with a boot PoC that surfaced 10 concrete blockers before the company committed to it.</li>
+        <li>I worked out whether the product could be sold as an on-premise install: what replaces the managed pieces
+            (Keycloak, MongoDB and MinIO for Firebase, DynamoDB and S3), how existing accounts migrate without forcing
+            password resets, and enough of it built to boot. It has not shipped. What the exercise produced was a
+            concrete list of what still blocks it.</li>
       </ul>
     </div>
   </section>
@@ -183,22 +185,22 @@
     <div class="proj">
       <p style="margin:0">
         <span class="proj__name">IoT Cloud MCP</span> <span class="proj__stack">&mdash; TypeScript, Python, MCP SDK</span><br />
-        A Model Context Protocol server for IoT cloud platforms, so an AI assistant can query and control devices through
-        one standard interface instead of a bespoke integration per platform.
+        An MCP server for IoT cloud platforms, so an assistant can query and control devices through one interface
+        rather than a separate integration per platform.
       </p>
     </div>
     <div class="proj">
       <p style="margin:0">
         <span class="proj__name">Novel Studio</span> <span class="proj__stack">&mdash; NestJS, PostgreSQL + pgvector, LLM</span><br />
-        A writing tool whose real problem is memory cost: a canon store, a rolling recursive summary and pgvector retrieval
-        keep the prompt bounded at any story length, so context stays correct as the book grows but the budget does not.
+        A long-form writing tool. The awkward part is that prompt cost grows with the story, so it keeps a canon store,
+        a rolling summary and vector retrieval instead of resending history.
       </p>
     </div>
     <div class="proj">
       <p style="margin:0">
         <span class="proj__name">MathSketch Tutor</span> <span class="proj__stack">&mdash; NestJS, mathjs, Firebase, LLM</span><br />
-        Step-by-step feedback on a handwritten maths problem, where a computer-algebra engine decides what is correct and
-        the model may only explain where a step broke &mdash; so feedback can be wrong about wording, not about mathematics.
+        Feedback on a handwritten maths problem. A computer-algebra engine decides whether a step is right and the model
+        only writes the explanation, so it cannot invent a correction that is wrong.
       </p>
     </div>
   </section>
