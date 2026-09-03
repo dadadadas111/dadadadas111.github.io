@@ -40,9 +40,9 @@
         <div class="about__text reveal">
           <p>
             I work in TypeScript on both ends of a production IoT platform: the Next.js dashboard
-            partners use and the NestJS APIs behind it. I am currently the only engineer on the cloud
-            side, so the same work also covers the database, the message pipeline and the deployments.
-            Most of what I know came from running that system, not only from adding features to it.
+            partners use and the NestJS APIs behind it. I own that platform's cloud side end to end, so
+            the same work also covers the database, the message pipeline and the deployments. Most of
+            what I know came from running that system, not only from adding features to it.
           </p>
 
           <div class="about__skills" id="skills-container">
@@ -122,16 +122,16 @@
               <span class="timeline__date">Jan 2024 to present</span>
             </div>
             <p class="timeline__summary">
-              A 20-person IoT startup. I am the only engineer on the cloud side, so the dashboard, the API, the message
-              pipeline and the deploy path are all mine. The platform serves 640k users and 69k devices for 26 partner
-              projects, at roughly 2.6M API requests a day and 15.5k concurrent MQTT connections.
+              Own the cloud side of a multi-tenant IoT platform end to end: the partner dashboard, the API, the message
+              pipeline, and the deployments. It runs at a few million API requests a day with tens of thousands of
+              concurrent MQTT connections.
             </p>
 
             <div class="timeline__project">
               <ul class="timeline__highlights">
                 <li>Build the partner dashboard in <strong>Next.js</strong> and TypeScript, with
                     <strong>React Query</strong> for server state, Ant Design and Tailwind for the interface, and
-                    internationalisation. One deployment serves 26 partner projects, configurable per project.</li>
+                    internationalisation. A single deployment serves multiple partner projects, configurable per project.</li>
                 <li><strong>Attribute-based authorisation</strong> in which the permission set is encoded into a compact
                     <strong>custom claim on the JWT</strong>, so a request is authorised from the token itself instead of
                     a database lookup on every call. The React app derives the same rules through <strong>CASL</strong>,
