@@ -445,6 +445,11 @@ ul {
   background: #02aab0;
 }
 
+.timeline__highlights li strong {
+  color: #2b3440;
+  font-weight: 700;
+}
+
 .timeline__highlights li:last-child {
   margin-bottom: 0;
 }

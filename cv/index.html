@@ -137,31 +137,25 @@
         projects, at roughly 2.6M API requests a day and 15.5k concurrent MQTT connections.
       </p>
       <ul>
-        <li>I build both ends of the partner dashboard, the Next.js pages and the NestJS endpoints behind them. The
-            organisations area is mine end to end: list and detail pages, an invite flow that finds members by email,
-            project assignment, and the API and data model underneath.</li>
+        <li>Permissions are <strong>attribute based</strong>. A partner's rights are stored as resource and action pairs
+            scoped to a project, then encoded into a short string so the whole set fits inside a <strong>Firebase custom
+            claim</strong> and travels with the ID token, which auth middleware decodes per request. The dashboard builds
+            <strong>CASL</strong> abilities from the same data, so the interface only offers actions the API would accept.
+            I wrote v2 of this and the migration off v1.</li>
 
-        <li>One deployment serves 26 partner projects, so a lot of the work is access control. I own the authorisation
-            rules on the server and the matching checks in the React app, so a partner is not offered an action the API
-            would refuse. Settings that used to be global, such as the SMS provider, are now configured per project,
-            with the setup page reduced to three questions.</li>
+        <li>Device state moves over <strong>MQTT into Kafka</strong> and out to MongoDB. The consumer buffers and
+            <strong>coalesces</strong> repeated updates rather than writing per message, and commits its offset after the
+            write, so losing a pod costs latency rather than data. <strong>KEDA</strong> scales it between 2 and 12
+            replicas on <strong>consumer group lag</strong>, with a floor of two so a node drain does not leave the topic
+            unconsumed. Partner traffic used to run through a single unreplicated broker.</li>
 
-        <li>I run the pipeline that carries device state. Partner traffic used to go through one Kafka broker with no
-            replication, so I moved it onto a replicated three-broker cluster with a separate listener for partner
-            systems. The consumer merges repeated state updates instead of writing every one.</li>
+        <li>There was no monitoring when I started. <strong>Prometheus, Loki and Grafana</strong> now cover the three
+            clusters with the AWS side pulled in from <strong>CloudWatch</strong>, so an incident starts at a dashboard
+            instead of a guess. I also own the staging to production path across four repositories.</li>
 
-        <li>There was no monitoring when I started. Prometheus, Loki and Grafana now cover the three clusters with the
-            AWS side pulled in from CloudWatch, so an incident starts at a dashboard instead of a guess. I also own the
-            staging to production path across four repositories.</li>
-
-        <li>Most of my performance work has been finding the cause rather than writing anything clever. A device query
-            took eleven minutes because nothing was indexed behind a <span class="mono">$lookup</span>, and the plan had
-            been to pay for a bigger database tier instead. Auth middleware was verifying a token signature on every
-            request. A partner SDK sent everything at once on the hour. Each fix was small once the cause was clear.</li>
-
-        <li>Smaller things that made the work easier for everyone: the test suite had been abandoned because running it
-            exhausted memory, so I moved it to Jest 29 with transpile-only tests and put it back in CI; the dashboard
-            now survives a CMS outage instead of crashing, and shows the deployed commit in a corner badge.</li>
+        <li>The test suite had been abandoned because running it exhausted memory and froze dev machines, so nothing was
+            gated on it. Moving to <strong>Jest 29</strong> with transpile only tests and a separate type check brought it
+            back to a few seconds, and back into CI. The dashboard also survives a CMS outage now instead of crashing.</li>
       </ul>
     </div>
   </section>
