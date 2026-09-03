@@ -8,8 +8,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const el = document.getElementById('typed-name');
     if (!el) return;
 
-    const text = 'Dadadadas';
+    const text = 'Nguyen Thanh Long';
     let i = 0;
+
+    // The name is in the HTML so crawlers and link previews see it; clear it
+    // here so the typing animation does not append a second copy.
+    el.textContent = '';
 
     // Create cursor
     const cursor = document.createElement('span');

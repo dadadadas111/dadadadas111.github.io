@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Nguyen Thanh Long — Backend / Platform Engineer</title>
-<meta name="description" content="CV of Nguyen Thanh Long — Backend / Platform Engineer. NestJS, Kafka, MQTT, Kubernetes, AWS." />
+<title>Nguyen Thanh Long, Full-Stack Engineer</title>
+<meta name="description" content="CV of Nguyen Thanh Long, full-stack engineer. TypeScript, React, Next.js, NestJS, PostgreSQL, AWS." />
 <style>
   :root{
     --ink:#16191d;
@@ -107,9 +107,9 @@
 
   <header>
     <h1>Nguyen Thanh Long</h1>
-    <p class="role">Backend / Platform Engineer</p>
+    <p class="role">Full-Stack Engineer</p>
     <p class="contact">
-      <span class="i">Hanoi, Vietnam &mdash; open to remote (UTC+7)</span><span class="sep">|</span><span class="i">+84 975 907 414</span><span class="sep">|</span><span class="i"><a href="mailto:longnt121004@gmail.com">longnt121004@gmail.com</a></span>
+      <span class="i">Hanoi, Vietnam</span><span class="sep">|</span><span class="i">open to remote (UTC+7)</span><span class="sep">|</span><span class="i">+84 975 907 414</span><span class="sep">|</span><span class="i"><a href="mailto:longnt121004@gmail.com">longnt121004@gmail.com</a></span>
       <br />
       <span class="i"><a href="https://www.dash.id.vn">www.dash.id.vn</a></span><span class="sep">|</span><span class="i"><a href="https://github.com/dadadadas111">github.com/dadadadas111</a></span>
     </p>
@@ -118,64 +118,50 @@
   <section>
     <h2>Summary</h2>
     <p class="summary">
-      Backend engineer, 2.5 years, currently the only engineer on the cloud side of an IoT startup: the NestJS and
-      MongoDB APIs, the MQTT-to-Kafka pipeline the devices talk through, and the Kubernetes and AWS it runs on. Most of
-      what I know came from running that system, not only from adding features to it.
+      Full-stack engineer, 2.5 years, working in TypeScript on both ends of a production IoT platform: the Next.js
+      dashboard partners use and the NestJS APIs behind it. I am currently the only engineer on the cloud side, so the
+      same work also covers the database, the message pipeline and the deployments.
     </p>
-  </section>
-
-  <section>
-    <h2>Technical Skills</h2>
-    <dl class="skills">
-      <dt>Languages</dt>      <dd>TypeScript, JavaScript, C#, Python, SQL</dd>
-      <dt>Backend</dt>        <dd>Node.js, NestJS, Express.js, ASP.NET Core, REST, WebSockets</dd>
-      <dt>Data &amp; messaging</dt><dd>MongoDB (Atlas and self-hosted replica sets), PostgreSQL, Redis, MySQL, DynamoDB, Apache Kafka (Strimzi), MQTT (EMQX)</dd>
-      <dt>Infrastructure</dt> <dd>Kubernetes (k0s, kubeadm, KEDA), AWS (ECS Fargate, S3, DynamoDB, Lambda, CloudWatch), Docker, Terraform, ArgoCD, Nginx</dd>
-      <dt>Operations</dt>     <dd>Prometheus, Grafana, Loki, GitHub Actions, GitLab CI, Jest</dd>
-      <dt>Auth</dt>           <dd>Firebase Auth, Keycloak, JWT, ABAC, OAuth 2.0</dd>
-    </dl>
   </section>
 
   <section>
     <h2>Experience</h2>
     <div class="job">
       <div class="job__head">
-        <p class="job__title">Backend / Platform Engineer <span class="job__org">&mdash; Rogo Solutions JSC</span></p>
-        <span class="job__meta">Jan 2024 &ndash; Present &middot; Hanoi</span>
+        <p class="job__title">Full-Stack Engineer <span class="job__org">at Rogo Solutions JSC</span></p>
+        <span class="job__meta">Jan 2024 to present &middot; Hanoi</span>
       </div>
       <p class="job__note">
-        A ~20-person IoT startup. I am the only engineer on the cloud side, so the API, the message pipeline, the
-        clusters and the deploy path are all mine. It serves 640k users and 69k devices for 26 partner projects, at
-        roughly 2.6M API requests a day and 15.5k concurrent MQTT connections, on 3 Kubernetes clusters and AWS ECS.
+        A 20-person IoT startup. I am the only engineer on the cloud side, so the dashboard, the API, the message
+        pipeline and the deploy path are all mine. The platform serves 640k users and 69k devices for 26 partner
+        projects, at roughly 2.6M API requests a day and 15.5k concurrent MQTT connections.
       </p>
       <ul>
+        <li>I build both ends of the partner dashboard, the Next.js pages and the NestJS endpoints behind them. The
+            organisations area is mine end to end: list and detail pages, an invite flow that finds members by email,
+            project assignment, and the API and data model underneath.</li>
+
+        <li>One deployment serves 26 partner projects, so a lot of the work is access control. I own the authorisation
+            rules on the server and the matching checks in the React app, so a partner is not offered an action the API
+            would refuse. Settings that used to be global, such as the SMS provider, are now configured per project,
+            with the setup page reduced to three questions.</li>
+
         <li>I run the pipeline that carries device state. Partner traffic used to go through one Kafka broker with no
             replication, so I moved it onto a replicated three-broker cluster with a separate listener for partner
-            systems. The consumer merges repeated state updates instead of writing every one, and scales on consumer
-            lag rather than a fixed replica count.</li>
-
-        <li>One deployment serves 26 partner projects, so most feature work turns out to be access control. I own the
-            authorization layer that decides which partner can see which devices and locations, and moved things that
-            used to be global, like the SMS provider, to per-project configuration.</li>
+            systems. The consumer merges repeated state updates instead of writing every one.</li>
 
         <li>There was no monitoring when I started. Prometheus, Loki and Grafana now cover the three clusters with the
             AWS side pulled in from CloudWatch, so an incident starts at a dashboard instead of a guess. I also own the
-            staging-to-production path across four repositories.</li>
+            staging to production path across four repositories.</li>
 
         <li>Most of my performance work has been finding the cause rather than writing anything clever. A device query
             took eleven minutes because nothing was indexed behind a <span class="mono">$lookup</span>, and the plan had
             been to pay for a bigger database tier instead. Auth middleware was verifying a token signature on every
-            request, which no APM was showing. A partner's SDK sent everything at once on the hour. Each fix was small
-            once the cause was clear.</li>
+            request. A partner SDK sent everything at once on the hour. Each fix was small once the cause was clear.</li>
 
-        <li>The test suite had been abandoned because running it exhausted memory and froze people's machines, so
-            nothing was gated on it. Moving to Jest 29 with transpile-only tests and a separate type-check brought it
-            back to a few seconds, and back into CI.</li>
-
-        <li>I worked out whether the product could be sold as an on-premise install: what replaces the managed pieces
-            (Keycloak, MongoDB and MinIO for Firebase, DynamoDB and S3), how existing accounts migrate without forcing
-            password resets, and enough of it built to boot. It has not shipped. What the exercise produced was a
-            concrete list of what still blocks it.</li>
+        <li>Smaller things that made the work easier for everyone: the test suite had been abandoned because running it
+            exhausted memory, so I moved it to Jest 29 with transpile-only tests and put it back in CI; the dashboard
+            now survives a CMS outage instead of crashing, and shows the deployed commit in a corner badge.</li>
       </ul>
     </div>
   </section>
@@ -184,32 +170,43 @@
     <h2>Selected Projects</h2>
     <div class="proj">
       <p style="margin:0">
-        <span class="proj__name">IoT Cloud MCP</span> <span class="proj__stack">&mdash; TypeScript, Python, MCP SDK</span><br />
+        <span class="proj__name">Educrystal</span> <span class="proj__stack">(Next.js, Supabase, Tailwind, PWA) &middot; educrystal.vercel.app</span><br />
+        A learning platform: course catalogue, step-by-step lessons, a study diary, and an admin area for authoring
+        courses and posts. Installable as a PWA. Built and maintained over six months.
+      </p>
+    </div>
+    <div class="proj">
+      <p style="margin:0">
+        <span class="proj__name">IoT Cloud MCP</span> <span class="proj__stack">(TypeScript, NestJS, MCP SDK, Redis)</span><br />
         An MCP server for IoT cloud platforms, so an assistant can query and control devices through one interface
         rather than a separate integration per platform.
       </p>
     </div>
     <div class="proj">
       <p style="margin:0">
-        <span class="proj__name">Novel Studio</span> <span class="proj__stack">&mdash; NestJS, PostgreSQL + pgvector, LLM</span><br />
+        <span class="proj__name">Novel Studio</span> <span class="proj__stack">(NestJS, PostgreSQL with pgvector)</span><br />
         A long-form writing tool. The awkward part is that prompt cost grows with the story, so it keeps a canon store,
         a rolling summary and vector retrieval instead of resending history.
-      </p>
-    </div>
-    <div class="proj">
-      <p style="margin:0">
-        <span class="proj__name">MathSketch Tutor</span> <span class="proj__stack">&mdash; NestJS, mathjs, Firebase, LLM</span><br />
-        Feedback on a handwritten maths problem. A computer-algebra engine decides whether a step is right and the model
-        only writes the explanation, so it cannot invent a correction that is wrong.
       </p>
     </div>
   </section>
 
   <section>
+    <h2>Technical Skills</h2>
+    <dl class="skills">
+      <dt>Frontend</dt>       <dd>TypeScript, React, Next.js, Tailwind CSS, Ant Design, React Query, React Native (Expo)</dd>
+      <dt>Backend</dt>        <dd>Node.js, NestJS, Express, REST APIs, WebSockets</dd>
+      <dt>Data</dt>           <dd>PostgreSQL, MongoDB, Redis, MySQL</dd>
+      <dt>Infrastructure</dt> <dd>Docker, Kubernetes, AWS (ECS, S3, Lambda), Terraform, GitHub Actions</dd>
+      <dt>Messaging &amp; auth</dt><dd>Kafka, MQTT, Firebase Auth, Keycloak, JWT</dd>
+    </dl>
+  </section>
+
+  <section>
     <h2>Education &amp; Additional</h2>
     <div class="row">
-      <span class="row__main">B.Sc. in Software Engineering &mdash; FPT University</span>
-      <span class="row__meta">2022 &ndash; 2026</span>
+      <span class="row__main">B.Sc. in Software Engineering, FPT University</span>
+      <span class="row__meta">2022 to 2026</span>
     </div>
     <p style="margin:1pt 0 3pt">
       Final-year project: a real-time multiplayer game backend (ASP.NET Core, WebSockets, MySQL) using lag compensation
@@ -220,7 +217,7 @@
       Lifecycle Specialization (University of Minnesota, 2024).
     </p>
     <p style="margin:2pt 0 0">
-      Coach competitive-programming students for national Informatics examinations, weekly since 2024; freelance backend
+      Coach competitive-programming students for national Informatics examinations, weekly since 2024. Freelance backend
       work alongside full-time employment. English: professional working proficiency.
     </p>
   </section>
