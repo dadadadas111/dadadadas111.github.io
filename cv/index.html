@@ -137,25 +137,22 @@
         projects, at roughly 2.6M API requests a day and 15.5k concurrent MQTT connections.
       </p>
       <ul>
-        <li>Permissions are <strong>attribute based</strong>. A partner's rights are stored as resource and action pairs
-            scoped to a project, then encoded into a short string so the whole set fits inside a <strong>Firebase custom
-            claim</strong> and travels with the ID token, which auth middleware decodes per request. The dashboard builds
-            <strong>CASL</strong> abilities from the same data, so the interface only offers actions the API would accept.
-            I wrote v2 of this and the migration off v1.</li>
+        <li>Build the partner dashboard in <strong>Next.js</strong> and TypeScript, with <strong>React Query</strong>
+            for server state, Ant Design and Tailwind for the interface, and internationalisation. One deployment serves
+            26 partner projects, configurable per project.</li>
 
-        <li>Device state moves over <strong>MQTT into Kafka</strong> and out to MongoDB. The consumer buffers and
-            <strong>coalesces</strong> repeated updates rather than writing per message, and commits its offset after the
-            write, so losing a pod costs latency rather than data. <strong>KEDA</strong> scales it between 2 and 12
-            replicas on <strong>consumer group lag</strong>, with a floor of two so a node drain does not leave the topic
-            unconsumed. Partner traffic used to run through a single unreplicated broker.</li>
+        <li><strong>Attribute-based authorisation</strong> in which the permission set is encoded into a compact
+            <strong>custom claim on the JWT</strong>, so a request is authorised from the token itself instead of a
+            database lookup on every call. The React app derives the same rules through <strong>CASL</strong>, so the
+            interface and the API agree on what is allowed.</li>
 
-        <li>There was no monitoring when I started. <strong>Prometheus, Loki and Grafana</strong> now cover the three
-            clusters with the AWS side pulled in from <strong>CloudWatch</strong>, so an incident starts at a dashboard
-            instead of a guess. I also own the staging to production path across four repositories.</li>
+        <li>Device state streaming on <strong>Kafka</strong> with <strong>MQTT</strong> ingestion: a consumer that
+            coalesces repeated updates into batched writes and commits offsets after the write, autoscaled by
+            <strong>KEDA</strong> on consumer group lag.</li>
 
-        <li>The test suite had been abandoned because running it exhausted memory and froze dev machines, so nothing was
-            gated on it. Moving to <strong>Jest 29</strong> with transpile only tests and a separate type check brought it
-            back to a few seconds, and back into CI. The dashboard also survives a CMS outage now instead of crashing.</li>
+        <li>Run the platform on <strong>Kubernetes</strong> and <strong>AWS ECS</strong>, with <strong>Prometheus, Loki
+            and Grafana</strong> for metrics and logs across three clusters, and the staging to production path on
+            GitHub Actions, GitLab CI and <strong>ArgoCD</strong>.</li>
       </ul>
     </div>
   </section>
