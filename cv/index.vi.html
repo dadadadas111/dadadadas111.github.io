@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Nguyễn Thành Long, Kỹ sư Full-Stack</title>
+<meta name="description" content="CV của Nguyễn Thành Long, kỹ sư full-stack. TypeScript, React, Next.js, NestJS, PostgreSQL, AWS." />
+<style>
+  :root{
+    --ink:#16191d;
+    --ink-soft:#33393f;
+    --muted:#5c646c;
+    --rule:#c9ced4;
+    --accent:#0f5c5c;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    font-family:"Noto Sans","Liberation Sans",Arial,Helvetica,sans-serif;
+    font-size:8.75pt;
+    line-height:1.30;
+    color:var(--ink-soft);
+    background:#f2f3f5;
+  }
+  .page{
+    width:210mm;
+    margin:0 auto;
+    padding:9mm 12mm 0mm;
+    background:#fff;
+  }
+  .page + .page{break-before:page;page-break-before:always}
+
+  /* ---------- header ---------- */
+  header{border-bottom:1.6pt solid var(--accent);padding-bottom:6pt;margin-bottom:8pt}
+  h1{
+    font-size:18.5pt;line-height:1.05;margin:0 0 2pt;
+    color:var(--ink);font-weight:700;letter-spacing:-.01em;
+  }
+  .role{
+    font-size:10pt;font-weight:600;color:var(--accent);
+    margin:0 0 5pt;letter-spacing:.01em;
+  }
+  .contact{font-size:8.9pt;color:var(--muted);margin:0}
+  .contact span.i{white-space:nowrap}
+  .contact a{color:var(--muted);text-decoration:none}
+  .contact .sep{color:var(--rule);padding:0 4pt}
+
+  /* ---------- sections ---------- */
+  section{margin-bottom:5pt}
+  h2{
+    font-size:8.2pt;font-weight:700;text-transform:uppercase;letter-spacing:.13em;
+    color:var(--accent);margin:0 0 4pt;padding-bottom:2pt;
+    border-bottom:.7pt solid var(--rule);
+  }
+  p{margin:0 0 4pt}
+  strong{color:var(--ink);font-weight:700}
+
+  .summary{font-size:9.1pt;line-height:1.42;margin:0}
+
+  /* ---------- skills ---------- */
+  .skills{display:grid;grid-template-columns:max-content 1fr;gap:2pt 9pt;font-size:8.95pt}
+  .skills dt{font-weight:700;color:var(--ink);white-space:nowrap}
+  .skills dd{margin:0;color:var(--ink-soft)}
+
+  /* ---------- experience ---------- */
+  .job{margin-bottom:7pt}
+  .job__head{display:flex;justify-content:space-between;align-items:baseline;gap:10pt}
+  .job__title{font-size:10.2pt;font-weight:700;color:var(--ink);margin:0}
+  .job__org{font-weight:400;color:var(--ink-soft)}
+  .job__meta{font-size:8.8pt;color:var(--muted);white-space:nowrap}
+  .job__note{font-size:8.9pt;color:var(--ink-soft);margin:2pt 0 4pt}
+
+  .group{margin:0 0 4pt}
+  .group__label{
+    font-size:8.3pt;font-weight:700;text-transform:uppercase;letter-spacing:.09em;
+    color:var(--muted);margin:0 0 2pt;
+  }
+  ul{margin:0;padding-left:11pt}
+  li{margin-bottom:1.6pt;page-break-inside:avoid}
+  li::marker{color:var(--rule)}
+
+  /* ---------- projects ---------- */
+  .proj{margin-bottom:3pt;page-break-inside:avoid}
+  .proj__name{font-weight:700;color:var(--ink)}
+  .proj__stack{color:var(--muted);font-size:8.8pt}
+
+  /* ---------- education / certs ---------- */
+  .row{display:flex;justify-content:space-between;align-items:baseline;gap:10pt}
+  .row__main{font-weight:700;color:var(--ink)}
+  .row__meta{font-size:8.8pt;color:var(--muted);white-space:nowrap}
+  .cert{margin-bottom:2pt}
+
+  .mono{font-family:"DejaVu Sans Mono","Liberation Mono",monospace;font-size:8.7pt}
+
+  @page{size:A4;margin:0}
+  @media print{
+    body{background:#fff}
+    .page{margin:0;box-shadow:none}
+  }
+  @media screen{
+    .page{min-height:297mm;box-shadow:0 2px 30px rgba(0,0,0,.13);margin-top:18px;margin-bottom:18px}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header>
+    <h1>Nguyễn Thành Long</h1>
+    <p class="role">Kỹ sư Full-Stack</p>
+    <p class="contact">
+      <span class="i">Hà Nội, Việt Nam</span><span class="sep">|</span><span class="i">sẵn sàng làm remote (UTC+7)</span><span class="sep">|</span><span class="i">+84 975 907 414</span><span class="sep">|</span><span class="i"><a href="mailto:longnt121004@gmail.com">longnt121004@gmail.com</a></span>
+      <br />
+      <span class="i"><a href="https://www.dash.id.vn">www.dash.id.vn</a></span><span class="sep">|</span><span class="i"><a href="https://github.com/dadadadas111">github.com/dadadadas111</a></span><span class="sep">|</span><span class="i"><a href="https://www.linkedin.com/in/dash-id-vn/">linkedin.com/in/dash-id-vn</a></span>
+    </p>
+  </header>
+
+  <section>
+    <h2>Giới thiệu</h2>
+    <p class="summary">
+      Kỹ sư full-stack, 2,5 năm kinh nghiệm, làm bằng TypeScript ở cả hai phía của một nền tảng IoT chạy thật:
+      dashboard Next.js cho đối tác và các API NestJS phía sau. Tôi phụ trách toàn bộ phần cloud của nền tảng,
+      nên công việc bao trùm cả cơ sở dữ liệu, luồng message và triển khai.
+    </p>
+  </section>
+
+  <section>
+    <h2>Kinh nghiệm</h2>
+    <div class="job">
+      <div class="job__head">
+        <p class="job__title">Kỹ sư Full-Stack <span class="job__org">tại Rogo Solutions JSC</span></p>
+        <span class="job__meta">01/2024 đến nay &middot; Hà Nội</span>
+      </div>
+      <p class="job__note">
+        Phụ trách toàn bộ phần cloud của một nền tảng IoT đa đối tác: dashboard cho đối tác, API, luồng message
+        và triển khai. Hệ thống chạy vài triệu request API mỗi ngày, với khoảng 15.000 kết nối MQTT đồng thời
+        và xấp xỉ 12 triệu message thiết bị mỗi ngày.
+      </p>
+      <ul>
+        <li>Xây dựng dashboard đối tác bằng <strong>Next.js</strong> và TypeScript, dùng <strong>React Query</strong>
+            quản lý server state, Ant Design và Tailwind cho giao diện, kèm đa ngôn ngữ. Một lần triển khai phục vụ
+            nhiều dự án đối tác, cấu hình riêng theo từng dự án.</li>
+
+        <li><strong>Phân quyền theo thuộc tính (attribute-based)</strong>: bộ quyền được mã hóa vào một
+            <strong>custom claim gọn trong JWT</strong>, nên mỗi request được xác thực ngay từ token thay vì phải
+            truy vấn cơ sở dữ liệu mỗi lần gọi. Ứng dụng React dùng cùng bộ luật đó qua <strong>CASL</strong>,
+            để giao diện và API thống nhất về những gì được phép.</li>
+
+        <li>Streaming trạng thái thiết bị trên <strong>Kafka</strong> với ingestion từ <strong>MQTT</strong>:
+            một consumer gộp các cập nhật lặp lại thành batch ghi và commit offset sau khi ghi xong, tự động
+            scale bằng <strong>KEDA</strong> theo độ trễ của consumer group.</li>
+
+        <li>Vận hành nền tảng trên <strong>Kubernetes</strong> và <strong>AWS ECS</strong>, với
+            <strong>Prometheus, Loki và Grafana</strong> cho metric và log trên ba cluster, và luồng
+            staging đến production qua GitHub Actions, GitLab CI và <strong>ArgoCD</strong>.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>Dự án tiêu biểu</h2>
+    <div class="proj">
+      <p style="margin:0">
+        <span class="proj__name">Educrystal</span> <span class="proj__stack">(Next.js, Supabase, Tailwind, PWA) &middot; educrystal.vercel.app</span><br />
+        Ứng dụng hướng dẫn nuôi tinh thể cho trẻ em: chương trình theo từng bước, nhật ký ảnh riêng tư, và một
+        thư viện ảnh do người kiểm duyệt phê duyệt. Luật truy cập nằm ở Postgres row level security thay vì trong
+        code, nên một route không thể lộ nhật ký của trẻ khác. Cài được như PWA. Tự thiết kế và xây dựng một mình.
+      </p>
+    </div>
+    <div class="proj">
+      <p style="margin:0">
+        <span class="proj__name">IoT Cloud MCP</span> <span class="proj__stack">(TypeScript, NestJS, MCP SDK, Redis)</span><br />
+        Một MCP server cho các nền tảng IoT cloud, để trợ lý AI truy vấn và điều khiển thiết bị qua một giao diện
+        chung thay vì tích hợp riêng cho từng nền tảng.
+      </p>
+    </div>
+    <div class="proj">
+      <p style="margin:0">
+        <span class="proj__name">Novel Studio</span> <span class="proj__stack">(NestJS, PostgreSQL với pgvector)</span><br />
+        Công cụ viết truyện dài. Điểm khó là chi phí prompt tăng theo độ dài truyện, nên hệ thống duy trì một kho
+        canon, một bản tóm tắt cuộn (rolling summary) và truy hồi vector thay vì gửi lại toàn bộ lịch sử.
+      </p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Kỹ năng chuyên môn</h2>
+    <dl class="skills">
+      <dt>Frontend</dt>       <dd>TypeScript, React, Next.js, Tailwind CSS, Ant Design, React Query, React Native (Expo)</dd>
+      <dt>Backend</dt>        <dd>Node.js, NestJS, Express, REST APIs, WebSockets</dd>
+      <dt>Dữ liệu</dt>        <dd>PostgreSQL, MongoDB, Redis, MySQL</dd>
+      <dt>Hạ tầng</dt>        <dd>Docker, Kubernetes, AWS (ECS, S3, Lambda), Terraform, GitHub Actions</dd>
+      <dt>Messaging &amp; auth</dt><dd>Kafka, MQTT, Firebase Auth, Keycloak, JWT</dd>
+    </dl>
+  </section>
+
+  <section>
+    <h2>Học vấn &amp; Khác</h2>
+    <div class="row">
+      <span class="row__main">Cử nhân Kỹ thuật Phần mềm, Đại học FPT</span>
+      <span class="row__meta">2022 đến 2026</span>
+    </div>
+    <p style="margin:1pt 0 3pt">
+      Đồ án tốt nghiệp: backend game nhiều người chơi thời gian thực (ASP.NET Core, WebSockets, MySQL), dùng
+      lag compensation để giữ trải nghiệm công bằng trên các điều kiện mạng không đồng đều.
+    </p>
+    <p style="margin:0">
+      <strong>Chứng chỉ:</strong> Project Management Principles (UC Irvine, 2025) &middot; Software Development
+      Lifecycle Specialization (University of Minnesota, 2024).
+    </p>
+    <p style="margin:2pt 0 0">
+      Huấn luyện học sinh thi lập trình cho các kỳ thi Tin học quốc gia, đều đặn hàng tuần từ 2024. Nhận thêm việc
+      backend freelance song song công việc toàn thời gian. Tiếng Anh: sử dụng thành thạo trong công việc.
+    </p>
+  </section>
+
+</div>
+</body>
+</html>

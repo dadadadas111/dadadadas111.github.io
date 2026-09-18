@@ -14,11 +14,17 @@ for c in \
 done
 : "${CHROME:?No Chromium-family browser found}"
 
-out="$root/Nguyen_Thanh_Long_CV.pdf"
-"$CHROME" --headless --disable-gpu --no-sandbox \
-  --print-to-pdf="$out" --no-pdf-header-footer \
-  "file://$here/index.html" 2>/dev/null
+render() { # <source.html> <output.pdf>
+  "$CHROME" --headless --disable-gpu --no-sandbox \
+    --print-to-pdf="$2" --no-pdf-header-footer \
+    "file://$here/$1" 2>/dev/null
+  echo "Wrote $2 ($(du -h "$2" | cut -f1))"
+}
 
+out="$root/Nguyen_Thanh_Long_CV.pdf"
+render index.html "$out"
 # Keep the legacy filename working for links already in the wild
 cp "$out" "$root/Nguyen_Thanh_Long CV.pdf"
-echo "Wrote $out ($(du -h "$out" | cut -f1))"
+
+# Vietnamese edition
+render index.vi.html "$root/Nguyen_Thanh_Long_CV_VI.pdf"
