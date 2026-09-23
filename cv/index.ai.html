@@ -118,9 +118,9 @@
   <section>
     <h2>Summary</h2>
     <p class="summary">
-      Engineer building on LLM APIs in TypeScript: an MCP gateway exposing a production IoT platform to Claude,
-      ChatGPT and n8n as fifteen authorised tools, and a writing system whose token cost stays bounded however long
-      the document grows. My day job is the cloud side of that same platform, a few million API requests a day.
+      Engineer working on LLM APIs in TypeScript: an MCP gateway that exposes a production IoT platform to Claude,
+      ChatGPT and n8n as fifteen tools, and a writing system that holds prompt cost flat at any document length.
+      Day job is the cloud side of that same platform, a few million API requests a day.
     </p>
   </section>
 
@@ -162,25 +162,25 @@
     <div class="proj">
       <p style="margin:0">
         <span class="proj__name">IoT Cloud MCP</span> <span class="proj__stack">(TypeScript, NestJS, MCP, Redis) &middot; github.com/dadadadas111/iot-cloud-mcp</span><br />
-        An MCP gateway that lets Claude, ChatGPT and n8n query and control a production IoT platform: fifteen tools
-        over JSON-RPC, with the device REST API behind them. Multi-tenant, and sessions in Redis are scoped per project
-        and per user &mdash; a tool call is authorised by the session, not trusted because the model asked for it.
+        An MCP gateway that lets Claude, ChatGPT and n8n query and control a production IoT platform. Fifteen tools
+        over JSON-RPC, the device REST API behind them, multi-tenant, with Redis sessions scoped per project and per
+        user so a tool call is authorised by the session.
       </p>
     </div>
     <div class="proj">
       <p style="margin:0">
         <span class="proj__name">Novel Studio</span> <span class="proj__stack">(TypeScript, NestJS, Anthropic SDK, PostgreSQL with pgvector) &middot; github.com/dadadadas111/novel-studio</span><br />
-        Token cost normally grows with the story until it stops being affordable. Three tiers keep the prompt bounded
-        at any length: a canon store of extracted facts, a rolling summary that is recursively recompressed, and top-k
-        pgvector retrieval. The model never sees the raw novel.
+        Three tiers keep the prompt bounded at any story length: a canon store of extracted facts, a rolling summary
+        that is recursively recompressed, and top-k pgvector retrieval. The model never sees the raw novel. Built on
+        the Anthropic SDK.
       </p>
     </div>
     <div class="proj">
       <p style="margin:0">
         <span class="proj__name">MathSketch Tutor</span> <span class="proj__stack">(TypeScript, NestJS, mathjs, MCP) &middot; github.com/dadadadas111/mathsketch-tutor</span><br />
         Feedback on a handwritten maths problem. A computer-algebra engine, exposed to the model as an MCP tool,
-        decides whether a step is right and the model only writes the explanation &mdash; so it cannot invent a
-        correction that is wrong.
+        decides whether a step is right and the model only writes the explanation, so it cannot invent a correction
+        that is wrong.
       </p>
     </div>
   </section>
