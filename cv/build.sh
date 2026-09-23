@@ -28,3 +28,6 @@ cp "$out" "$root/Nguyen_Thanh_Long CV.pdf"
 
 # Vietnamese edition
 render index.vi.html "$root/Nguyen_Thanh_Long_CV_VI.pdf"
+
+# Variant aimed at LLM / agent roles: same facts, different lead
+render index.ai.html "$root/Nguyen_Thanh_Long_CV_AI.pdf"
