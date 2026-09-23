@@ -161,6 +161,15 @@
     <h2>Selected Projects</h2>
     <div class="proj">
       <p style="margin:0">
+        <span class="proj__name">Smart Cube Trainer</span> <span class="proj__stack">(TypeScript, React, Web Bluetooth, WebSockets, Python) &middot; cube.dash.id.vn</span><br />
+        A Roux trainer that reads a Bluetooth cube as you turn it. The cube has six sensors and none under the middle
+        layer, so a written M arrives as two face turns plus a whole-cube rotation nothing can sense &mdash; the app has
+        to carry that hidden frame itself. Timing, step splits and per-case statistics come off the live move stream;
+        a websocket relay drives OBS overlays and bridges a phone's radio to the desktop.
+      </p>
+    </div>
+    <div class="proj">
+      <p style="margin:0">
         <span class="proj__name">Educrystal</span> <span class="proj__stack">(Next.js, Supabase, Tailwind, PWA) &middot; educrystal.vercel.app</span><br />
         A guided crystal-growing app for children: step-by-step programs, a private photo diary, and a gallery a
         moderator approves. Access rules live in Postgres row level security rather than in the application, so a
@@ -172,13 +181,6 @@
         <span class="proj__name">IoT Cloud MCP</span> <span class="proj__stack">(TypeScript, NestJS, MCP SDK, Redis)</span><br />
         An MCP server for IoT cloud platforms, so an assistant can query and control devices through one interface
         rather than a separate integration per platform.
-      </p>
-    </div>
-    <div class="proj">
-      <p style="margin:0">
-        <span class="proj__name">Novel Studio</span> <span class="proj__stack">(NestJS, PostgreSQL with pgvector)</span><br />
-        A long-form writing tool. The awkward part is that prompt cost grows with the story, so it keeps a canon store,
-        a rolling summary and vector retrieval instead of resending history.
       </p>
     </div>
   </section>

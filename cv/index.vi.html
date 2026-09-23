@@ -161,6 +161,15 @@
     <h2>Dự án tiêu biểu</h2>
     <div class="proj">
       <p style="margin:0">
+        <span class="proj__name">Smart Cube Trainer</span> <span class="proj__stack">(TypeScript, React, Web Bluetooth, WebSockets, Python) &middot; cube.dash.id.vn</span><br />
+        Ứng dụng luyện Roux đọc cube Bluetooth ngay khi xoay. Cube có sáu cảm biến và không cái nào nằm dưới lớp giữa,
+        nên một chữ M đến dưới dạng hai face turn cộng một phép xoay không cảm biến nào thấy &mdash; ứng dụng phải tự
+        mang theo frame ẩn đó. Thời gian, phân tách từng bước và thống kê theo case được suy ra từ luồng move; một
+        websocket relay cấp dữ liệu cho overlay OBS và cầu nối sóng Bluetooth của điện thoại sang máy tính.
+      </p>
+    </div>
+    <div class="proj">
+      <p style="margin:0">
         <span class="proj__name">Educrystal</span> <span class="proj__stack">(Next.js, Supabase, Tailwind, PWA) &middot; educrystal.vercel.app</span><br />
         Ứng dụng hướng dẫn nuôi tinh thể cho trẻ em: chương trình theo từng bước, nhật ký ảnh riêng tư, và một
         thư viện ảnh do người kiểm duyệt phê duyệt. Luật truy cập nằm ở Postgres row level security thay vì trong
@@ -172,13 +181,6 @@
         <span class="proj__name">IoT Cloud MCP</span> <span class="proj__stack">(TypeScript, NestJS, MCP SDK, Redis)</span><br />
         Một MCP server cho các nền tảng IoT cloud, để trợ lý AI truy vấn và điều khiển thiết bị qua một giao diện
         chung thay vì tích hợp riêng cho từng nền tảng.
-      </p>
-    </div>
-    <div class="proj">
-      <p style="margin:0">
-        <span class="proj__name">Novel Studio</span> <span class="proj__stack">(NestJS, PostgreSQL với pgvector)</span><br />
-        Công cụ viết truyện dài. Điểm khó là chi phí prompt tăng theo độ dài truyện, nên hệ thống duy trì một kho
-        canon, một bản tóm tắt cuộn (rolling summary) và truy hồi vector thay vì gửi lại toàn bộ lịch sử.
       </p>
     </div>
   </section>
