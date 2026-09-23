@@ -155,8 +155,42 @@
     <div class="container">
       <h2 class="section__title reveal">Projects</h2>
 
-      <!-- Educrystal -->
+      <!-- Smart Cube Trainer -->
       <div class="project reveal" data-tilt>
+        <div class="project__text">
+          <h3 class="project__title">Smart Cube Trainer</h3>
+          <p class="project__description">
+            A Roux speedcubing trainer that reads a Bluetooth cube as you turn it. The awkward part is
+            that the cube has six sensors and none under the middle layer, so a written M arrives as two
+            face turns plus a whole-cube rotation nothing can sense &mdash; the app has to carry that
+            hidden frame itself, or every step after the first slice asks for the wrong face. Timing,
+            step splits and per-case statistics come off the live move stream, and a websocket relay
+            drives OBS overlays and bridges a phone&rsquo;s radio to the desktop.
+          </p>
+          <div class="project__tags">
+            <span>TypeScript</span>
+            <span>React</span>
+            <span>Web Bluetooth</span>
+            <span>WebSockets</span>
+            <span>IndexedDB</span>
+            <span>Python</span>
+          </div>
+          <div class="project__links">
+            <a href="https://cube.dash.id.vn" target="_blank" rel="noopener noreferrer" class="btn btn--project">
+              Live Demo
+            </a>
+          </div>
+        </div>
+        <div class="project__image">
+          <div class="project__placeholder">
+            <span class="project__emoji">&#127922;</span>
+            <span class="project__placeholder-name">Smart Cube Trainer</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Educrystal -->
+      <div class="project project--reverse reveal" data-tilt>
         <div class="project__text">
           <h3 class="project__title">Educrystal</h3>
           <p class="project__description">
@@ -186,7 +220,7 @@
       </div>
 
       <!-- IoT Cloud MCP -->
-      <div class="project project--reverse reveal" data-tilt>
+      <div class="project reveal" data-tilt>
         <div class="project__text">
           <h3 class="project__title">IoT Cloud MCP</h3>
           <p class="project__description">
@@ -211,7 +245,7 @@
       </div>
 
       <!-- MathSketch Tutor -->
-      <div class="project reveal" data-tilt>
+      <div class="project project--reverse reveal" data-tilt>
         <div class="project__text">
           <h3 class="project__title">MathSketch Tutor</h3>
           <p class="project__description">
@@ -237,7 +271,7 @@
       </div>
 
       <!-- Novel Studio -->
-      <div class="project project--reverse reveal" data-tilt>
+      <div class="project reveal" data-tilt>
         <div class="project__text">
           <h3 class="project__title">Novel Studio</h3>
           <p class="project__description">
