@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Nguyễn Thành Long, Trợ giảng AI Agent</title>
+<meta name="description" content="CV Nguyễn Thành Long ứng tuyển trợ giảng lớp AI Agent: kinh nghiệm kèm cặp học sinh và xây dựng ứng dụng AI Agent / LLM (MCP, RAG)." />
+<style>
+  :root{
+    --ink:#16191d;
+    --ink-soft:#33393f;
+    --muted:#5c646c;
+    --rule:#c9ced4;
+    --accent:#0f5c5c;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    font-family:"Noto Sans","Liberation Sans",Arial,Helvetica,sans-serif;
+    font-size:9.9pt;
+    line-height:1.4;
+    color:var(--ink-soft);
+    background:#f2f3f5;
+  }
+  .page{
+    width:210mm;
+    margin:0 auto;
+    padding:11mm 13mm 0mm;
+    background:#fff;
+  }
+  .page + .page{break-before:page;page-break-before:always}
+
+  /* ---------- header ---------- */
+  header{border-bottom:1.7pt solid var(--accent);padding-bottom:6pt;margin-bottom:8pt}
+  h1{
+    font-size:20.5pt;line-height:1.05;margin:0 0 3pt;
+    color:var(--ink);font-weight:700;letter-spacing:-.01em;
+  }
+  .role{
+    font-size:11.2pt;font-weight:600;color:var(--accent);
+    margin:0 0 5pt;letter-spacing:.01em;
+  }
+  .contact{font-size:9.4pt;color:var(--muted);margin:0;line-height:1.45}
+  .contact span.i{white-space:nowrap}
+  .contact a{color:var(--muted);text-decoration:none}
+  .contact .sep{color:var(--rule);padding:0 4pt}
+
+  /* ---------- sections ---------- */
+  section{margin-bottom:7pt}
+  h2{
+    font-size:9.1pt;font-weight:700;text-transform:uppercase;letter-spacing:.11em;
+    color:var(--accent);margin:0 0 4pt;padding-bottom:2pt;
+    border-bottom:.8pt solid var(--rule);
+  }
+  p{margin:0 0 3pt}
+  strong{color:var(--ink);font-weight:700}
+
+  .summary{font-size:10pt;line-height:1.45;margin:0}
+
+  /* ---------- skills ---------- */
+  .skills{display:grid;grid-template-columns:max-content 1fr;gap:3pt 11pt;font-size:9.9pt}
+  .skills dt{font-weight:700;color:var(--ink);white-space:nowrap}
+  .skills dd{margin:0;color:var(--ink-soft)}
+
+  /* ---------- experience ---------- */
+  .job{margin-bottom:7pt}
+  .job__head{display:flex;justify-content:space-between;align-items:baseline;gap:10pt}
+  .job__title{font-size:11pt;font-weight:700;color:var(--ink);margin:0}
+  .job__org{font-weight:400;color:var(--ink-soft)}
+  .job__meta{font-size:9.2pt;color:var(--muted);white-space:nowrap}
+  .job__note{font-size:9.8pt;color:var(--ink-soft);margin:2pt 0 4pt}
+
+  ul{margin:0;padding-left:13pt}
+  li{margin-bottom:2.4pt;page-break-inside:avoid}
+  li::marker{color:var(--rule)}
+
+  /* ---------- projects ---------- */
+  .proj{margin-bottom:5pt;page-break-inside:avoid}
+  .proj__name{font-weight:700;color:var(--ink)}
+  .proj__stack{color:var(--muted);font-size:9.2pt}
+
+  /* ---------- education ---------- */
+  .row{display:flex;justify-content:space-between;align-items:baseline;gap:10pt}
+  .row__main{font-weight:700;color:var(--ink)}
+  .row__meta{font-size:9.2pt;color:var(--muted);white-space:nowrap}
+
+  @page{size:A4;margin:0}
+  @media print{
+    body{background:#fff}
+    .page{margin:0;box-shadow:none}
+  }
+  @media screen{
+    .page{min-height:297mm;box-shadow:0 2px 30px rgba(0,0,0,.13);margin-top:18px;margin-bottom:18px}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header>
+    <h1>Nguyễn Thành Long</h1>
+    <p class="role">Kỹ sư phần mềm &middot; AI Agent &amp; LLM</p>
+    <p class="contact">
+      <span class="i">Hà Nội, Việt Nam</span><span class="sep">|</span><span class="i">sẵn sàng làm online (UTC+7)</span><span class="sep">|</span><span class="i">+84 975 907 414</span><span class="sep">|</span><span class="i"><a href="mailto:longnt121004@gmail.com">longnt121004@gmail.com</a></span>
+      <br />
+      <span class="i"><a href="https://www.dash.id.vn">www.dash.id.vn</a></span><span class="sep">|</span><span class="i"><a href="https://github.com/dadadadas111">github.com/dadadadas111</a></span><span class="sep">|</span><span class="i"><a href="https://www.linkedin.com/in/dash-id-vn/">linkedin.com/in/dash-id-vn</a></span>
+    </p>
+  </header>
+
+  <section>
+    <h2>Giới thiệu</h2>
+    <p class="summary">
+      Kỹ sư phần mềm làm việc trực tiếp với LLM và AI Agent: một MCP gateway mở nền tảng IoT production cho
+      Claude, ChatGPT và n8n gọi như công cụ; một hệ thống viết dùng RAG giữ chi phí prompt ổn định ở mọi độ dài;
+      và một gia sư Toán dùng LLM kết hợp công cụ kiểm chứng. Kèm cặp học sinh thi lập trình hàng tuần từ 2024,
+      quen chia nhỏ và giải thích khái niệm kỹ thuật cho người mới bắt đầu. Mong muốn đồng hành cùng học viên lớp
+      AI Agent — giải đáp thắc mắc, chấm và nhận xét bài tập, và hỗ trợ các bạn trong quá trình thực hành.
+    </p>
+  </section>
+
+  <section>
+    <h2>Kinh nghiệm giảng dạy &amp; kèm cặp</h2>
+    <div class="job">
+      <div class="job__head">
+        <p class="job__title">Huấn luyện viên lập trình thi đấu</p>
+        <span class="job__meta">2024 đến nay</span>
+      </div>
+      <ul>
+        <li>Trực tiếp giảng, ra đề, chữa và <strong>chấm bài</strong> cho học sinh ôn thi Tin học (học sinh giỏi / đội tuyển).</li>
+        <li><strong>Theo sát tiến độ từng bạn</strong>, nhận xét bài làm và hỗ trợ khi vướng ở phần thực hành.</li>
+        <li>Quen <strong>giải thích thuật toán và khái niệm kỹ thuật theo cách đơn giản, dễ hiểu</strong> cho người mới bắt đầu.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>Dự án AI Agent / LLM</h2>
+    <div class="proj">
+      <p style="margin:0">
+        <span class="proj__name">IoT Cloud MCP</span> <span class="proj__stack">(TypeScript, NestJS, MCP, Redis) &middot; github.com/dadadadas111/iot-cloud-mcp</span><br />
+        MCP gateway cho <strong>Claude, ChatGPT và n8n</strong> truy vấn và điều khiển một nền tảng IoT production:
+        15 công cụ (tool) qua JSON-RPC, đa đối tác, phiên Redis phân quyền theo từng dự án và từng người dùng nên mỗi
+        lần gọi công cụ đều được xác thực theo phiên. Minh họa rõ <em>cách một AI Agent gọi tool để làm việc thật</em>.
+      </p>
+    </div>
+    <div class="proj">
+      <p style="margin:0">
+        <span class="proj__name">MathSketch Tutor</span> <span class="proj__stack">(TypeScript, NestJS, mathjs, MCP) &middot; github.com/dadadadas111/mathsketch-tutor</span><br />
+        Gia sư Toán: học sinh viết tay một bài toán và nhận phản hồi từng bước. Một công cụ đại số (CAS) được expose cho
+        model qua MCP để quyết định bước làm đúng hay sai, model chỉ viết lời giải thích — nên không thể bịa ra lời sửa sai.
+      </p>
+    </div>
+    <div class="proj">
+      <p style="margin:0">
+        <span class="proj__name">Novel Studio</span> <span class="proj__stack">(TypeScript, NestJS, Anthropic SDK, PostgreSQL + pgvector) &middot; github.com/dadadadas111/novel-studio</span><br />
+        Ba tầng giữ prompt gọn ở mọi độ dài truyện: kho canon (dữ kiện trích xuất), bản tóm tắt cuộn được nén đệ quy, và
+        truy hồi top-k bằng <strong>pgvector (RAG)</strong>. Model không bao giờ phải đọc lại toàn bộ truyện gốc.
+      </p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Kinh nghiệm kỹ thuật</h2>
+    <div class="job">
+      <div class="job__head">
+        <p class="job__title">Kỹ sư Full-Stack <span class="job__org">tại Rogo Solutions JSC</span></p>
+        <span class="job__meta">01/2024 đến nay &middot; Hà Nội</span>
+      </div>
+      <p class="job__note">
+        Phụ trách phần cloud của một nền tảng IoT đa đối tác: dashboard Next.js, API NestJS, luồng Kafka/MQTT và triển
+        khai trên Kubernetes. Vài triệu request API mỗi ngày, khoảng 15.000 kết nối MQTT đồng thời. Nền tảng kỹ thuật
+        này giúp mình giải thích vững và đúng khi hỗ trợ học viên thực hành.
+      </p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Kỹ năng</h2>
+    <dl class="skills">
+      <dt>AI &amp; Agent</dt>  <dd>Claude (Anthropic SDK), ChatGPT, MCP (tự xây server &amp; tool), agentic tool use, context engineering, RAG (pgvector), n8n</dd>
+      <dt>Ngôn ngữ</dt>       <dd>TypeScript, JavaScript, SQL, C#, Java</dd>
+      <dt>Nền tảng</dt>       <dd>Node.js, NestJS, React, Next.js, PostgreSQL, Redis, Docker, Git</dd>
+      <dt>Kỹ năng mềm</dt>    <dd>Giải thích đơn giản cho người mới, kiên nhẫn, chủ động hỗ trợ; tiếng Anh đọc tài liệu &amp; giao tiếp công việc</dd>
+    </dl>
+  </section>
+
+  <section>
+    <h2>Học vấn</h2>
+    <div class="row">
+      <span class="row__main">Cử nhân Kỹ thuật Phần mềm, Đại học FPT</span>
+      <span class="row__meta">Tốt nghiệp 2026</span>
+    </div>
+  </section>
+
+</div>
+</body>
+</html>
